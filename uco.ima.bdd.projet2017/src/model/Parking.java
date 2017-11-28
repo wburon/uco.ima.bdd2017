@@ -1,9 +1,9 @@
 package model;
 
-public class parking {
+public class Parking {
 	
 	private int id_parking;
-	private hotel hotel;
+	private Hotel hotel;
 	private int nb_place;
 	private boolean gratuit;
 	private double distance_hotel;
@@ -15,10 +15,10 @@ public class parking {
 	public void setId_parking(int id_parking) {
 		this.id_parking = id_parking;
 	}
-	public hotel getHotel() {
+	public Hotel getHotel() {
 		return hotel;
 	}
-	public void setHotel(hotel hotel) {
+	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
 	}
 	public int getNb_place() {

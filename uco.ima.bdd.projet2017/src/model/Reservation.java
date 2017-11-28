@@ -2,12 +2,12 @@ package model;
 
 import java.sql.Date;
 
-public class reservation {
+public class Reservation {
 	
 	private int id_resa;
-	private chambre chambre;
-	private hotel hotel;
-	private client client;
+	private Chambre chambre;
+	private Hotel hotel;
+	private Client client;
 	private Date date_debut;
 	private Date date_fin;
 	
@@ -17,22 +17,22 @@ public class reservation {
 	public void setId_resa(int id_resa) {
 		this.id_resa = id_resa;
 	}
-	public chambre getChambre() {
+	public Chambre getChambre() {
 		return chambre;
 	}
-	public void setChambre(chambre chambre) {
+	public void setChambre(Chambre chambre) {
 		this.chambre = chambre;
 	}
-	public hotel getHotel() {
+	public Hotel getHotel() {
 		return hotel;
 	}
-	public void setHotel(hotel hotel) {
+	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
 	}
-	public client getClient() {
+	public Client getClient() {
 		return client;
 	}
-	public void setClient(client client) {
+	public void setClient(Client client) {
 		this.client = client;
 	}
 	public Date getDate_debut() {

@@ -1,31 +1,32 @@
 package DAO;
 
-import model.Chambre;
+import model.Client;
 
-public class chambreDAO extends DAO<Chambre>{
+public class ClientDAO extends DAO<Client>{
 
 	@Override
-	public boolean create(Chambre obj) {
+	public boolean create(Client obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(Chambre obj) {
+	public boolean delete(Client obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Chambre obj) {
+	public boolean update(Client obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Chambre find(int id) {
+	public Client find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 
 }

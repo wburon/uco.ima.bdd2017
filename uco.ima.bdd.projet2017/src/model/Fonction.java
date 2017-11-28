@@ -1,6 +1,6 @@
 package model;
 
-public class fonction {
+public class Fonction {
 	
 	private int id_fonction;
 	private String nom;

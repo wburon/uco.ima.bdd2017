@@ -1,11 +1,11 @@
 package model;
 
-public class personnel {
+public class Personnel {
 	
 	private int id_personnel;
-	private personne personne;
+	private Personne personne;
 	private int salaire;
-	private fonction fonction;
+	private Fonction fonction;
 	private int annee_arrivee;
 	
 	public int getId_personnel() {
@@ -14,10 +14,10 @@ public class personnel {
 	public void setId_personnel(int id_personnel) {
 		this.id_personnel = id_personnel;
 	}
-	public personne getPersonne() {
+	public Personne getPersonne() {
 		return personne;
 	}
-	public void setPersonne(personne personne) {
+	public void setPersonne(Personne personne) {
 		this.personne = personne;
 	}
 	public int getSalaire() {
@@ -26,10 +26,10 @@ public class personnel {
 	public void setSalaire(int salaire) {
 		this.salaire = salaire;
 	}
-	public fonction getFonction() {
+	public Fonction getFonction() {
 		return fonction;
 	}
-	public void setFonction(fonction fonction) {
+	public void setFonction(Fonction fonction) {
 		this.fonction = fonction;
 	}
 	public int getAnnee_arrivee() {

@@ -1,9 +1,9 @@
 package model;
 
-public class chambre {
+public class Chambre {
 
 	private int id_chambre;
-	private hotel hotel;
+	private Hotel hotel;
 	private int numero_chambre;
 	private boolean tele;
 	private boolean animaux;
@@ -18,10 +18,10 @@ public class chambre {
 	public void setId_chambre(int id_chambre) {
 		this.id_chambre = id_chambre;
 	}
-	public hotel getHotel() {
+	public Hotel getHotel() {
 		return hotel;
 	}
-	public void setHotel(hotel hotel) {
+	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
 	}
 	public int getNumero_chambre() {
