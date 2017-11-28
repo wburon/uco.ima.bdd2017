@@ -1,6 +1,6 @@
 package model;
 
-public class hotel {
+public class Hotel {
 	
 	private int id_hotel;
 	private String adresse;

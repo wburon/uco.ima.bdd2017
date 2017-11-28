@@ -1,6 +1,6 @@
 package model;
 
-public class type_chambre {
+public class Type_Chambre {
 	
 	private int type_chambre;
 	private String nom;

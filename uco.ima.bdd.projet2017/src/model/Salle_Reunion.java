@@ -1,9 +1,9 @@
 package model;
 
-public class salle_reunion {
+public class Salle_Reunion {
 	
 	private int id_salle;
-	private hotel hotel;
+	private Hotel hotel;
 	private int numero_salle;
 	private boolean materiel_informatique;
 	private int capacite;
@@ -14,10 +14,10 @@ public class salle_reunion {
 	public void setId_salle(int id_salle) {
 		this.id_salle = id_salle;
 	}
-	public hotel getHotel() {
+	public Hotel getHotel() {
 		return hotel;
 	}
-	public void setHotel(hotel hotel) {
+	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
 	}
 	public int getNumero_salle() {

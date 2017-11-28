@@ -1,9 +1,9 @@
 package model;
 
-public class client {
+public class Client {
 
 	private int id_client;
-	private personne personne;
+	private Personne personne;
 	private int nb_resa_en_cours;
 	private int fidelite;
 	
@@ -13,10 +13,10 @@ public class client {
 	public void setId_client(int id_client) {
 		this.id_client = id_client;
 	}
-	public personne getPersonne() {
+	public Personne getPersonne() {
 		return personne;
 	}
-	public void setPersonne(personne personne) {
+	public void setPersonne(Personne personne) {
 		this.personne = personne;
 	}
 	public int getNb_resa_en_cours() {
