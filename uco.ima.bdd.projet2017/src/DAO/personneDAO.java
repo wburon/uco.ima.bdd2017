@@ -74,6 +74,7 @@ public class personneDAO extends DAO<Personne> {
 			prepare.setInt(4, obj.getCode_postal());
 			prepare.setString(5, obj.getAdresse());
 			prepare.setDate(6, obj.getDate_de_naissance());
+			prepare.setInt(7, obj.getId_personne());
 			
 			prepare.executeUpdate();
 			return true;	
@@ -101,7 +102,6 @@ public class personneDAO extends DAO<Personne> {
 				personne.setDate_de_naissance(result.getDate("date_naissance"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return personne;
