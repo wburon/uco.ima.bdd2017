@@ -3,6 +3,7 @@ package DAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Singleton.SingletonConnection;
@@ -62,13 +63,10 @@ public class ClientDAO extends DAO<Client>{
 		try{
 			PreparedStatement prepare=SC.prepareStatement("Update client set nb_resa_en_cours=?, fidelite=? where id_client=?");
 			
-			prepare.setString(1, obj.getNom());
-			prepare.setString(2, obj.getPrenom());
-			prepare.setString(3, obj.getVille());
-			prepare.setInt(4, obj.getCode_postal());
-			prepare.setString(5, obj.getAdresse());
-			prepare.setDate(6, obj.getDate_de_naissance());
-			
+			prepare.setInt(1, obj.getNb_resa_en_cours());
+			prepare.setInt(2, obj.getFidelite());
+			prepare.setInt(3, obj.getId_client());
+
 			prepare.executeUpdate();
 			return true;	
 		}catch (SQLException e) {
@@ -79,8 +77,24 @@ public class ClientDAO extends DAO<Client>{
 
 	@Override
 	public Client find(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Client client = new Client();
+		personneDAO personne = new personneDAO();
+		try {
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM client where id_client = ?");
+			prepare.setInt(1, id);
+			ResultSet result = prepare.executeQuery();
+			
+			if(result.first()){
+				client.setId_client(result.getInt("id_client"));
+				client.setPersonne(personne.find(result.getInt("id_personne")));
+				client.setNb_resa_en_cours(result.getInt("nb_resa_en_cours"));
+				client.setFidelite(result.getInt("fidelite"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return client;
 	}
 	
 
