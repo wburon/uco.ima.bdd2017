@@ -7,7 +7,14 @@ public class Personnel {
 	private int salaire;
 	private Fonction fonction;
 	private int annee_arrivee;
+	private String password;
 	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public int getId_personnel() {
 		return id_personnel;
 	}
