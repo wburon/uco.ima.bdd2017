@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.util.Scanner;
 
 import DAO.PersonnelDAO;
+import DAO.personneDAO;
 import model.Fonction;
 import model.Personnel;
 
@@ -133,7 +134,10 @@ public class InterfaceConsole {
 	}
 
 	private static void addPersonnel() {
-		// TODO Auto-generated method stub
+		personneDAO personne = new personneDAO();
+		PersonnelDAO personnel = new PersonnelDAO();
+		System.out.println("");
+		//int id_personne = maxId(table);
 		
 	}
 
