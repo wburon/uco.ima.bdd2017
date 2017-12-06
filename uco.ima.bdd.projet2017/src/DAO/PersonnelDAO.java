@@ -4,29 +4,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import Singleton.SingletonConnection;
 import model.Client;
 import model.Personnel;
 
-public class PersonnelDAO extends DAO<Personnel>{
-	
+public class PersonnelDAO extends DAO<Personnel> {
+
 	Connection SC = SingletonConnection.getConnection();
-	
+
 	/*
-	 private int id_personnel;
-	private Personne personne;
-	private int salaire;
-	private Fonction fonction;
-	private int annee_arrivee;
+	 * private int id_personnel; private Personne personne; private int salaire;
+	 * private Fonction fonction; private int annee_arrivee;
 	 */
 
 	@Override
 	public boolean create(Personnel obj) {
 		try {
 
-			PreparedStatement prepare = SC
-					.prepareStatement("Insert into personnel values (?,?,?,?,?);");
+			PreparedStatement prepare = SC.prepareStatement("Insert into personnel values (?,?,?,?,?);");
 
 			prepare.setInt(1, obj.getId_personnel());
 			prepare.setInt(2, obj.getPersonne().getId_personne());
@@ -45,26 +42,27 @@ public class PersonnelDAO extends DAO<Personnel>{
 
 	@Override
 	public boolean delete(Personnel obj) {
-		try{
-			PreparedStatement prepare =SC.prepareStatement("Delete from personnel where id_personnel=?");
+		try {
+			PreparedStatement prepare = SC.prepareStatement("Delete from personnel where id_personnel=?");
 
 			prepare.setInt(1, obj.getId_personnel());
-			
+
 			prepare.executeUpdate();
-			
+
 			return true;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
 
 	@Override
 	public boolean update(Personnel obj) {
-		try{
-			PreparedStatement prepare=SC.prepareStatement("Update personnel set salaire=?, id_fonction=?, annee_arrivee=?, password=? where id_personnel=?");
-			
+		try {
+			PreparedStatement prepare = SC.prepareStatement(
+					"Update personnel set salaire=?, id_fonction=?, annee_arrivee=?, password=? where id_personnel=?");
+
 			prepare.setInt(1, obj.getSalaire());
 			prepare.setInt(2, obj.getFonction().getId_fonction());
 			prepare.setInt(3, obj.getAnnee_arrivee());
@@ -72,8 +70,8 @@ public class PersonnelDAO extends DAO<Personnel>{
 			prepare.setInt(5, obj.getId_personnel());
 
 			prepare.executeUpdate();
-			return true;	
-		}catch (SQLException e) {
+			return true;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -88,8 +86,8 @@ public class PersonnelDAO extends DAO<Personnel>{
 			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM personnel where id_personnel = ?");
 			prepare.setInt(1, id);
 			ResultSet result = prepare.executeQuery();
-			
-			if(result.first()){
+
+			if (result.first()) {
 				personnel.setId_personnel(result.getInt("id_personnel"));
 				personnel.setPersonne(personne.find(result.getInt("id_personne")));
 				personnel.setSalaire(result.getInt("salaire"));
@@ -102,7 +100,20 @@ public class PersonnelDAO extends DAO<Personnel>{
 		}
 		return personnel;
 	}
-	
-	
+
+	public int maxId() {
+		Statement state;
+		int nbRow=0;
+		try {
+			state = SC.createStatement();
+			ResultSet nbLigne = state.executeQuery("SELECT MAX(id_personnel) FROM personnel");
+			nbLigne.next();
+			nbRow = nbLigne.getInt(1) + 1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nbRow;
+	}
 
 }

@@ -1,11 +1,15 @@
 package Interface;
 
 import java.security.MessageDigest;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
+import DAO.FonctionDAO;
 import DAO.PersonnelDAO;
 import DAO.personneDAO;
 import model.Fonction;
+import model.Personne;
 import model.Personnel;
 
 public class InterfaceConsole {
@@ -134,12 +138,45 @@ public class InterfaceConsole {
 	}
 
 	private static void addPersonnel() {
-		personneDAO personne = new personneDAO();
-		PersonnelDAO personnel = new PersonnelDAO();
-		System.out.println("");
-		//int id_personne = maxId(table);
+		personneDAO personneDao = new personneDAO();
+		PersonnelDAO personnelDao = new PersonnelDAO();
+		FonctionDAO fonctionDao = new FonctionDAO();
+//		String dateFormat = "dd/MM/yyyy";
 		
+		// Création de la personne
+		Personne personne = new Personne();
+		personne.setId_personne(personneDao.maxId());
+		System.out.print("Nom : ");
+		personne.setNom(clavier.next());
+		System.out.print("\nPrenom : ");
+		personne.setPrenom(clavier.next());
+		System.out.print("\nVille : ");
+		personne.setVille(clavier.next());
+		System.out.print("\nCode Postal : ");
+		personne.setCode_postal(clavier.nextInt());
+		System.out.print("\nAdresse : ");
+		personne.setAdresse(clavier.next());
+//		System.out.print("\nDate de naissance :");
+//		personne.setDate_de_naissance();
+		personneDao.create(personne);
+		
+		
+		// Création du personnel
+		Personnel personnel = new Personnel();
+		personnel.setId_personnel(personnelDao.maxId());
+		personnel.setPersonne(personne);
+		System.out.print("\nSalaire : ");
+		personnel.setSalaire(clavier.nextInt());
+		System.out.print("\nFonction(1.,2.,3.) : "); // ajouter les fonctions possibles
+		personnel.setFonction(fonctionDao.find(clavier.nextInt()));
+		System.out.print("\nAnnee d'arrivée : ");
+		personnel.setAnnee_arrivee(clavier.nextInt());
+		System.out.print("\nMot de Passe : ");
+		personnel.setPassword(clavier.next());
+		personnelDao.create(personnel);
 	}
+
+	
 
 	/*
 	 * hachage du mot de passe
