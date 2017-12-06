@@ -122,21 +122,46 @@ public class InterfaceConsole {
 		
 	}
 
+	/**
+	 * On supprime du personnel à partir de son ID
+	 */
 	private static void removePersonnel() {
-		// TODO Auto-generated method stub
-		
+		PersonnelDAO personnelDao = new PersonnelDAO();
+		Personnel personnel = new Personnel();
+		System.out.println("Qui ne fait plus partie de l'hotel ?");
+		System.out.print("ID :");
+		personnel.setId_personnel(clavier.nextInt());
+		if(personnelDao.delete(personnel))
+			System.out.println("La personne à bien été supprimé !");
 	}
 
+	/**
+	 * On cherche un membre du personnel par son ID
+	 */
 	private static void findPersonnel() {
-		// TODO Auto-generated method stub
-		
+		PersonnelDAO personnelDao = new PersonnelDAO();
+		Personnel personnel = new Personnel();
+		System.out.println("Qui cherchons-nous ?");
+		System.out.print("ID :");
+		personnel = personnelDao.find(clavier.nextInt());
+		System.out.println(personnel.toString());
 	}
 
 	private static void modifiePersonnel() {
-		// TODO Auto-generated method stub
+		PersonnelDAO personnelDao = new PersonnelDAO();
+		Personnel personnel = new Personnel();
+		System.out.println("Qui allons-nous modifier ?");
+		System.out.println("ID : ");
+		personnel = personnelDao.find(clavier.nextInt());
+		System.out.println(personnel.toString());
+		// definir ce qu'on doit motifier
+		
 		
 	}
 
+	/**
+	 * On ajoute un membre du personnel et par l'a même occasion une personne
+	 */
 	private static void addPersonnel() {
 		personneDAO personneDao = new personneDAO();
 		PersonnelDAO personnelDao = new PersonnelDAO();
