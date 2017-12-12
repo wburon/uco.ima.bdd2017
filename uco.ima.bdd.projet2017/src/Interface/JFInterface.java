@@ -14,6 +14,7 @@ import java.awt.Component;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
+import javax.swing.JButton;
 
 public class JFInterface extends JFrame {
 
@@ -87,7 +88,36 @@ public class JFInterface extends JFrame {
 		
 		JPanel center = new JPanel();
 		contentPane.add(center, BorderLayout.CENTER);
-		center.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		center.setLayout(new GridLayout(2, 2, 0, 0));
+		
+		JPanel JPOpePersonnel = new JPanel();
+		center.add(JPOpePersonnel);
+		JPOpePersonnel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnOperationSurLe = new JButton("Operation sur le personnel");
+		btnOperationSurLe.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JPOpePersonnel.add(btnOperationSurLe);
+		
+		JPanel JPOpeHotel = new JPanel();
+		center.add(JPOpeHotel);
+		JPOpeHotel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnOperationSurLhotel = new JButton("Operation sur l'hotel");
+		JPOpeHotel.add(btnOperationSurLhotel);
+		
+		JPanel JPOpeClientelle = new JPanel();
+		center.add(JPOpeClientelle);
+		JPOpeClientelle.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnOperationSurLa = new JButton("Operation sur la clientelle");
+		JPOpeClientelle.add(btnOperationSurLa);
+		
+		JPanel JPQuitter = new JPanel();
+		center.add(JPQuitter);
+		JPQuitter.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnQuitter = new JButton("Quitter");
+		JPQuitter.add(btnQuitter);
 	}
 
 }
