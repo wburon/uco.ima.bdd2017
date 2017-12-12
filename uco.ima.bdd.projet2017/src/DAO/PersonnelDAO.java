@@ -80,7 +80,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 	@Override
 	public Personnel find(int id) {
 		Personnel personnel = new Personnel();
-		personneDAO personne = new personneDAO();
+		PersonneDAO personne = new PersonneDAO();
 		FonctionDAO fonction = new FonctionDAO();
 		try {
 			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM personnel where id_personnel = ?");

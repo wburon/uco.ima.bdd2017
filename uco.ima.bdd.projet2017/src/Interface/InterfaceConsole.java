@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import DAO.FonctionDAO;
 import DAO.PersonnelDAO;
-import DAO.personneDAO;
+import DAO.PersonneDAO;
 import model.Fonction;
 import model.Personne;
 import model.Personnel;
@@ -163,7 +163,7 @@ public class InterfaceConsole {
 	 * On ajoute un membre du personnel et par l'a même occasion une personne
 	 */
 	private static void addPersonnel() {
-		personneDAO personneDao = new personneDAO();
+		PersonneDAO personneDao = new PersonneDAO();
 		PersonnelDAO personnelDao = new PersonnelDAO();
 		FonctionDAO fonctionDao = new FonctionDAO();
 //		String dateFormat = "dd/MM/yyyy";

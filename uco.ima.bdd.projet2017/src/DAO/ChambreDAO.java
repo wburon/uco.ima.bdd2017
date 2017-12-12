@@ -1,12 +1,18 @@
 package DAO;
 
+import java.sql.Connection;
+
+import Singleton.SingletonConnection;
 import model.Chambre;
 
-public class chambreDAO extends DAO<Chambre>{
+public class ChambreDAO extends DAO<Chambre>{
+	
+	Connection SC = SingletonConnection.getConnection();
 
 	@Override
 	public boolean create(Chambre obj) {
-		// TODO Auto-generated method stub
+		
+		
 		return false;
 	}
 
@@ -26,6 +32,12 @@ public class chambreDAO extends DAO<Chambre>{
 	public Chambre find(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int maxId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

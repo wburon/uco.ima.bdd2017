@@ -78,7 +78,7 @@ public class ClientDAO extends DAO<Client>{
 	@Override
 	public Client find(int id) {
 		Client client = new Client();
-		personneDAO personne = new personneDAO();
+		PersonneDAO personne = new PersonneDAO();
 		try {
 			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM client where id_client = ?");
 			prepare.setInt(1, id);
@@ -95,6 +95,12 @@ public class ClientDAO extends DAO<Client>{
 			e.printStackTrace();
 		}
 		return client;
+	}
+
+	@Override
+	public int maxId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 

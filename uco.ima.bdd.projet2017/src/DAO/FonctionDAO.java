@@ -91,4 +91,10 @@ public class FonctionDAO extends DAO<Fonction>{
 		return fonction;
 	}
 
+	@Override
+	public int maxId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

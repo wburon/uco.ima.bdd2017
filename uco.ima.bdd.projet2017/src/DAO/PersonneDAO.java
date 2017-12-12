@@ -9,7 +9,7 @@ import java.sql.Statement;
 import Singleton.SingletonConnection;
 import model.Personne;
 
-public class personneDAO extends DAO<Personne> {
+public class PersonneDAO extends DAO<Personne> {
 
 	Connection SC = SingletonConnection.getConnection();
 	
