@@ -2,17 +2,17 @@ package model;
 
 public class Type_Chambre {
 	
-	private int type_chambre;
+	private int id_type_chambre;
 	private String nom;
 	private int nb_piece;
 	private int nb_lit_double;
 	private int nb_lit_simple;
 	
-	public int getType_chambre() {
-		return type_chambre;
+	public int getId_type_chambre() {
+		return id_type_chambre;
 	}
-	public void setType_chambre(int type_chambre) {
-		this.type_chambre = type_chambre;
+	public void setId_type_chambre(int id_type_chambre) {
+		this.id_type_chambre = id_type_chambre;
 	}
 	public String getNom() {
 		return nom;

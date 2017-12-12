@@ -15,7 +15,7 @@ public class HotelDAO extends DAO<Hotel> {
 	@Override
 	public boolean create(Hotel obj) {
 		try{
-			PreparedStatement prepare = SC.prepareStatement("INSERT INTO hotel VALUES (?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement prepare = SC.prepareStatement("INSERT INTO hotel VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 			
 			prepare.setInt(1, obj.getId_hotel());
 			prepare.setString(2, obj.getAdresse());
@@ -27,6 +27,7 @@ public class HotelDAO extends DAO<Hotel> {
 			prepare.setInt(8, obj.getCode_postal());
 			prepare.setBoolean(9, obj.isWifi());
 			prepare.setInt(10, obj.getNb_chambre_libre());
+			prepare.setInt(11, obj.getNb_chambre_total());
 			
 			prepare.executeUpdate();
 			
@@ -57,7 +58,7 @@ public class HotelDAO extends DAO<Hotel> {
 	@Override
 	public boolean update(Hotel obj) {
 		try{
-			PreparedStatement prepare=SC.prepareStatement("Update fonction set adresse=?, nb_etoile_ta=?, proprietaire=?, standing=?, ville=?, pays=?, code_postal=?, wifi=?, nb_chambre_libre=?, where id_hotel=?");
+			PreparedStatement prepare=SC.prepareStatement("UPDATE hotel SET adresse=?, nb_etoile_ta=?, proprietaire=?, standing=?, ville=?, pays=?, code_postal=?, wifi=?, nb_chambre_libre=?, nb_chambre_total=? WHERE id_hotel=?");
 			
 			prepare.setString(1, obj.getAdresse());
 			prepare.setDouble(2, obj.getNb_etoile_ta());
@@ -68,7 +69,8 @@ public class HotelDAO extends DAO<Hotel> {
 			prepare.setInt(7, obj.getCode_postal());
 			prepare.setBoolean(8, obj.isWifi());
 			prepare.setInt(9, obj.getNb_chambre_libre());
-			prepare.setInt(10, obj.getId_hotel());
+			prepare.setInt(10, obj.getNb_chambre_total());
+			prepare.setInt(11, obj.getId_hotel());
 
 			prepare.executeUpdate();
 			return true;	
@@ -80,8 +82,29 @@ public class HotelDAO extends DAO<Hotel> {
 
 	@Override
 	public Hotel find(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Hotel hotel = new Hotel();
+		try{
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM hotel WHERE id_hotel = ?");
+			prepare.setInt(1, id);
+			ResultSet result = prepare.executeQuery();
+			
+			if (result.first()){
+				hotel.setId_hotel(result.getInt("id_hotel"));
+				hotel.setAdresse(result.getString("adresse"));
+				hotel.setNb_etoile_ta(result.getDouble("nb_etoile_ta"));
+				hotel.setProprietaire(result.getString("proprietaire"));
+				hotel.setStanding(result.getInt("standing"));
+				hotel.setVille(result.getString("ville"));
+				hotel.setPays(result.getString("pays"));
+				hotel.setCode_postal(result.getInt("code_postal"));
+				hotel.setWifi(result.getBoolean("wifi"));
+				hotel.setNb_chambre_libre(result.getInt("nb_chambre_libre"));
+				hotel.setNb_chambre_total(result.getInt("nb_chambre_total"));
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return hotel;
 	}
 
 	@Override

@@ -12,6 +12,8 @@ public class Hotel {
 	private String proprietaire;
 	private boolean wifi;
 	private int nb_chambre_libre;
+	private int nb_chambre_total;
+	
 	
 	public int getId_hotel() {
 		return id_hotel;
@@ -72,6 +74,12 @@ public class Hotel {
 	}
 	public void setNb_chambre_libre(int nb_chambre_libre) {
 		this.nb_chambre_libre = nb_chambre_libre;
+	}
+	public int getNb_chambre_total() {
+		return nb_chambre_total;
+	}
+	public void setNb_chambre_total(int nb_chambre_total) {
+		this.nb_chambre_total = nb_chambre_total;
 	}
 
 }
