@@ -13,5 +13,6 @@ public abstract class DAO<T> {
 	public abstract boolean delete (T obj);
 	public abstract boolean update (T obj);
 	public abstract T find(int id);
+	public abstract int maxId();
 
 }
