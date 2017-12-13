@@ -55,6 +55,7 @@ public class CommunicanteDAO extends DAO<Communicante>{
 
 			prepare.setInt(1, obj.getC1().getId_chambre());
 			prepare.setInt(2, obj.getC2().getId_chambre());
+			prepare.setInt(3, obj.getId_communicante());
 
 			prepare.executeUpdate();
 			return true;
