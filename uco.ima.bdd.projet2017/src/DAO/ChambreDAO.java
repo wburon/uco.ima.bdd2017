@@ -182,6 +182,11 @@ public class ChambreDAO extends DAO<Chambre>{
 		return null;
 	}
 	
+	public Chambre findPerfect(){
+		
+	}
+	
+	
 	@Override
 	/**
 	 * maxId
