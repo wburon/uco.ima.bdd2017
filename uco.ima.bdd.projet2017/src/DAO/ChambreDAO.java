@@ -14,11 +14,6 @@ public class ChambreDAO extends DAO<Chambre>{
 	Connection SC = SingletonConnection.getConnection();
 
 	@Override
-	/**
-	 * create 
-	 * Parametre : Chambre
-	 * Cree une chambre dans la base de donnee
-	 */
 	public boolean create(Chambre obj) {
 		try {
 			PreparedStatement prepare = SC.prepareStatement("INSERT INTO chambre VALUES (?,?,?,?,?,?,?,?,?,?)");
@@ -45,11 +40,6 @@ public class ChambreDAO extends DAO<Chambre>{
 	}
 
 	@Override
-	/**
-	 * delete 
-	 * Parametre : Chambre
-	 * Supprime la Chambre de la base de donnee
-	 */
 	public boolean delete(Chambre obj) {
 		try {
 			PreparedStatement prepare=SC.prepareStatement("DELETE FROM chambre WHERE id_chambre=?");
@@ -66,11 +56,6 @@ public class ChambreDAO extends DAO<Chambre>{
 	}
 
 	@Override
-	/**
-	 * update
-	 * Parametre ; Chambre 
-	 * Met a jour la Chambre dans la base de donnee
-	 */
 	public boolean update(Chambre obj) {
 		try{
 			PreparedStatement prepare=SC.prepareStatement("UPDATE chambre SET id_hotel=?, numero_chambre=?, tele=?, handicap=?, tarif=?, libre=?, communicante=?, animaux=?, id_type_chambre=? WHERE id_chambre=?");
@@ -95,11 +80,6 @@ public class ChambreDAO extends DAO<Chambre>{
 	}
 
 	@Override
-	/**
-	 * find 
-	 * Parametre : id de la chambre
-	 * Renvoi la chambre ayant cet id dans la base de donnee
-	 */
 	public Chambre find(int id) {
 		Chambre chambre=new Chambre();
 		HotelDAO hotel=new HotelDAO();
@@ -127,17 +107,9 @@ public class ChambreDAO extends DAO<Chambre>{
 		}
 		return chambre;
 	}
-	
-	public Chambre findCommunicante(){
-		
-	}
 
 	@Override
 	public int maxId() {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-=======
->>>>>>> refs/remotes/origin/master
 		Statement state;
 		int nbRow=0;
 		try {

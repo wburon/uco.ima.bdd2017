@@ -93,10 +93,6 @@ public class Type_ChambreDAO extends DAO<Type_Chambre>{
 
 	@Override
 	public int maxId() {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-=======
->>>>>>> refs/remotes/origin/master
 		Statement state;
 		int nbRow=0;
 		try {
