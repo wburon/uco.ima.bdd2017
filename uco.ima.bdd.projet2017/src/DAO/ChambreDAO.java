@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import Singleton.SingletonConnection;
 import model.Chambre;
@@ -109,8 +110,18 @@ public class ChambreDAO extends DAO<Chambre>{
 
 	@Override
 	public int maxId() {
-		// TODO Auto-generated method stub
-		return 0;
+		Statement state;
+		int nbRow=0;
+		try {
+			state = SC.createStatement();
+			ResultSet nbLigne = state.executeQuery("SELECT MAX(id_chambre) FROM chambre");
+			nbLigne.next();
+			nbRow = nbLigne.getInt(1) + 1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nbRow;
 	}
 
 }
