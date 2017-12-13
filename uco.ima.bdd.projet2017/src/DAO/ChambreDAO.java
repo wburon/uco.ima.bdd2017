@@ -209,8 +209,12 @@ public class ChambreDAO extends DAO<Chambre>{
 			prepare.setBoolean(2, animaux);
 			prepare.setBoolean(3, handi);
 			prepare.setBoolean(4, comm);
-			prepare.setInt(5, TC.getId_type_chambre());
-			prepare.setDouble(6, prixInf);
+			if (TC != null)
+				prepare.setInt(5, TC.getId_type_chambre());
+			else 
+				prepare.setString(5, "id_type_chambre");
+			
+			prepare.setDouble(6, prixInf);	
 			prepare.setDouble(7, prixSup);
 
 			
