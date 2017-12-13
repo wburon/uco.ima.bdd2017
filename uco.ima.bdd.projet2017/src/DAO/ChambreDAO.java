@@ -9,6 +9,7 @@ import java.sql.Statement;
 import Singleton.SingletonConnection;
 import model.Chambre;
 import model.Communicante;
+import model.Type_Chambre;
 
 public class ChambreDAO extends DAO<Chambre>{
 	
@@ -17,8 +18,8 @@ public class ChambreDAO extends DAO<Chambre>{
 	@Override
 	/**
 	 * create
-	 * Parametre : Chambre
-	 * Cette methode creer une nouvelle chambre dans la base de donnee
+	 * @param Chambre
+	 * @reurn Cette methode creer une nouvelle chambre dans la base de donnee
 	 */
 	public boolean create(Chambre obj) {
 		try {
@@ -48,8 +49,8 @@ public class ChambreDAO extends DAO<Chambre>{
 	@Override
 	/**
 	 * delete
-	 * Parametre : Chambre
-	 * Cette methode supprime chambre dans la base de donnee
+	 * @param Chambre
+	 * @return Cette methode supprime chambre dans la base de donnee
 	 */
 	public boolean delete(Chambre obj) {
 		try {
@@ -69,8 +70,8 @@ public class ChambreDAO extends DAO<Chambre>{
 	@Override
 	/**
 	 * update
-	 * Parametre : Chambre
-	 * Cette methode met a jour la chambre ayant le même id dans la base de donnee
+	 * @param Chambre
+	 * @return Cette methode met a jour la chambre ayant le même id dans la base de donnee
 	 */
 	public boolean update(Chambre obj) {
 		try{
@@ -98,7 +99,8 @@ public class ChambreDAO extends DAO<Chambre>{
 	@Override
 	/**
 	 * find
-	 * Parametre : id
+	 * @param id
+	 * @return
 	 * Cette methode renvoi la chambre ayant cet id dans la base de donnee
 	 */
 	public Chambre find(int id) {
@@ -134,8 +136,8 @@ public class ChambreDAO extends DAO<Chambre>{
 	 * findCommunicante
 	 * Cette methode cherche une chambre communicante
 	 * retrouve avec qui elle communique
-	 * et retourne un Communicante qui contient les deux chambres 
 	 * @return
+	 * et retourne un Communicante qui contient les deux chambres
 	 */
 	public Communicante findCommunicante(){
 		Chambre chambre=new Chambre(); /** Chambre principale */
@@ -182,15 +184,63 @@ public class ChambreDAO extends DAO<Chambre>{
 		return null;
 	}
 	
-	public Chambre findPerfect(){
-		
+	/**
+	 * findPerfect
+	 * @param tele
+	 * @param animaux
+	 * @param handi
+	 * @param TC
+	 * @param prixInf
+	 * @param prixSup
+	 * @param comm
+	 * Cette methode recherche une chambre avec l'ensembles des paramètre demander.
+	 * @return
+	 * La Chambre qui correspond au contrainte
+	 */
+	public Chambre findPerfect(boolean tele, boolean animaux, boolean handi, Type_Chambre TC, double prixInf, 
+			double prixSup, boolean comm){
+		Chambre chambre=new Chambre();
+		HotelDAO hotel=new HotelDAO();
+		Type_ChambreDAO type_c= new Type_ChambreDAO();
+		try{
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM chambre WHERE tele=? AND animaux=? "
+					+ "AND handicap=? AND communicante=? AND id_type_chambre=? AND tarif>=? AND tarif<=?");
+			prepare.setBoolean(1, tele);
+			prepare.setBoolean(2, animaux);
+			prepare.setBoolean(3, handi);
+			prepare.setBoolean(4, comm);
+			prepare.setInt(5, TC.getId_type_chambre());
+			prepare.setDouble(6, prixInf);
+			prepare.setDouble(7, prixSup);
+
+			
+			
+			ResultSet result=prepare.executeQuery();
+			
+			if(result.first()){
+				chambre.setId_chambre(result.getInt("id_chambre"));
+				chambre.setHotel(hotel.find(result.getInt("id_hotel")));
+				chambre.setNumero_chambre(result.getInt("numero_chambre"));
+				chambre.setTele(result.getBoolean("tele"));
+				chambre.setHandicap(result.getBoolean("handicap"));
+				chambre.setTarif(result.getDouble("tarif"));
+				chambre.setLibre(result.getBoolean("libre"));
+				chambre.setCommunicante(result.getBoolean("communicante"));
+				chambre.setAnimaux(result.getBoolean("animaux"));
+				chambre.setType_chambre(type_c.find(result.getInt("id_type_chambre")));
+									
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return chambre;
 	}
 	
 	
 	@Override
 	/**
 	 * maxId
-	 * Cette methode renvoi l'id le plus grand de la table chambre
+	 * @return Cette methode renvoi l'id le plus grand de la table chambre
 	 */
 	public int maxId() {
 		Statement state;
