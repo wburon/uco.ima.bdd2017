@@ -4,7 +4,7 @@ public class Personnel {
 	
 	private int id_personnel;
 	private Personne personne;
-	private int salaire;
+	private double salaire;
 	private Fonction fonction;
 	private int annee_arrivee;
 	private String password;
@@ -27,10 +27,10 @@ public class Personnel {
 	public void setPersonne(Personne personne) {
 		this.personne = personne;
 	}
-	public int getSalaire() {
+	public double getSalaire() {
 		return salaire;
 	}
-	public void setSalaire(int salaire) {
+	public void setSalaire(double salaire) {
 		this.salaire = salaire;
 	}
 	public Fonction getFonction() {

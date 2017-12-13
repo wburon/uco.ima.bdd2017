@@ -90,6 +90,23 @@ public class FonctionDAO extends DAO<Fonction>{
 		}
 		return fonction;
 	}
+	public int renvoieId(String nom){
+		PreparedStatement prepare;
+		try {
+			prepare = SC.prepareStatement("SELECT * FROM fonction WHERE nom = ?");
+			prepare.setString(1, nom);
+			ResultSet result = prepare.executeQuery();
+			int id=-1;
+			if(result.first()){
+				id = result.getInt("id_fonction");
+			}
+			return id;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+	}
 
 	@Override
 	public int maxId() {

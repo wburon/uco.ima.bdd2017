@@ -27,7 +27,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 
 			prepare.setInt(1, obj.getId_personnel());
 			prepare.setInt(2, obj.getPersonne().getId_personne());
-			prepare.setInt(3, obj.getSalaire());
+			prepare.setDouble(3, obj.getSalaire());
 			prepare.setInt(4, obj.getFonction().getId_fonction());
 			prepare.setInt(5, obj.getAnnee_arrivee());
 
@@ -63,7 +63,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 			PreparedStatement prepare = SC.prepareStatement(
 					"Update personnel set salaire=?, id_fonction=?, annee_arrivee=?, password=? where id_personnel=?");
 
-			prepare.setInt(1, obj.getSalaire());
+			prepare.setDouble(1, obj.getSalaire());
 			prepare.setInt(2, obj.getFonction().getId_fonction());
 			prepare.setInt(3, obj.getAnnee_arrivee());
 			prepare.setString(4, obj.getPassword());
