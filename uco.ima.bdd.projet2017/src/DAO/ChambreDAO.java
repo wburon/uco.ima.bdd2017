@@ -8,12 +8,18 @@ import java.sql.Statement;
 
 import Singleton.SingletonConnection;
 import model.Chambre;
+import model.Communicante;
 
 public class ChambreDAO extends DAO<Chambre>{
 	
 	Connection SC = SingletonConnection.getConnection();
 
 	@Override
+	/**
+	 * create
+	 * Parametre : Chambre
+	 * Cette methode creer une nouvelle chambre dans la base de donnee
+	 */
 	public boolean create(Chambre obj) {
 		try {
 			PreparedStatement prepare = SC.prepareStatement("INSERT INTO chambre VALUES (?,?,?,?,?,?,?,?,?,?)");
@@ -40,6 +46,11 @@ public class ChambreDAO extends DAO<Chambre>{
 	}
 
 	@Override
+	/**
+	 * delete
+	 * Parametre : Chambre
+	 * Cette methode supprime chambre dans la base de donnee
+	 */
 	public boolean delete(Chambre obj) {
 		try {
 			PreparedStatement prepare=SC.prepareStatement("DELETE FROM chambre WHERE id_chambre=?");
@@ -56,6 +67,11 @@ public class ChambreDAO extends DAO<Chambre>{
 	}
 
 	@Override
+	/**
+	 * update
+	 * Parametre : Chambre
+	 * Cette methode met a jour la chambre ayant le même id dans la base de donnee
+	 */
 	public boolean update(Chambre obj) {
 		try{
 			PreparedStatement prepare=SC.prepareStatement("UPDATE chambre SET id_hotel=?, numero_chambre=?, tele=?, handicap=?, tarif=?, libre=?, communicante=?, animaux=?, id_type_chambre=? WHERE id_chambre=?");
@@ -80,6 +96,11 @@ public class ChambreDAO extends DAO<Chambre>{
 	}
 
 	@Override
+	/**
+	 * find
+	 * Parametre : id
+	 * Cette methode renvoi la chambre ayant cet id dans la base de donnee
+	 */
 	public Chambre find(int id) {
 		Chambre chambre=new Chambre();
 		HotelDAO hotel=new HotelDAO();
@@ -108,7 +129,64 @@ public class ChambreDAO extends DAO<Chambre>{
 		return chambre;
 	}
 
+	
+	/**
+	 * findCommunicante
+	 * Cette methode cherche une chambre communicante
+	 * retrouve avec qui elle communique
+	 * et retourne un Communicante qui contient les deux chambres 
+	 * @return
+	 */
+	public Communicante findCommunicante(){
+		Chambre chambre=new Chambre(); /** Chambre principale */
+		Chambre chambreC = new Chambre(); /** Chambre qui communique avec la principale*/
+		HotelDAO hotel=new HotelDAO();
+		Type_ChambreDAO type_c= new Type_ChambreDAO(); /** type chambre principale */
+		Type_ChambreDAO type_cC= new Type_ChambreDAO(); /** type chambre qui communiquye avec la principale*/
+		try{
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM chambre WHERE communicante=True");
+			ResultSet result=prepare.executeQuery();
+			
+			if(result.first()){
+				chambre.setId_chambre(result.getInt("id_chambre"));
+				chambre.setHotel(hotel.find(result.getInt("id_hotel")));
+				chambre.setNumero_chambre(result.getInt("numero_chambre"));
+				chambre.setTele(result.getBoolean("tele"));
+				chambre.setHandicap(result.getBoolean("handicap"));
+				chambre.setTarif(result.getDouble("tarif"));
+				chambre.setLibre(result.getBoolean("libre"));
+				chambre.setCommunicante(result.getBoolean("communicante"));
+				chambre.setAnimaux(result.getBoolean("animaux"));
+				chambre.setType_chambre(type_c.find(result.getInt("id_type_chambre")));
+									
+			}
+			PreparedStatement prepare2 = SC.prepareStatement("SELECT * FROM communicante WHERE c1=? OR c2=?");
+			prepare2.setInt(1, chambre.getId_chambre());
+			prepare2.setInt(2, chambre.getId_chambre());
+			ResultSet result2=prepare2.executeQuery();
+			
+			if (result2.getInt("c1")==chambre.getId_chambre()){
+				chambreC = find(result2.getInt("c2"));
+			}else chambreC = find(result2.getInt("c1"));
+			
+			Communicante comm = new Communicante();
+			comm.setId_communicante(result2.getInt("id_communicante"));
+			comm.setC1(chambre);
+			comm.setC2(chambreC);
+			
+			return comm;
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	@Override
+	/**
+	 * maxId
+	 * Cette methode renvoi l'id le plus grand de la table chambre
+	 */
 	public int maxId() {
 		Statement state;
 		int nbRow=0;
