@@ -4,11 +4,18 @@ public class Parking {
 	
 	private int id_parking;
 	private Hotel hotel;
+	private String name;
 	private int nb_place;
 	private boolean gratuit;
 	private double distance_hotel;
 	private boolean veilleur_de_nuit;
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getId_parking() {
 		return id_parking;
 	}
