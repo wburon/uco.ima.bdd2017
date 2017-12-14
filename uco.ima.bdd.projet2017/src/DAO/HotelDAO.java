@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import Singleton.SingletonConnection;
 import model.Hotel;
@@ -123,4 +124,18 @@ public class HotelDAO extends DAO<Hotel> {
 		return nbRow;
 	}
 
+	/**
+	 * etoile
+	 * @param note (list)
+	 * @return la moyenne des notes
+	 */
+	public int etoile(ArrayList<Integer> note){
+		int etoile =0;
+		for (int i=0 ; i<note.size() ; i++) {
+			etoile += note.get(i);
+		}
+		etoile = etoile/note.size();
+		return etoile;
+	}
+	
 }
