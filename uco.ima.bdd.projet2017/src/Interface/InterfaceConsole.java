@@ -17,19 +17,16 @@ public class InterfaceConsole {
 	static Scanner clavier = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		
-		
 		boolean connexion = false;
 		String mdp = null;
-		int login;
+		String login;
 		PersonnelDAO userDAO = new PersonnelDAO();
-		Personnel user = new Personnel();
-		
+		int id;
 		
 		// verification pour la connexion au logiciel
 		do{
 			System.out.print("LOGIN :");
-			login = clavier.nextInt();
+			login = clavier.next();
 			System.out.print("\nPASSWORD : ");
 			try {
 				mdp = md5(clavier.next());
@@ -37,14 +34,11 @@ public class InterfaceConsole {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			user = userDAO.find(login);
-			if(user != null && user.getPassword().equals(mdp)){
+			id = userDAO.findUser(login,mdp);
+			if( id >= 0)
 				connexion = true;
-			}	
 		}while(connexion);
-		run(user);
-		
-		
+		run(userDAO.find(id));
 		clavier.close();
 	}
 	
@@ -54,6 +48,7 @@ public class InterfaceConsole {
 	 */
 	private static void run(Personnel user) {
 		Fonction fonction = new Fonction();
+		fonction = user.getFonction();
 		switch(fonction.getNiveau_contrainte()){
 		case 1: // big boss
 			runBIGBOSS(user);

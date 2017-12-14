@@ -147,5 +147,31 @@ public class PersonnelDAO extends DAO<Personnel> {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param login
+	 * @param password
+	 * @return id_user
+	 */
+	public int findUser(String login, String password){
+		PreparedStatement prepare;
+		try {
+			prepare = SC.prepareStatement("SELECT * FROM personnel where login=? AND password=?");
+			prepare.setString(1, login);
+			prepare.setString(2, password);
+			ResultSet result = prepare.executeQuery();
+			
+			if(result.first())
+				return result.getInt("id_personnel");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		System.out.println("ERREUR");
+		return -1;
+	}
+	
 
 }
