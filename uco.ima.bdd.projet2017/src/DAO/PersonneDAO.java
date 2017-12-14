@@ -53,7 +53,7 @@ public class PersonneDAO extends DAO<Personne> {
 		try{
 			PreparedStatement prepare =SC.prepareStatement("Delete from personne where id_personne=?");
 
-			prepare.setInt(1, obj.getId_personne());
+			prepare.setInt(1, maxId());
 			
 			prepare.executeUpdate();
 			

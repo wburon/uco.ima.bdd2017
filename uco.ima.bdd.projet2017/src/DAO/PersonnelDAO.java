@@ -25,7 +25,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 
 			PreparedStatement prepare = SC.prepareStatement("Insert into personnel values (?,?,?,?,?,?,?);");
 
-			prepare.setInt(1, obj.getId_personnel());
+			prepare.setInt(1, maxId());
 			prepare.setInt(2, obj.getPersonne().getId_personne());
 			prepare.setDouble(3, obj.getSalaire());
 			prepare.setInt(4, obj.getFonction().getId_fonction());

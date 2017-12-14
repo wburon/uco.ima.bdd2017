@@ -18,7 +18,7 @@ public class ReservationDAO extends DAO<Reservation>{
 
 			PreparedStatement prepare = SC.prepareStatement("Insert into reservation values (?,?,?,?,?,?);");
 
-			prepare.setInt(1, obj.getId_resa());
+			prepare.setInt(1, maxId());
 			prepare.setInt(2, obj.getChambre().getId_chambre());
 			prepare.setInt(3, obj.getHotel().getId_hotel());
 			prepare.setInt(4, obj.getClient().getId_client());

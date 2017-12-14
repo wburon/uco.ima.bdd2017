@@ -19,7 +19,7 @@ public class Salle_ReunionDAO extends DAO<Salle_Reunion> {
 
 			PreparedStatement prepare = SC.prepareStatement("Insert into salle_reunion values (?,?,?,?,?);");
 
-			prepare.setInt(1, obj.getId_salle());
+			prepare.setInt(1, maxId());
 			prepare.setInt(2, obj.getHotel().getId_hotel());
 			prepare.setInt(3, obj.getNumero_salle());
 			prepare.setBoolean(4, obj.isMateriel_informatique());

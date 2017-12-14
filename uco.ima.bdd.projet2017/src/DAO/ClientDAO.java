@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import Singleton.SingletonConnection;
 import model.Client;
@@ -28,7 +29,7 @@ public class ClientDAO extends DAO<Client>{
 			PreparedStatement prepare = SC
 					.prepareStatement("Insert into client values (?,?,?,?);");
 
-			prepare.setInt(1, obj.getId_client());
+			prepare.setInt(1, maxId());
 			prepare.setInt(2, obj.getPersonne().getId_personne());
 			prepare.setInt(3, obj.getNb_resa_en_cours());
 			prepare.setInt(4, obj.getFidelite());
@@ -99,8 +100,18 @@ public class ClientDAO extends DAO<Client>{
 
 	@Override
 	public int maxId() {
-		// TODO Auto-generated method stub
-		return 0;
+		Statement state;
+		int nbRow=0;
+		try {
+			state = SC.createStatement();
+			ResultSet nbLigne = state.executeQuery("SELECT MAX(id_client) FROM id_client");
+			nbLigne.next();
+			nbRow = nbLigne.getInt(1) + 1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nbRow;
 	}
 	
 

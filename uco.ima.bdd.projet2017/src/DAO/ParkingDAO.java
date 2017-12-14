@@ -19,7 +19,7 @@ public class ParkingDAO extends DAO<Parking> {
 
 			PreparedStatement prepare = SC.prepareStatement("Insert into parking values (?,?,?,?,?,?,?);");
 
-			prepare.setInt(1, obj.getId_parking());
+			prepare.setInt(1, maxId());
 			prepare.setInt(2, obj.getHotel().getId_hotel());
 			prepare.setInt(3, obj.getNb_place());
 			prepare.setBoolean(4, obj.isGratuit());

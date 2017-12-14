@@ -25,7 +25,7 @@ public class ChambreDAO extends DAO<Chambre>{
 		try {
 			PreparedStatement prepare = SC.prepareStatement("INSERT INTO chambre VALUES (?,?,?,?,?,?,?,?,?,?)");
 			
-			prepare.setInt(1, obj.getId_chambre());
+			prepare.setInt(1, maxId());
 			prepare.setInt(2, obj.getHotel().getId_hotel());
 			prepare.setInt(3, obj.getNumero_chambre());
 			prepare.setBoolean(4, obj.isTele());

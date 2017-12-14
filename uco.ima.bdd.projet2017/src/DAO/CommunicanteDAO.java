@@ -17,10 +17,11 @@ public class CommunicanteDAO extends DAO<Communicante>{
 	public boolean create(Communicante obj) {
 		try {
 
-			PreparedStatement prepare = SC.prepareStatement("Insert into communicante values (?,?);");
-
-			prepare.setInt(1, obj.getC1().getId_chambre());
-			prepare.setInt(2, obj.getC2().getId_chambre());
+			PreparedStatement prepare = SC.prepareStatement("Insert into communicante values (?,?,?);");
+			
+			prepare.setInt(1, maxId());
+			prepare.setInt(2, obj.getC1().getId_chambre());
+			prepare.setInt(3, obj.getC2().getId_chambre());
 
 			prepare.executeUpdate();
 

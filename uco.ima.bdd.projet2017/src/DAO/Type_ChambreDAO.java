@@ -18,7 +18,7 @@ public class Type_ChambreDAO extends DAO<Type_Chambre>{
 		try {
 			PreparedStatement prepare = SC.prepareStatement("INSERT INTO type_chambre VALUES (?,?,?,?,?)");
 			
-			prepare.setInt(1, obj.getId_type_chambre());
+			prepare.setInt(1, maxId());
 			prepare.setString(2, obj.getNom());
 			prepare.setInt(3, obj.getNb_piece());
 			prepare.setInt(4, obj.getNb_lit_double());

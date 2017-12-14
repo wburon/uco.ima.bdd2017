@@ -17,7 +17,7 @@ public class HotelDAO extends DAO<Hotel> {
 		try{
 			PreparedStatement prepare = SC.prepareStatement("INSERT INTO hotel VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 			
-			prepare.setInt(1, obj.getId_hotel());
+			prepare.setInt(1, maxId());
 			prepare.setString(2, obj.getAdresse());
 			prepare.setDouble(3, obj.getNb_etoile_ta());
 			prepare.setString(4, obj.getProprietaire());
