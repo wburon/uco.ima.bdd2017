@@ -127,7 +127,7 @@ public class HotelDAO extends DAO<Hotel> {
 	/**
 	 * etoile
 	 * @param note (list)
-	 * @return la moyenne es notes
+	 * @return la moyenne des notes
 	 */
 	public int etoile(ArrayList<Integer> note){
 		int etoile =0;
