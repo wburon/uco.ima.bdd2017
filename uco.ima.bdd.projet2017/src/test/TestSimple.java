@@ -2,13 +2,19 @@ package test;
 
 import java.util.Date;
 
+import DAO.FonctionDAO;
+import model.Fonction;
+
 public class TestSimple {
 
 	public static void main(String[] args) {
-		Date d=new Date(1000000);
+		FonctionDAO fDAO = new FonctionDAO();
+		int a=fDAO.renvoieId("Agent d entretien");
+		System.out.println(a);
 		
-		System.out.println(d);
-
+		Fonction f=fDAO.find(a);
+		System.out.println(f.getNom());
+		
 	}
 
 }

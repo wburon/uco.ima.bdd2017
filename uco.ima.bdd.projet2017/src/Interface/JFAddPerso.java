@@ -226,6 +226,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 			nel.setPassword("");
 			
 			
+			nDAO.create(nel);
 		}
 		
 	}

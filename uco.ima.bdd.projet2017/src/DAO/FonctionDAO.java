@@ -75,7 +75,7 @@ public class FonctionDAO extends DAO<Fonction>{
 	public Fonction find(int id) {
 		Fonction fonction = new Fonction();
 		try {
-			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM fonction where id_fonction = ?");
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM fonction where id_fonction = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setInt(1, id);
 			ResultSet result = prepare.executeQuery();
 			
@@ -93,7 +93,7 @@ public class FonctionDAO extends DAO<Fonction>{
 	public int renvoieId(String nom){
 		PreparedStatement prepare;
 		try {
-			prepare = SC.prepareStatement("SELECT * FROM fonction WHERE nom = ?");
+			prepare = SC.prepareStatement("SELECT * FROM fonction WHERE nom = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setString(1, nom);
 			ResultSet result = prepare.executeQuery();
 			int id=-1;
