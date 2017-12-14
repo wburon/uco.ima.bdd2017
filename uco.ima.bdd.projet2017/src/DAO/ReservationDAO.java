@@ -111,5 +111,37 @@ public class ReservationDAO extends DAO<Reservation>{
 		}
 		return nbRow;
 	}
+	
+	public Reservation[] findResaClient(int id_client){
+		
+		try {
+			
+			PreparedStatement prepare;
+			prepare = SC.prepareStatement("SELECT * FROM reservation where id_client=?");
+			prepare.setInt(1, id_client);
+			ResultSet result = prepare.executeQuery();
+			
+			PreparedStatement prepareCount = SC.prepareStatement("SELECT COUNT(*) FROM reservation where id_client=?"); 
+			prepareCount.setInt(1, id_client);
+			ResultSet resultCount = prepareCount.executeQuery();
+			
+			Reservation[] reservation = new Reservation[resultCount.getInt(1)];
+			for(int i=0; i<reservation.length;i++){
+				reservation[i] = find(result.getInt("Id_reservation"));
+				result.next();
+			}
+			return reservation;
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+	}
+	
+	
 
 }
