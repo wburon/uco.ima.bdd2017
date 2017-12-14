@@ -8,7 +8,14 @@ public class Personnel {
 	private Fonction fonction;
 	private int annee_arrivee;
 	private String password;
+	private String login;
 	
+	public String getLogin() {
+		return login;
+	}
+	public void setLogin(String login) {
+		this.login = login;
+	}
 	public String getPassword() {
 		return password;
 	}
