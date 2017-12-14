@@ -1,7 +1,6 @@
 package DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +8,6 @@ import java.sql.Statement;
 
 import Singleton.SingletonConnection;
 import model.Client;
-import model.Personne;
 
 public class ClientDAO extends DAO<Client>{
 	

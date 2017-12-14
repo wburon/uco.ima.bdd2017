@@ -142,7 +142,7 @@ public class ParkingDAO extends DAO<Parking> {
 			else
 				prepare.setBoolean(2, gratuit);
 
-			if (veilleurDeNuit != true && gratuit != false)
+			if (veilleurDeNuit != true && veilleurDeNuit != false)
 				prepare.setString(3, "true or false");
 			else
 				prepare.setBoolean(3, veilleurDeNuit);
