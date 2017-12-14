@@ -12,6 +12,8 @@ import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.JComboBox;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
 
 public class JFModifPerso extends JFrame {
 
@@ -20,6 +22,8 @@ public class JFModifPerso extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private JTextField textField_4;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -64,6 +68,12 @@ public class JFModifPerso extends JFrame {
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		
+		JButton btnNewButton = new JButton("Valider");
+		panel_2.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Annuler");
+		panel_2.add(btnNewButton_1);
+		
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3, BorderLayout.EAST);
 		
@@ -106,6 +116,19 @@ public class JFModifPerso extends JFrame {
 		comboBox.addItem("Réceptionniste");
 		comboBox.addItem("Femme de ménage");
 		panel_4.add(comboBox);
+		
+		JLabel lblNewLabel_5 = new JLabel("Login :");
+		panel_4.add(lblNewLabel_5);
+		
+		textField_4 = new JTextField();
+		panel_4.add(textField_4);
+		textField_4.setColumns(10);
+		
+		JLabel lblNewLabel_6 = new JLabel("Password :");
+		panel_4.add(lblNewLabel_6);
+		
+		passwordField = new JPasswordField();
+		panel_4.add(passwordField);
 	}
 
 }

@@ -4,8 +4,10 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JTextArea;
+import javax.swing.JTable;
 
 public class JPgePerso extends JPanel {
+	private JTable table;
 
 	/**
 	 * Create the panel.
@@ -31,9 +33,10 @@ public class JPgePerso extends JPanel {
 		JPanel panel_4 = new JPanel();
 		add(panel_4, BorderLayout.CENTER);
 		
-		JTextArea textArea = new JTextArea();
-		panel_4.add(textArea);
-		textArea.setVisible(false);
+		table = new JTable();
+		panel_4.add(table);
+		
+		table.
 
 	}
 

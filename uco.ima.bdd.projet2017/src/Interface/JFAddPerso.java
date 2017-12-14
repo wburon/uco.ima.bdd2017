@@ -192,7 +192,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		panel_4.add(lblNewLabel_8);
 		
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"R\u00E9ceptionniste", "Agent d entretien"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Réceptionniste", "Agent entretien"}));
 		panel_4.add(comboBox);
 		
 		perso=new Personne();
@@ -232,12 +232,15 @@ public class JFAddPerso extends JFrame implements ActionListener {
 			boolean a = creationPerso(adresse, nom, prenom, ville, codePostal, date);
 			boolean b = creationNel(anneeArrivee, salaire, password, login);
 			
-			if (a && b){
+			if (a==true && b==true){
 				jopI.showMessageDialog(btnNewButton, "Votre ajout a bien été effectué", "Validation", JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
 			}else{
 				jopW.showMessageDialog(btnNewButton, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
-				pDAO.delete(perso);
+				if(a)
+					pDAO.delete(perso);
+				else if(b)
+					nDAO.delete(nel);
 			}
 			
 		}else if(e.getSource()==btnNewButton){
