@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Singleton.SingletonConnection;
+import model.ReservationReunion;
 import model.Salle_Reunion;
 
 public class Salle_ReunionDAO extends DAO<Salle_Reunion> {
@@ -105,6 +106,45 @@ public class Salle_ReunionDAO extends DAO<Salle_Reunion> {
 			e.printStackTrace();
 		}
 		return nbRow;
+	}
+	
+	public Salle_Reunion[] findSalleWithParam(boolean materielInfo, int capacite){
+		try {
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM salle_reunion where materiel_informatique = ? AND capacite >= ?");
+			PreparedStatement prepareCount = SC.prepareStatement("SELECT COUNT(*) FROM salle_reunion where materiel_informatique = ? AND capacite >= ?");
+			
+			ResultSet result = prepare.executeQuery();
+			
+			if (materielInfo != true && materielInfo != false){
+				prepare.setString(1, "true or false");
+				prepareCount.setString(1, "true or false");
+			}else{
+				prepare.setBoolean(1, materielInfo);
+				prepareCount.setBoolean(1, materielInfo);
+			}
+			if (capacite != (Integer) null){
+				prepare.setInt(2, capacite);
+				prepareCount.setInt(2, capacite);
+			}else{
+				prepare.setInt(2, Integer.MIN_VALUE);
+				prepareCount.setInt(2, Integer.MIN_VALUE);
+			}
+			  
+			
+			ResultSet resultCount = prepareCount.executeQuery();
+			
+			Salle_Reunion[] salle = new Salle_Reunion[resultCount.getInt(1)];
+			for(int i=0; i<salle.length;i++){
+				salle[i] = find(result.getInt("Id_salle"));
+				result.next();
+			}
+			return salle;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

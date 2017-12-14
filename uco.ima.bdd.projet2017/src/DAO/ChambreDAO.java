@@ -265,8 +265,8 @@ public class ChambreDAO extends DAO<Chambre>{
 	
 	public boolean findIfChambreIsLibre(Date debutResa, Date finResa){
 		// récuperation de la date du jour
-		String format = "dd/MM/yyyy"; 
-		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
+//		String format = "dd/MM/yyyy"; 
+//		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
 		java.util.Date date = new java.util.Date(); 
 		
 		if (date.before(debutResa) || date.after(finResa))

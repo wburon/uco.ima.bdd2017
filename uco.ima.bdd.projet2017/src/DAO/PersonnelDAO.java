@@ -7,10 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Singleton.SingletonConnection;
-import model.Client;
-import model.Fonction;
 import model.Personnel;
-import model.Reservation;
 
 public class PersonnelDAO extends DAO<Personnel> {
 
