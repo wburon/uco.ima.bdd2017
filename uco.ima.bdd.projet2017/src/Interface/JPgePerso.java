@@ -36,7 +36,7 @@ public class JPgePerso extends JPanel {
 		table = new JTable();
 		panel_4.add(table);
 		
-		table.
+		
 
 	}
 
