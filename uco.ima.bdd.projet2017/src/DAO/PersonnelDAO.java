@@ -23,13 +23,15 @@ public class PersonnelDAO extends DAO<Personnel> {
 	public boolean create(Personnel obj) {
 		try {
 
-			PreparedStatement prepare = SC.prepareStatement("Insert into personnel values (?,?,?,?,?);");
+			PreparedStatement prepare = SC.prepareStatement("Insert into personnel values (?,?,?,?,?,?,?);");
 
 			prepare.setInt(1, obj.getId_personnel());
 			prepare.setInt(2, obj.getPersonne().getId_personne());
 			prepare.setDouble(3, obj.getSalaire());
 			prepare.setInt(4, obj.getFonction().getId_fonction());
 			prepare.setInt(5, obj.getAnnee_arrivee());
+			prepare.setString(6, obj.getPassword());
+			prepare.setString(7, obj.getLogin());
 
 			prepare.executeUpdate();
 
@@ -61,13 +63,14 @@ public class PersonnelDAO extends DAO<Personnel> {
 	public boolean update(Personnel obj) {
 		try {
 			PreparedStatement prepare = SC.prepareStatement(
-					"Update personnel set salaire=?, id_fonction=?, annee_arrivee=?, password=? where id_personnel=?");
+					"Update personnel set salaire=?, id_fonction=?, annee_arrivee=?, password=?, login=? where id_personnel=?");
 
 			prepare.setDouble(1, obj.getSalaire());
 			prepare.setInt(2, obj.getFonction().getId_fonction());
 			prepare.setInt(3, obj.getAnnee_arrivee());
 			prepare.setString(4, obj.getPassword());
-			prepare.setInt(5, obj.getId_personnel());
+			prepare.setString(5, obj.getLogin());
+			prepare.setInt(6, obj.getId_personnel());
 
 			prepare.executeUpdate();
 			return true;
@@ -93,6 +96,8 @@ public class PersonnelDAO extends DAO<Personnel> {
 				personnel.setSalaire(result.getInt("salaire"));
 				personnel.setFonction(fonction.find(result.getInt("fonction")));
 				personnel.setAnnee_arrivee(result.getInt("annee_arrivee"));
+				personnel.setPassword(result.getString("password"));
+				personnel.setLogin(result.getString("login"));
 
 			}
 		} catch (SQLException e) {
