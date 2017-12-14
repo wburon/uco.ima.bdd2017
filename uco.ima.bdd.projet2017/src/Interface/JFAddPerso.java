@@ -21,6 +21,7 @@ import model.Personnel;
 
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -46,6 +47,15 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	private JTextField textField_9;
 	private JComboBox<String> comboBox;
 
+	private Personne perso;
+	private PersonneDAO pDAO;
+	private Personnel nel;
+	private PersonnelDAO nDAO;
+	private Fonction f;
+	private FonctionDAO fDAO;
+	
+	private static JOptionPane jopI;
+	private static JOptionPane jopW;
 	/**
 	 * Launch the application.
 	 */
@@ -143,6 +153,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		panel_5.add(lblNewLabel_9);
 		
 		textField_5 = new JTextField();
+		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		panel_5.add(textField_5);
 		textField_5.setColumns(3);
 		
@@ -159,6 +170,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		panel_5.add(lblNewLabel_11);
 		
 		textField_9 = new JTextField();
+		textField_9.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		panel_5.add(textField_9);
 		textField_9.setColumns(5);
 		
@@ -182,16 +194,22 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"R\u00E9ceptionniste", "Agent d entretien"}));
 		panel_4.add(comboBox);
+		
+		perso=new Personne();
+		pDAO = new PersonneDAO();
+		nel=new Personnel();
+		nDAO=new PersonnelDAO();
+		f=new Fonction();
+		fDAO=new FonctionDAO();
+		
+		jopI = new JOptionPane();
+		jopW = new JOptionPane();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Personne perso=new Personne();
-		PersonneDAO pDAO = new PersonneDAO();
-		Personnel nel=new Personnel();
-		PersonnelDAO nDAO=new PersonnelDAO();
-		Fonction f=new Fonction();
-		FonctionDAO fDAO=new FonctionDAO();
+		
 		if (e.getSource()==btnNewButton){
 			String nom = textField.getText();
 			String prenom = textField_1.getText();
@@ -208,27 +226,63 @@ public class JFAddPerso extends JFrame implements ActionListener {
 			
 			f=fDAO.find(fDAO.renvoieId(fonction));
 			
-			perso.setId_personne(pDAO.maxId());
-			perso.setAdresse(adresse);
-			perso.setNom(nom);
-			perso.setPrenom(prenom);
-			perso.setVille(ville);
-			perso.setCode_postal(codePostal);
-			perso.setDate_de_naissance(date);
+			String password = "";
+			String login = (prenom.charAt(0)+nom);
 			
-			pDAO.create(perso);
+			boolean a = creationPerso(adresse, nom, prenom, ville, codePostal, date);
+			boolean b = creationNel(anneeArrivee, salaire, password, login);
 			
-			nel.setAnnee_arrivee(anneeArrivee);
-			nel.setFonction(f);
-			nel.setId_personnel(nDAO.maxId());
-			nel.setPersonne(perso);
-			nel.setSalaire(salaire);
-			nel.setPassword("");
+			if (a && b){
+				jopI.showMessageDialog(btnNewButton, "Votre ajout a bien été effectué", "Validation", JOptionPane.INFORMATION_MESSAGE);
+				clearTextField();
+			}else{
+				jopW.showMessageDialog(btnNewButton, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
+				pDAO.delete(perso);
+			}
 			
-			
-			nDAO.create(nel);
+		}else if(e.getSource()==btnNewButton){
+			clearTextField();
 		}
 		
+	}
+	
+	public void clearTextField(){
+		textField.setText("");
+		textField_1.setText("");
+		textField_2.setText("");
+		textField_3.setText("");
+		textField_4.setText("");
+		textField_5.setText("");
+		textField_6.setText("");
+		textField_7.setText("");
+		textField_8.setText("");
+		textField_9.setText("");
+		
+	}
+	
+	public boolean creationPerso (String adresse, String nom, String prenom, String ville, int codePostal, Date date){
+		perso.setId_personne(pDAO.maxId());
+		perso.setAdresse(adresse);
+		perso.setNom(nom);
+		perso.setPrenom(prenom);
+		perso.setVille(ville);
+		perso.setCode_postal(codePostal);
+		perso.setDate_de_naissance(date);
+		
+		boolean verif = pDAO.create(perso);
+		return verif;
+	}
+	public boolean creationNel(int anneeArrivee, double salaire, String password, String login){
+		nel.setAnnee_arrivee(anneeArrivee);
+		nel.setFonction(f);
+		nel.setId_personnel(nDAO.maxId());
+		nel.setPersonne(perso);
+		nel.setSalaire(salaire);
+		nel.setPassword(password);
+		nel.setLogin(login);
+		
+		boolean verif = nDAO.create(nel);
+		return verif;
 	}
 
 }
