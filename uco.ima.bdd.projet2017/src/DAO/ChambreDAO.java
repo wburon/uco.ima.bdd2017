@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -125,6 +126,7 @@ public class ChambreDAO extends DAO<Chambre>{
 				chambre.setType_chambre(type_c.find(result.getInt("id_type_chambre")));
 									
 			}
+			
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -259,6 +261,18 @@ public class ChambreDAO extends DAO<Chambre>{
 			e.printStackTrace();
 		}
 		return nbRow;
+	}
+	
+	public boolean findIfChambreIsLibre(Date debutResa, Date finResa){
+		// récuperation de la date du jour
+//		String format = "dd/MM/yyyy"; 
+//		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
+		java.util.Date date = new java.util.Date(); 
+		
+		if (date.before(debutResa) || date.after(finResa))
+			return true;
+		else
+			return false;
 	}
 
 }

@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Singleton.SingletonConnection;
-import model.Client;
 import model.Personnel;
 
 public class PersonnelDAO extends DAO<Personnel> {
@@ -120,5 +119,33 @@ public class PersonnelDAO extends DAO<Personnel> {
 		}
 		return nbRow;
 	}
+	
+	public Personnel[] findPersonnelByFonction(String fonction){
+		
+		try {
+			FonctionDAO fonctionDao = new FonctionDAO();
+			int id_fonction = fonctionDao.renvoieId(fonction);
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM personnel where id_fonction = ?");
+			prepare.setInt(1, id_fonction);
+			ResultSet result = prepare.executeQuery();
+			
+			PreparedStatement prepareCount = SC.prepareStatement("SELECT COUNT(*) FROM personnel where id_fonction=?"); 
+			prepareCount.setInt(1, id_fonction);
+			ResultSet resultCount = prepareCount.executeQuery();
+			
+			Personnel[] personnel = new Personnel[resultCount.getInt(1)];
+			for(int i=0; i<personnel.length;i++){
+				personnel[i] = find(result.getInt("Id_personnel"));
+				result.next();
+			}
+			return personnel;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 
 }
