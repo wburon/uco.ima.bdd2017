@@ -106,5 +106,28 @@ public class Type_ChambreDAO extends DAO<Type_Chambre>{
 		}
 		return nbRow;
 	}
+	
+	public String[] listNameTypeChambre(){
+		int i=0;
+		String[] tabName = null;
+		try{
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM type_chambre", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ResultSet result = prepare.executeQuery();
+			
+			PreparedStatement prepareCount = SC.prepareStatement("SELECT COUNT(*) FROM type_chambre", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT); 
+			ResultSet resultCount = prepareCount.executeQuery();
+			resultCount.next();
+			tabName = new String[resultCount.getInt(1)];
+			if(result.first()){
+				do{
+					tabName[i] = result.getString("nom");
+					i++;
+				}while(result.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return tabName;
+	}
 
 }

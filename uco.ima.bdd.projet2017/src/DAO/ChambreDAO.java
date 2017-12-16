@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
 import Singleton.SingletonConnection;
 import model.Chambre;
 import model.Communicante;
@@ -76,18 +79,17 @@ public class ChambreDAO extends DAO<Chambre>{
 	 */
 	public boolean update(Chambre obj) {
 		try{
-			PreparedStatement prepare=SC.prepareStatement("UPDATE chambre SET id_hotel=?, numero_chambre=?, tele=?, handicap=?, tarif=?, libre=?, communicante=?, animaux=?, id_type_chambre=? WHERE id_chambre=?");
+			PreparedStatement prepare=SC.prepareStatement("UPDATE chambre SET numero_chambre=?, tele=?, handicap=?, tarif=?, libre=?, communicante=?, animaux=?, id_type_chambre=? WHERE id_chambre=?");
 			
-			prepare.setInt(1, obj.getHotel().getId_hotel());
-			prepare.setInt(2, obj.getNumero_chambre());
-			prepare.setBoolean(3, obj.isTele());
-			prepare.setBoolean(4, obj.isHandicap());
-			prepare.setDouble(5, obj.getTarif());
-			prepare.setBoolean(6, obj.isLibre());
-			prepare.setBoolean(7, obj.isCommunicante());
-			prepare.setBoolean(8, obj.isAnimaux());
-			prepare.setInt(9, obj.getType_chambre().getId_type_chambre());
-			prepare.setInt(10, obj.getId_chambre());
+			prepare.setInt(1, obj.getNumero_chambre());
+			prepare.setBoolean(2, obj.isTele());
+			prepare.setBoolean(3, obj.isHandicap());
+			prepare.setDouble(4, obj.getTarif());
+			prepare.setBoolean(5, obj.isLibre());
+			prepare.setBoolean(6, obj.isCommunicante());
+			prepare.setBoolean(7, obj.isAnimaux());
+			prepare.setInt(8, obj.getType_chambre().getId_type_chambre());
+			prepare.setInt(9, obj.getId_chambre());
 			
 			return true;
 		}catch(SQLException e) {
@@ -273,6 +275,27 @@ public class ChambreDAO extends DAO<Chambre>{
 			return true;
 		else
 			return false;
+	}
+
+	public boolean NumChambreExisteDeja(String text, JTextField idchambre, JTextField idhotel) {
+		PreparedStatement prepare;
+		try {
+			prepare = SC.prepareStatement("SELECT * FROM chambre WHERE id_hotel=? AND numero_chambre=?");
+			prepare.setInt(1, Integer.parseInt(idhotel.getText()));
+			prepare.setInt(2, Integer.parseInt(text));
+			ResultSet result=prepare.executeQuery();
+			
+			if(result.first() && result.getInt("id-chambre") == Integer.parseInt(idchambre.getText())){
+				System.out.println("tout va bien, le num chambre n'a pas été changé");
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+
 	}
 
 }
