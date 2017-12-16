@@ -288,4 +288,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		return verif;
 	}
 
+	public Personnel getPersonnel(){
+		return nel;
+	}
 }

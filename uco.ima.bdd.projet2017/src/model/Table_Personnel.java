@@ -29,6 +29,10 @@ public class Table_Personnel extends AbstractTableModel {
 		// TODO Auto-generated method stub
 		return entetes.length;
 	}
+	
+	public String getColumnName(int columnIndex) {
+        return entetes[columnIndex];
+    }
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
@@ -50,5 +54,18 @@ public class Table_Personnel extends AbstractTableModel {
 			return null;
 		}
 	}
+	public void addPersonnel(Personnel p){
+		listPerso.add(p);
+		
+		fireTableRowsInserted(listPerso.size()-1, listPerso.size()-1);
+		
+	}
+	public void removePersonnel(int rowIndex){
+		listPerso.remove(rowIndex);
+		
+		fireTableRowsDeleted(rowIndex, rowIndex);
+	}
+	
+	
 
 }
