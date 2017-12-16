@@ -89,7 +89,7 @@ public class PersonneDAO extends DAO<Personne> {
 	public Personne find(int id) {
 		Personne personne = new Personne();
 		try {
-			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM personne where id_personne = ?");
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM personne where id_personne = ?",  ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setInt(1, id);
 			ResultSet result = prepare.executeQuery();
 			
@@ -100,7 +100,7 @@ public class PersonneDAO extends DAO<Personne> {
 				personne.setVille(result.getString("ville"));
 				personne.setCode_postal(result.getInt("code_postal"));
 				personne.setAdresse(result.getString("adresse"));
-				personne.setDate_de_naissance(result.getDate("date_naissance"));
+				personne.setDate_de_naissance(result.getDate("date_de_naissance"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

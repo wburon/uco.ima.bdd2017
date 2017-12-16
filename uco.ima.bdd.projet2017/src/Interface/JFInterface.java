@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -16,11 +18,13 @@ import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 
-public class JFInterface extends JFrame {
+public class JFInterface extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	
+	private JButton btnOperationSurLe;
 
 	/**
 	 * Launch the application.
@@ -94,9 +98,10 @@ public class JFInterface extends JFrame {
 		center.add(JPOpePersonnel);
 		JPOpePersonnel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnOperationSurLe = new JButton("Operation sur le personnel");
+		btnOperationSurLe = new JButton("Operation sur le personnel");
 		btnOperationSurLe.setAlignmentX(Component.CENTER_ALIGNMENT);
 		JPOpePersonnel.add(btnOperationSurLe);
+		btnOperationSurLe.addActionListener(this);
 		
 		JPanel JPOpeHotel = new JPanel();
 		center.add(JPOpeHotel);
@@ -118,6 +123,19 @@ public class JFInterface extends JFrame {
 		
 		JButton btnQuitter = new JButton("Quitter");
 		JPQuitter.add(btnQuitter);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+		if(e.getSource()==btnOperationSurLe){
+			JPgePerso pp=new JPgePerso();
+			this.setContentPane(pp);
+			this.repaint();
+			this.revalidate();
+		}
+		
 	}
 
 }

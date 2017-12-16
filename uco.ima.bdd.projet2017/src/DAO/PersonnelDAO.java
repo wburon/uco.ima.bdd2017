@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import Singleton.SingletonConnection;
 import model.Personnel;
@@ -85,7 +86,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 		PersonneDAO personne = new PersonneDAO();
 		FonctionDAO fonction = new FonctionDAO();
 		try {
-			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM personnel where id_personnel = ?");
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM personnel where id_personnel = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setInt(1, id);
 			ResultSet result = prepare.executeQuery();
 
@@ -93,7 +94,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 				personnel.setId_personnel(result.getInt("id_personnel"));
 				personnel.setPersonne(personne.find(result.getInt("id_personne")));
 				personnel.setSalaire(result.getInt("salaire"));
-				personnel.setFonction(fonction.find(result.getInt("fonction")));
+				personnel.setFonction(fonction.find(result.getInt("id_fonction")));
 				personnel.setAnnee_arrivee(result.getInt("annee_arrivee"));
 				personnel.setPassword(result.getString("password"));
 				personnel.setLogin(result.getString("login"));
@@ -171,6 +172,25 @@ public class PersonnelDAO extends DAO<Personnel> {
 		}
 		System.out.println("ERREUR");
 		return -1;
+	}
+	
+	public ArrayList<Personnel> ListPersonnel(){
+		ArrayList<Personnel> listPersonnel = new ArrayList<Personnel>();
+		Statement state;
+		Personnel obj = new Personnel();
+		try{
+			state = SC.createStatement();
+			state.executeQuery("SELECT * FROM personnel");
+			ResultSet result = state.getResultSet();
+			
+			while(result.next()){
+				obj = find(result.getInt("id_personnel"));
+				listPersonnel.add(obj);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return listPersonnel;
 	}
 	
 

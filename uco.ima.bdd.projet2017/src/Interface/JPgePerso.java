@@ -4,9 +4,13 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JTextArea;
+
+import model.Table_Personnel;
+
 import javax.swing.JTable;
 
 public class JPgePerso extends JPanel {
+	private Table_Personnel tPerso = new Table_Personnel();
 	private JTable table;
 
 	/**
@@ -33,7 +37,7 @@ public class JPgePerso extends JPanel {
 		JPanel panel_4 = new JPanel();
 		add(panel_4, BorderLayout.CENTER);
 		
-		table = new JTable();
+		table = new JTable(tPerso);
 		panel_4.add(table);
 		
 		
