@@ -30,6 +30,9 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.Font;
 
+/*
+ * La classe est une JFrame qui s'ouvre lorsqu'uon veut ajouter un membre du personnel
+ */
 public class JFAddPerso extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
@@ -99,6 +102,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		
 		btnNewButton_1 = new JButton("Annuler");
 		panel_2.add(btnNewButton_1);
+		btnNewButton_1.addActionListener(this);
 		
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3, BorderLayout.EAST);
@@ -208,6 +212,10 @@ public class JFAddPerso extends JFrame implements ActionListener {
 
 	@SuppressWarnings("deprecation")
 	@Override
+	/*
+	 * Permet d'intéragir avec les boutons valider et annuler
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource()==btnNewButton){
@@ -243,12 +251,14 @@ public class JFAddPerso extends JFrame implements ActionListener {
 					nDAO.delete(nel);
 			}
 			
-		}else if(e.getSource()==btnNewButton){
+		}else if(e.getSource()==btnNewButton_1){
 			clearTextField();
 		}
 		
 	}
-	
+	/*
+	 * Permet d'effacer le contenu des TextField
+	 */
 	public void clearTextField(){
 		textField.setText("");
 		textField_1.setText("");
@@ -262,7 +272,9 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		textField_9.setText("");
 		
 	}
-	
+	/*
+	 * Permet de créer une nouvel personne dans la base de données et de renvoyer un booléen pour savoir si l'opération a été réussi
+	 */
 	public boolean creationPerso (String adresse, String nom, String prenom, String ville, int codePostal, Date date){
 		perso.setId_personne(pDAO.maxId());
 		perso.setAdresse(adresse);
@@ -275,6 +287,9 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		boolean verif = pDAO.create(perso);
 		return verif;
 	}
+	/*
+	 * Permet de créer une nouveau membre du personnel dans la base de données et de renvoyer un booléen pour savoir si l'opération a été réussi
+	 */
 	public boolean creationNel(int anneeArrivee, double salaire, String password, String login){
 		nel.setAnnee_arrivee(anneeArrivee);
 		nel.setFonction(f);
@@ -288,6 +303,9 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		return verif;
 	}
 
+	/*
+	 * Renvoie le membre du personnel enregistrer dans cette classe
+	 */
 	public Personnel getPersonnel(){
 		return nel;
 	}
