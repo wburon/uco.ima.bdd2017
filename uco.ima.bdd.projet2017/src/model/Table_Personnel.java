@@ -65,7 +65,9 @@ public class Table_Personnel extends AbstractTableModel {
 		
 		fireTableRowsDeleted(rowIndex, rowIndex);
 	}
-	
+	public Personnel getPersonnel(int i){
+		return listPerso.get(i);
+	}
 	
 
 }

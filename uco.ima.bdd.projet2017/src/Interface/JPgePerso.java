@@ -69,8 +69,11 @@ public class JPgePerso extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==btnModif){
 			JFModifPerso f1 = new JFModifPerso();
-			f1.setVisible(true);
 			int s = table.getSelectedRow();
+			f1.preAffichage(tPerso.getPersonnel(s));
+			f1.setVisible(true);
+			
+			
 		}
 		else if (e.getSource()==btnAjout){
 			JFAddPerso f2 = new JFAddPerso();

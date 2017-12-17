@@ -6,16 +6,22 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.Personnel;
+
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
-public class JFModifPerso extends JFrame {
+public class JFModifPerso extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -24,6 +30,10 @@ public class JFModifPerso extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JPasswordField passwordField;
+	
+	private JComboBox comboBox;
+	private JButton btnValider;
+	private JButton btnAnnuler;
 
 	/**
 	 * Launch the application.
@@ -68,11 +78,12 @@ public class JFModifPerso extends JFrame {
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		
-		JButton btnNewButton = new JButton("Valider");
-		panel_2.add(btnNewButton);
+		btnValider = new JButton("Valider");
+		panel_2.add(btnValider);
+		btnValider.addActionListener(this);
 		
-		JButton btnNewButton_1 = new JButton("Annuler");
-		panel_2.add(btnNewButton_1);
+		btnAnnuler = new JButton("Annuler");
+		panel_2.add(btnAnnuler);
 		
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3, BorderLayout.EAST);
@@ -112,7 +123,7 @@ public class JFModifPerso extends JFrame {
 		JLabel lblNewLabel_4 = new JLabel("Fonction :");
 		panel_4.add(lblNewLabel_4);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.addItem("Réceptionniste");
 		comboBox.addItem("Femme de ménage");
 		panel_4.add(comboBox);
@@ -129,6 +140,26 @@ public class JFModifPerso extends JFrame {
 		
 		passwordField = new JPasswordField();
 		panel_4.add(passwordField);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()==btnValider){
+			@SuppressWarnings("deprecation")
+			String a = passwordField.getText();
+			System.out.println(a);
+		}
+		
+	}
+	
+	public void preAffichage(Personnel perso){
+		textField.setText(perso.getPersonne().getNom());
+		textField_1.setText(perso.getPersonne().getPrenom());
+		textField_2.setText(String.valueOf(perso.getSalaire()));
+		textField_3.setText(String.valueOf(perso.getAnnee_arrivee()));
+		//Faire une méthode pour sélectionner le bon item dans jcomboBox
+		textField_4.setText(perso.getLogin());
 	}
 
 }
