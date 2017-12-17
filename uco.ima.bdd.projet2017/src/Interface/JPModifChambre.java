@@ -163,15 +163,6 @@ public class JPModifChambre extends JPanel implements ActionListener{
 
 	}
 
-	/**
-	 * private JTextField jtfNumChambre;
-	private JTextField jtfTarif;
-	private JButton btnUpdate, btnOK;
-	private JCheckBox cbTele, cbHandicap, cbLibre, cbCommunicante, cbAnimaux;
-	private JComboBox comboBoxTypeChambre;
-	private JTextField idhotel;
-	private JTextField idchambre;
-	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() == btnUpdate){
