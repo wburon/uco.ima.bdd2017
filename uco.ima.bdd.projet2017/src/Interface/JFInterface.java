@@ -111,6 +111,7 @@ public class JFInterface extends JFrame implements ActionListener{
 		
 		btnOperationSurLhotel = new JButton("Operation sur l'hotel");
 		JPOpeHotel.add(btnOperationSurLhotel);
+		btnOperationSurLhotel.addActionListener(this);
 		
 		JPanel JPOpeClientelle = new JPanel();
 		center.add(JPOpeClientelle);

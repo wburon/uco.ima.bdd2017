@@ -13,8 +13,15 @@ public class Hotel {
 	private boolean wifi;
 	private int nb_chambre_libre;
 	private int nb_chambre_total;
+	private String name;
 	
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getId_hotel() {
 		return id_hotel;
 	}
