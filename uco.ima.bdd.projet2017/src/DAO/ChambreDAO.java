@@ -111,7 +111,7 @@ public class ChambreDAO extends DAO<Chambre>{
 		HotelDAO hotel=new HotelDAO();
 		Type_ChambreDAO type_c= new Type_ChambreDAO();
 		try{
-			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM chambre WHERE id_chambre=?");
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM chambre WHERE id_chambre=?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setInt(1, id);
 			ResultSet result=prepare.executeQuery();
 			
@@ -343,6 +343,29 @@ public class ChambreDAO extends DAO<Chambre>{
 		java.util.Date date = new java.util.Date(); 
 
 		return formater.format( date );
+	}
+	
+	public Chambre[] chambresVoisines(int id_chambre){
+		Chambre [] voisines = new Chambre[2];
+		try{
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM chambre where id_hotel=? AND (numero_chambre=? OR numero_chambre=?)");
+			Chambre c = find(id_chambre);
+			prepare.setInt(1, c.getHotel().getId_hotel());
+			prepare.setInt(2, c.getNumero_chambre()-1);
+			prepare.setInt(3, c.getNumero_chambre()+1);
+			ResultSet result = prepare.executeQuery();
+			
+			int i=0;
+			while(result.next()){
+				voisines[i] = find(result.getInt("id_chambre"));
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return voisines;
 	}
 
 }
