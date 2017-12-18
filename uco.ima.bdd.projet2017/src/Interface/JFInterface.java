@@ -25,6 +25,8 @@ public class JFInterface extends JFrame implements ActionListener{
 	private JTextField textField_1;
 	
 	private JButton btnOperationSurLe;
+	private JButton btnOperationSurLa;
+	private JButton btnOperationSurLhotel;
 
 	/**
 	 * Launch the application.
@@ -107,14 +109,14 @@ public class JFInterface extends JFrame implements ActionListener{
 		center.add(JPOpeHotel);
 		JPOpeHotel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnOperationSurLhotel = new JButton("Operation sur l'hotel");
+		btnOperationSurLhotel = new JButton("Operation sur l'hotel");
 		JPOpeHotel.add(btnOperationSurLhotel);
 		
 		JPanel JPOpeClientelle = new JPanel();
 		center.add(JPOpeClientelle);
 		JPOpeClientelle.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnOperationSurLa = new JButton("Operation sur la clientelle");
+		btnOperationSurLa = new JButton("Operation sur la clientelle");
 		JPOpeClientelle.add(btnOperationSurLa);
 		
 		JPanel JPQuitter = new JPanel();
@@ -132,6 +134,11 @@ public class JFInterface extends JFrame implements ActionListener{
 		if(e.getSource()==btnOperationSurLe){
 			JPgePerso pp=new JPgePerso();
 			this.setContentPane(pp);
+			this.repaint();
+			this.revalidate();
+		}else if(e.getSource() == btnOperationSurLhotel){
+			JPgeHotel hh = new JPgeHotel();
+			this.setContentPane(hh);
 			this.repaint();
 			this.revalidate();
 		}
