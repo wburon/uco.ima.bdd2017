@@ -41,7 +41,7 @@ public class JPgePerso extends JPanel implements ActionListener{
 		JPanel panel_2 = new JPanel();
 		add(panel_2, BorderLayout.SOUTH);
 		
-		btnAjout = new JButton(new AddAction());
+		btnAjout = new JButton("Ajouter"/*new AddAction()*/);
 		panel_2.add(btnAjout);
 		btnAjout.addActionListener(this);
 		
@@ -63,7 +63,6 @@ public class JPgePerso extends JPanel implements ActionListener{
 		panel_4.add(new JScrollPane(table));
 		
 		
-		
 
 	}
 	@Override
@@ -77,9 +76,17 @@ public class JPgePerso extends JPanel implements ActionListener{
 			
 		}
 		else if (e.getSource()==btnAjout){
-			JFAddPerso f2 = new JFAddPerso();
-			f2.setVisible(true);
-			tPerso.addPersonnel(f2.getPersonnel());
+			Thread tache = new Thread() {   
+			    @Override 
+			    public void run() { 
+			    	JFAddPerso f2 = new JFAddPerso();
+					f2.setVisible(true);
+					tPerso.addPersonnel(f2.getPersonnel());
+			    } 
+			};
+			tache.start();
+			while(tache.isAlive()){}
+			table.repaint();	
 			
 		}
 		
