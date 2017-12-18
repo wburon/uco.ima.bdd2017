@@ -276,6 +276,24 @@ public class ChambreDAO extends DAO<Chambre>{
 		else
 			return false;
 	}
+	
+	public boolean findIfChambreIsLibreToday(int id_chambre){
+		try {
+			
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM reservation where id_chambre=? AND date_debut<=? AND date_fin>=?");
+			prepare.setInt(1, id_chambre);
+			prepare.setString(2, currentDate());
+			prepare.setString(3, currentDate());
+			ResultSet result = prepare.executeQuery();
+			
+			if(result.first())
+				return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 
 	public boolean NumChambreExisteDeja(String text, JTextField idchambre, JTextField idhotel) {
 		PreparedStatement prepare;
@@ -316,6 +334,15 @@ public class ChambreDAO extends DAO<Chambre>{
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	public String currentDate(){
+		String format = "dd-MM-yyyy"; 
+
+		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
+		java.util.Date date = new java.util.Date(); 
+
+		return formater.format( date );
 	}
 
 }
