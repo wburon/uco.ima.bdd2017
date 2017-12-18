@@ -13,6 +13,7 @@ import javax.swing.JTextArea;
 import model.Table_Personnel;
 
 import javax.swing.JTable;
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 
 public class JPgePerso extends JPanel implements ActionListener{
@@ -40,7 +41,7 @@ public class JPgePerso extends JPanel implements ActionListener{
 		JPanel panel_2 = new JPanel();
 		add(panel_2, BorderLayout.SOUTH);
 		
-		btnAjout = new JButton("Ajouter");
+		btnAjout = new JButton(new AddAction());
 		panel_2.add(btnAjout);
 		btnAjout.addActionListener(this);
 		
@@ -79,8 +80,24 @@ public class JPgePerso extends JPanel implements ActionListener{
 			JFAddPerso f2 = new JFAddPerso();
 			f2.setVisible(true);
 			tPerso.addPersonnel(f2.getPersonnel());
+			
 		}
 		
 	}
+//	private class AddAction extends AbstractAction {
+//
+//		private AddAction(){
+//			super("Ajouter");
+//		}
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			JFAddPerso f2 = new JFAddPerso();
+//			f2.setVisible(true);
+//			if(e.getSource()==){
+//				tPerso.addPersonnel(f2.getPersonnel());
+//			}
+//		}
+		
+//	}
 
 }

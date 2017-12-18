@@ -80,7 +80,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	 */
 	public JFAddPerso() {
 		setTitle("Ajout d'un membre du personnel");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 596, 362);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
