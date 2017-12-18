@@ -75,18 +75,17 @@ public class JPgePerso extends JPanel implements ActionListener{
 			
 			
 		}
-		else if (e.getSource()==btnAjout){
-			Thread tache = new Thread() {   
-			    @Override 
-			    public void run() { 
-			    	JFAddPerso f2 = new JFAddPerso();
+		else if (e.getSource()==btnAjout){ 
+			Thread tache = new Thread(){
+				
+				public void run(){
+					JFAddPerso f2 = new JFAddPerso();
 					f2.setVisible(true);
 					tPerso.addPersonnel(f2.getPersonnel());
-			    } 
+					
+				}
 			};
 			tache.start();
-			while(tache.isAlive()){}
-			table.repaint();	
 			
 		}
 		
