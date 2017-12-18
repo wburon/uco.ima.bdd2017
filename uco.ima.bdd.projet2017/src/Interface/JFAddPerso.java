@@ -10,8 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
-
 import DAO.FonctionDAO;
 import DAO.PersonneDAO;
 import DAO.PersonnelDAO;
@@ -56,9 +54,10 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	private PersonnelDAO nDAO;
 	private Fonction f;
 	private FonctionDAO fDAO;
+
+	private boolean valid;
 	
-	private static JOptionPane jopI;
-	private static JOptionPane jopW;
+
 	/**
 	 * Launch the application.
 	 */
@@ -86,180 +85,186 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
-		
+
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.WEST);
-		
+
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.SOUTH);
-		
+
 		btnNewButton = new JButton("Valider");
 		panel_2.add(btnNewButton);
 		btnNewButton.addActionListener(this);
-		
+
 		btnNewButton_1 = new JButton("Annuler");
 		panel_2.add(btnNewButton_1);
 		btnNewButton_1.addActionListener(this);
-		
+
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3, BorderLayout.EAST);
-		
+
 		JPanel panel_4 = new JPanel();
 		contentPane.add(panel_4, BorderLayout.CENTER);
 		panel_4.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		JLabel lblNewLabel = new JLabel("Nom : ");
 		panel_4.add(lblNewLabel);
-		
+
 		textField = new JTextField();
 		panel_4.add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Pr\u00E9nom :");
 		panel_4.add(lblNewLabel_1);
-		
+
 		textField_1 = new JTextField();
 		panel_4.add(textField_1);
 		textField_1.setColumns(10);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("Adresse :");
 		panel_4.add(lblNewLabel_2);
-		
+
 		textField_2 = new JTextField();
 		panel_4.add(textField_2);
 		textField_2.setColumns(10);
-		
+
 		JLabel lblNewLabel_3 = new JLabel("Ville : ");
 		panel_4.add(lblNewLabel_3);
-		
+
 		textField_3 = new JTextField();
 		panel_4.add(textField_3);
 		textField_3.setColumns(10);
-		
+
 		JLabel lblNewLabel_4 = new JLabel("Code Postal : ");
 		panel_4.add(lblNewLabel_4);
-		
+
 		textField_4 = new JTextField();
 		panel_4.add(textField_4);
 		textField_4.setColumns(10);
-		
+
 		JLabel lblNewLabel_5 = new JLabel("Date de naissance : ");
 		panel_4.add(lblNewLabel_5);
-		
+
 		JPanel panel_5 = new JPanel();
 		panel_4.add(panel_5);
-		
+
 		JLabel lblNewLabel_9 = new JLabel("J :");
 		lblNewLabel_9.setPreferredSize(new Dimension(20, 14));
 		panel_5.add(lblNewLabel_9);
-		
+
 		textField_5 = new JTextField();
 		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		panel_5.add(textField_5);
 		textField_5.setColumns(3);
-		
+
 		JLabel lblNewLabel_10 = new JLabel("M :");
 		lblNewLabel_10.setPreferredSize(new Dimension(20, 14));
 		panel_5.add(lblNewLabel_10);
-		
+
 		textField_8 = new JTextField();
 		textField_8.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		panel_5.add(textField_8);
 		textField_8.setColumns(3);
-		
+
 		JLabel lblNewLabel_11 = new JLabel("A :");
 		panel_5.add(lblNewLabel_11);
-		
+
 		textField_9 = new JTextField();
 		textField_9.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		panel_5.add(textField_9);
 		textField_9.setColumns(5);
-		
+
 		JLabel lblNewLabel_6 = new JLabel("Salaire : ");
 		panel_4.add(lblNewLabel_6);
-		
+
 		textField_6 = new JTextField();
 		panel_4.add(textField_6);
 		textField_6.setColumns(10);
-		
+
 		JLabel lblNewLabel_7 = new JLabel("Ann\u00E9e d'arriv\u00E9e :");
 		panel_4.add(lblNewLabel_7);
-		
+
 		textField_7 = new JTextField();
 		panel_4.add(textField_7);
 		textField_7.setColumns(10);
-		
+
 		JLabel lblNewLabel_8 = new JLabel("Fonction : ");
 		panel_4.add(lblNewLabel_8);
-		
+
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Réceptionniste", "Agent entretien"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Réceptionniste", "Agent entretien" }));
 		panel_4.add(comboBox);
-		
-		perso=new Personne();
+
+		perso = new Personne();
 		pDAO = new PersonneDAO();
-		nel=new Personnel();
-		nDAO=new PersonnelDAO();
-		f=new Fonction();
-		fDAO=new FonctionDAO();
-		
-		jopI = new JOptionPane();
-		jopW = new JOptionPane();
+		nel = new Personnel();
+		nDAO = new PersonnelDAO();
+		f = new Fonction();
+		fDAO = new FonctionDAO();
+
+
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	/*
 	 * Permet d'intéragir avec les boutons valider et annuler
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 * 
+	 * @see
+	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	public void actionPerformed(ActionEvent e) {
-		
-		if (e.getSource()==btnNewButton){
+
+		if (e.getSource() == btnNewButton) {
 			String nom = textField.getText();
 			String prenom = textField_1.getText();
 			String adresse = textField_2.getText();
 			String ville = textField_3.getText();
 			int codePostal = Integer.parseInt(textField_4.getText());
-			int annee = Integer.parseInt(textField_9.getText())-1900;
-			int mois = Integer.parseInt(textField_8.getText())-1;
+			int annee = Integer.parseInt(textField_9.getText()) - 1900;
+			int mois = Integer.parseInt(textField_8.getText()) - 1;
 			int jour = Integer.parseInt(textField_5.getText());
 			Date date = new Date(annee, mois, jour);
 			double salaire = Double.parseDouble(textField_6.getText());
 			int anneeArrivee = Integer.parseInt(textField_7.getText());
 			String fonction = comboBox.getSelectedItem().toString();
-			
-			f=fDAO.find(fDAO.renvoieId(fonction));
-			
+
+			f = fDAO.find(fDAO.renvoieId(fonction));
+
 			String password = "";
-			String login = (prenom.charAt(0)+nom);
-			
+			String login = (prenom.charAt(0) + nom);
+
 			boolean a = creationPerso(adresse, nom, prenom, ville, codePostal, date);
 			boolean b = creationNel(anneeArrivee, salaire, password, login);
-			
-			if (a==true && b==true){
-				jopI.showMessageDialog(btnNewButton, "Votre ajout a bien été effectué", "Validation", JOptionPane.INFORMATION_MESSAGE);
+
+			if (a == true && b == true) {
+				JOptionPane.showMessageDialog(btnNewButton, "Votre ajout a bien été effectué", "Validation",
+						JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
-			}else{
-				jopW.showMessageDialog(btnNewButton, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
-				if(a)
+				valid=true;
+				
+			} else {
+				JOptionPane.showMessageDialog(btnNewButton, "Vous avez fait une erreur dans la saisie", "Erreur",
+						JOptionPane.ERROR_MESSAGE);
+				if (a)
 					pDAO.delete(perso);
-				else if(b)
+				else if (b)
 					nDAO.delete(nel);
+				valid=false;
 			}
-			
-		}else if(e.getSource()==btnNewButton_1){
+
+		} else if (e.getSource() == btnNewButton_1)
 			clearTextField();
-		}
-		
+
 	}
+
 	/*
 	 * Permet d'effacer le contenu des TextField
 	 */
-	public void clearTextField(){
+	public void clearTextField() {
 		textField.setText("");
 		textField_1.setText("");
 		textField_2.setText("");
@@ -270,12 +275,14 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		textField_7.setText("");
 		textField_8.setText("");
 		textField_9.setText("");
-		
+
 	}
+
 	/*
-	 * Permet de créer une nouvel personne dans la base de données et de renvoyer un booléen pour savoir si l'opération a été réussi
+	 * Permet de créer une nouvel personne dans la base de données et de
+	 * renvoyer un booléen pour savoir si l'opération a été réussi
 	 */
-	public boolean creationPerso (String adresse, String nom, String prenom, String ville, int codePostal, Date date){
+	public boolean creationPerso(String adresse, String nom, String prenom, String ville, int codePostal, Date date) {
 		perso.setId_personne(pDAO.maxId());
 		perso.setAdresse(adresse);
 		perso.setNom(nom);
@@ -283,14 +290,16 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		perso.setVille(ville);
 		perso.setCode_postal(codePostal);
 		perso.setDate_de_naissance(date);
-		
+
 		boolean verif = pDAO.create(perso);
 		return verif;
 	}
+
 	/*
-	 * Permet de créer une nouveau membre du personnel dans la base de données et de renvoyer un booléen pour savoir si l'opération a été réussi
+	 * Permet de créer une nouveau membre du personnel dans la base de données
+	 * et de renvoyer un booléen pour savoir si l'opération a été réussi
 	 */
-	public boolean creationNel(int anneeArrivee, double salaire, String password, String login){
+	public boolean creationNel(int anneeArrivee, double salaire, String password, String login) {
 		nel.setAnnee_arrivee(anneeArrivee);
 		nel.setFonction(f);
 		nel.setId_personnel(nDAO.maxId());
@@ -298,7 +307,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		nel.setSalaire(salaire);
 		nel.setPassword(password);
 		nel.setLogin(login);
-		
+
 		boolean verif = nDAO.create(nel);
 		return verif;
 	}
@@ -306,7 +315,11 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	/*
 	 * Renvoie le membre du personnel enregistrer dans cette classe
 	 */
-	public Personnel getPersonnel(){
+	public Personnel getPersonnel() {
 		return nel;
 	}
+	public boolean isValid(){
+		return valid;
+	}
+
 }

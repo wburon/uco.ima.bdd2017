@@ -6,6 +6,7 @@ import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 
 import javax.swing.JMenuBar;
 import javax.swing.JTextArea;
@@ -23,6 +24,8 @@ public class JPgePerso extends JPanel implements ActionListener{
 	private JButton btnAjout;
 	private JButton btnModif;
 	private JButton btnSupprimer;
+	
+	private JFAddPerso f2;
 	/**
 	 * Create the panel.
 	 */
@@ -62,6 +65,8 @@ public class JPgePerso extends JPanel implements ActionListener{
 		table = new JTable(tPerso);
 		panel_4.add(new JScrollPane(table));
 		
+		f2 = new JFAddPerso();
+		
 		
 
 	}
@@ -76,19 +81,20 @@ public class JPgePerso extends JPanel implements ActionListener{
 			
 		}
 		else if (e.getSource()==btnAjout){ 
-			Thread tache = new Thread(){
-				
-				public void run(){
-					JFAddPerso f2 = new JFAddPerso();
-					f2.setVisible(true);
-					tPerso.addPersonnel(f2.getPersonnel());
+			f2.setVisible(true);
+			f2.actionPerformed(e);
+			boolean b=f2.isValid();
+			System.out.println(b);
+			if(f2.isValid())
+				tPerso.addPersonnel(f2.getPersonnel());
 					
-				}
-			};
-			tache.start();
 			
 		}
 		
+	}
+	
+	public Table_Personnel getTPerso(){
+		return tPerso;
 	}
 //	private class AddAction extends AbstractAction {
 //
