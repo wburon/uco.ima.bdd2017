@@ -22,7 +22,6 @@ import DAO.Type_ChambreDAO;
 import model.Chambre;
 
 public class JFAddChambre extends JFrame implements ActionListener{
-	private JTextField jtfIdHotel;
 	private JTextField jtfNumChambre;
 	private JTextField jtfTarif;
 	private JComboBox comboBoxTypeChambre;
@@ -31,16 +30,20 @@ public class JFAddChambre extends JFrame implements ActionListener{
 	private JCheckBox cbHandi;
 	private JCheckBox cbTele;
 	private JButton btnAjouter;
+	private int id_hotel;
 
 	/**
 	 * Create the panel.
 	 */
-	public JFAddChambre() {
-		setLayout(new BorderLayout(0, 0));
+	public JFAddChambre(int id_hotel) {
+		this.id_hotel = id_hotel;
+		
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		setBounds(100, 100, 596, 362);
 		
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(10, 50));
-		add(panel, BorderLayout.NORTH);
+		getContentPane().add(panel, BorderLayout.NORTH);
 		
 		JLabel lblAjouterUneChambre = new JLabel("Ajouter une chambre ");
 		lblAjouterUneChambre.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -48,23 +51,22 @@ public class JFAddChambre extends JFrame implements ActionListener{
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setPreferredSize(new Dimension(10, 50));
-		add(panel_1, BorderLayout.SOUTH);
+		getContentPane().add(panel_1, BorderLayout.SOUTH);
 		
 		btnAjouter = new JButton("AJOUTER");
 		btnAjouter.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel_1.add(btnAjouter);
 		
 		JPanel panel_2 = new JPanel();
-		add(panel_2, BorderLayout.CENTER);
+		getContentPane().add(panel_2, BorderLayout.CENTER);
 		panel_2.setLayout(new GridLayout(4, 4, 0, 0));
 		
 		JLabel label = new JLabel("ID Hotel");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(label);
 		
-		jtfIdHotel = new JTextField();
-		jtfIdHotel.setColumns(10);
-		panel_2.add(jtfIdHotel);
+		JLabel label_6 = new JLabel(""+id_hotel);
+		panel_2.add(label_6);
 		
 		JLabel label_1 = new JLabel("Num\u00E9ro de chambre");
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -131,7 +133,7 @@ public class JFAddChambre extends JFrame implements ActionListener{
 			chambre.setAnimaux(cbAnimaux.isSelected());
 			chambre.setCommunicante(cbComm.isSelected());
 			chambre.setHandicap(cbHandi.isSelected());
-			chambre.setHotel(hDAO.find(Integer.parseInt(jtfIdHotel.getText())));
+			chambre.setHotel(hDAO.find(id_hotel));
 			chambre.setLibre(true);
 			chambre.setNumero_chambre(Integer.parseInt(jtfNumChambre.getText()));
 			chambre.setTarif(Double.parseDouble(jtfTarif.getText()));
@@ -148,11 +150,9 @@ public class JFAddChambre extends JFrame implements ActionListener{
 	private boolean verificationDonnée() {
 		ChambreDAO c = new ChambreDAO();
 		HotelDAO hDAO = new HotelDAO();
-		if(c.NumChambreExisteDeja(jtfNumChambre.getText(), jtfIdHotel) == false)
+		if(c.NumChambreExisteDeja(jtfNumChambre.getText(), id_hotel) == false)
 			return false;
 		if(Double.parseDouble(jtfTarif.getText()) <= 0 )
-			return false;
-		if(hDAO.find(Integer.parseInt(jtfIdHotel.getText())) == null)
 			return false;
 		
 		return true;

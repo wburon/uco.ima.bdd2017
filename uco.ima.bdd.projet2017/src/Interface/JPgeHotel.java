@@ -22,6 +22,7 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	private JTable table;
 	private Table_Hotel tHotel = new Table_Hotel();
 	private JButton btnPlusDinfo;
+	private int s =-1;
 
 	/**
 	 * Create the panel.
@@ -71,11 +72,11 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnPlusDinfo){
 			if(table.getModel() == tHotel){
-				int s = table.getSelectedRow();
+				s = table.getSelectedRow();
 				table.setModel(new Table_Chambre(s));
 				btnPlusDinfo.setText("Retour au hotel");
 			}else{
-				
+				s = table.getSelectedRow();
 				table.setModel(tHotel);
 				btnPlusDinfo.setText("Plus d'info sur l'hotel");
 			}
@@ -85,7 +86,8 @@ public class JPgeHotel extends JPanel implements ActionListener{
 				h1.setVisible(true);
 //				tHotel.addHotel(h1.getHotel());
 			}else{
-				
+				JFAddChambre c1 = new JFAddChambre(tHotel.getHotel(s).getId_hotel());
+				c1.setVisible(true);
 			}
 		}
 		

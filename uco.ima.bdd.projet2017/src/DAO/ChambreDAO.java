@@ -318,11 +318,11 @@ public class ChambreDAO extends DAO<Chambre>{
 
 	}
 
-	public boolean NumChambreExisteDeja(String text, JTextField jtfIdHotel) {
+	public boolean NumChambreExisteDeja(String text, int IdHotel) {
 		PreparedStatement prepare;
 		try {
 			prepare = SC.prepareStatement("SELECT * FROM chambre WHERE id_hotel=? AND numero_chambre=?");
-			prepare.setInt(1, Integer.parseInt(jtfIdHotel.getText()));
+			prepare.setInt(1, IdHotel);
 			prepare.setInt(2, Integer.parseInt(text));
 			ResultSet result=prepare.executeQuery();
 			
