@@ -3,6 +3,7 @@ package Interface;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import model.Table_Chambre;
 import model.Table_Hotel;
 
 public class JPgeHotel extends JPanel implements ActionListener{
@@ -19,6 +21,7 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	private JButton btnSupprimer;
 	private JTable table;
 	private Table_Hotel tHotel = new Table_Hotel();
+	private JButton btnPlusDinfo;
 
 	/**
 	 * Create the panel.
@@ -50,6 +53,10 @@ public class JPgeHotel extends JPanel implements ActionListener{
 		panel_2.add(btnSupprimer);
 		btnSupprimer.addActionListener(this);
 		
+		btnPlusDinfo = new JButton("Plus d'info sur l'hotel");
+		panel_2.add(btnPlusDinfo);
+		btnPlusDinfo.addActionListener(this);
+		
 		JPanel panel_3 = new JPanel();
 		add(panel_3, BorderLayout.EAST);
 		
@@ -62,13 +69,27 @@ public class JPgeHotel extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btnModif){
-			JFModifPerso f1 = new JFModifPerso();
-			int s = table.getSelectedRow();
-			f1.preAffichage(tPerso.getPersonnel(s));
-			f1.setVisible(true);
+		if(e.getSource() == btnPlusDinfo){
+			if(table.getModel() == tHotel){
+				int s = table.getSelectedRow();
+				table.setModel(new Table_Chambre(s));
+				btnPlusDinfo.setText("Retour au hotel");
+			}else{
+				
+				table.setModel(tHotel);
+				btnPlusDinfo.setText("Plus d'info sur l'hotel");
+			}
+		}else if(e.getSource() == btnAjout){
+			if(table.getModel() == tHotel){
+				JFAddHotel h1 = new JFAddHotel();
+				h1.setVisible(true);
+//				tHotel.addHotel(h1.getHotel());
+			}else{
+				
+			}
 		}
 		
 	}
+	
 
 }

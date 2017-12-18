@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 
 import DAO.ChambreDAO;
@@ -20,7 +21,7 @@ import DAO.HotelDAO;
 import DAO.Type_ChambreDAO;
 import model.Chambre;
 
-public class JPAddChambre extends JPanel implements ActionListener{
+public class JFAddChambre extends JFrame implements ActionListener{
 	private JTextField jtfIdHotel;
 	private JTextField jtfNumChambre;
 	private JTextField jtfTarif;
@@ -34,7 +35,7 @@ public class JPAddChambre extends JPanel implements ActionListener{
 	/**
 	 * Create the panel.
 	 */
-	public JPAddChambre() {
+	public JFAddChambre() {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();

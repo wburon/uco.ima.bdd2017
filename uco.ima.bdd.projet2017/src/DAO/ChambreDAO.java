@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -13,6 +14,7 @@ import javax.swing.JTextField;
 import Singleton.SingletonConnection;
 import model.Chambre;
 import model.Communicante;
+import model.Hotel;
 import model.Type_Chambre;
 
 public class ChambreDAO extends DAO<Chambre>{
@@ -366,6 +368,25 @@ public class ChambreDAO extends DAO<Chambre>{
 			e.printStackTrace();
 		}
 		return voisines;
+	}
+
+	public ArrayList<Chambre> ListChambre(int id_hotel) {
+		ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
+		
+		Chambre obj = new Chambre();
+		try{
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM chambre where id_hotel=?");
+			prepare.setInt(1, id_hotel);
+			ResultSet result = prepare.executeQuery();
+			
+			while(result.next()){
+				obj = find(result.getInt("id_chambre"));
+				listChambre.add(obj);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return listChambre;
 	}
 
 }

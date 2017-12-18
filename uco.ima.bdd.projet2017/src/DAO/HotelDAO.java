@@ -88,7 +88,7 @@ public class HotelDAO extends DAO<Hotel> {
 	public Hotel find(int id) {
 		Hotel hotel = new Hotel();
 		try{
-			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM hotel WHERE id_hotel = ?");
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM hotel WHERE id_hotel = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setInt(1, id);
 			ResultSet result = prepare.executeQuery();
 			
