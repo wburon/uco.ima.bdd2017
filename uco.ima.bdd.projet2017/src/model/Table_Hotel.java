@@ -56,18 +56,18 @@ public class Table_Hotel extends AbstractTableModel{
 			return null;
 		}
 	}
-	public void addPersonnel(Hotel h){
+	public void addHotel(Hotel h){
 		listHotel.add(h);
 		
 		fireTableRowsInserted(listHotel.size()-1, listHotel.size()-1);
 		
 	}
-	public void removePersonnel(int rowIndex){
+	public void removeHotel(int rowIndex){
 		listHotel.remove(rowIndex);
 		
 		fireTableRowsDeleted(rowIndex, rowIndex);
 	}
-	public Hotel getPersonnel(int i){
+	public Hotel getHotel(int i){
 		return listHotel.get(i);
 	}
 
