@@ -128,6 +128,13 @@ public class JPlog extends JPanel implements ActionListener{
 			if(nel.getFonction().getNiveau_contrainte()==0){
 				
 			}
+			if(nel.getFonction().getNiveau_contrainte()==1){
+				
+			}
+			if(nel.getFonction().getNiveau_contrainte()==2){
+				JPgerant jpg=new JPgerant();
+				
+			}
 		}
 		
 	}
