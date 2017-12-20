@@ -82,11 +82,6 @@ public class JPgePerso extends JPanel implements ActionListener{
 		}
 		else if (e.getSource()==btnAjout){ 
 			f2.setVisible(true);
-			f2.actionPerformed(e);
-			boolean b=f2.isValid();
-			System.out.println(b);
-			if(f2.isValid())
-				tPerso.addPersonnel(f2.getPersonnel());
 					
 			
 		}

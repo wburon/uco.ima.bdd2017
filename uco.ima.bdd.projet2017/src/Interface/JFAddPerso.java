@@ -54,6 +54,8 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	private PersonnelDAO nDAO;
 	private Fonction f;
 	private FonctionDAO fDAO;
+	
+//	private JPgePerso jpge;
 
 	private boolean valid;
 	
@@ -204,6 +206,8 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		nDAO = new PersonnelDAO();
 		f = new Fonction();
 		fDAO = new FonctionDAO();
+		
+//		jpge = new JPgePerso();
 
 
 	}
@@ -245,6 +249,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 						JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
 				valid=true;
+//				jpge.getTPerso().addPersonnel(nel);
 				
 			} else {
 				JOptionPane.showMessageDialog(btnNewButton, "Vous avez fait une erreur dans la saisie", "Erreur",
