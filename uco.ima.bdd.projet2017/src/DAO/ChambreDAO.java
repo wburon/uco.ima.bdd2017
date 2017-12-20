@@ -321,7 +321,7 @@ public class ChambreDAO extends DAO<Chambre>{
 	public boolean NumChambreExisteDeja(String text, int IdHotel) {
 		PreparedStatement prepare;
 		try {
-			prepare = SC.prepareStatement("SELECT * FROM chambre WHERE id_hotel=? AND numero_chambre=?");
+			prepare = SC.prepareStatement("SELECT * FROM chambre WHERE id_hotel=? AND numero_chambre=?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setInt(1, IdHotel);
 			prepare.setInt(2, Integer.parseInt(text));
 			ResultSet result=prepare.executeQuery();
@@ -388,5 +388,7 @@ public class ChambreDAO extends DAO<Chambre>{
 		}
 		return listChambre;
 	}
+	
+	
 
 }

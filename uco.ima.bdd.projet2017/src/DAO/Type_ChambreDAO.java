@@ -73,7 +73,7 @@ public class Type_ChambreDAO extends DAO<Type_Chambre>{
 	public Type_Chambre find(int id) {
 		Type_Chambre type_c = new Type_Chambre();
 		try{
-			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM type_chambre WHERE id_type_chambre=?");
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM type_chambre WHERE id_type_chambre=?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setInt(1, id);
 			ResultSet result = prepare.executeQuery();
 			
@@ -128,6 +128,24 @@ public class Type_ChambreDAO extends DAO<Type_Chambre>{
 			e.printStackTrace();
 		}
 		return tabName;
+	}
+	
+	public int findId(String name){
+		PreparedStatement prepare;
+		try {
+			prepare = SC.prepareStatement("SELECT * FROM type_chambre WHERE nom = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			prepare.setString(1, name);
+			ResultSet result = prepare.executeQuery();
+			int id=-1;
+			if(result.first()){
+				id = result.getInt("id_type_chambre");
+			}
+			return id;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
 	}
 
 }

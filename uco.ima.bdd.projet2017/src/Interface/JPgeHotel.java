@@ -73,7 +73,7 @@ public class JPgeHotel extends JPanel implements ActionListener{
 		if(e.getSource() == btnPlusDinfo){
 			if(table.getModel() == tHotel){
 				s = table.getSelectedRow();
-				table.setModel(new Table_Chambre(s));
+				table.setModel(new Table_Chambre(s+1));
 				btnPlusDinfo.setText("Retour au hotel");
 			}else{
 				s = table.getSelectedRow();

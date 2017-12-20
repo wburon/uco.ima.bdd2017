@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -20,6 +22,10 @@ import DAO.ChambreDAO;
 import DAO.HotelDAO;
 import DAO.Type_ChambreDAO;
 import model.Chambre;
+import model.Table_Chambre;
+import model.Type_Chambre;
+
+import javax.swing.DefaultComboBoxModel;
 
 public class JFAddChambre extends JFrame implements ActionListener{
 	private JTextField jtfNumChambre;
@@ -31,12 +37,15 @@ public class JFAddChambre extends JFrame implements ActionListener{
 	private JCheckBox cbTele;
 	private JButton btnAjouter;
 	private int id_hotel;
+	private Type_ChambreDAO tcDAO = new Type_ChambreDAO();
+	private Table_Chambre tChambre;
 
 	/**
 	 * Create the panel.
 	 */
 	public JFAddChambre(int id_hotel) {
 		this.id_hotel = id_hotel;
+		this.tChambre = new Table_Chambre(id_hotel);
 		
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		setBounds(100, 100, 596, 362);
@@ -109,6 +118,7 @@ public class JFAddChambre extends JFrame implements ActionListener{
 		panel_2.add(lblTypeDeChambre);
 		
 		comboBoxTypeChambre = new JComboBox();
+		comboBoxTypeChambre.setModel(new DefaultComboBoxModel(tcDAO.listNameTypeChambre()));
 		panel_2.add(comboBoxTypeChambre);
 		
 		JLabel lblTarif = new JLabel("Tarif");
@@ -138,15 +148,31 @@ public class JFAddChambre extends JFrame implements ActionListener{
 			chambre.setNumero_chambre(Integer.parseInt(jtfNumChambre.getText()));
 			chambre.setTarif(Double.parseDouble(jtfTarif.getText()));
 			chambre.setTele(cbTele.isSelected());
-			chambre.setType_chambre(tDAO.find(comboBoxTypeChambre.getSelectedIndex()));
-			if(verificationDonnée())
+			Type_Chambre tc = tDAO.find(tDAO.findId(comboBoxTypeChambre.getSelectedItem().toString()));
+			chambre.setType_chambre(tc);
+			if(verificationDonnée()){
 				cDAO.create(chambre);
-			else
+				JOptionPane.showMessageDialog(btnAjouter, "Votre ajout a bien été effectué", "Validation",
+						JOptionPane.INFORMATION_MESSAGE);
+				clearTextField();
+				tChambre.addChambre(chambre);
+			}else
 				System.out.println("TRY AGAIN");
+			
+			
 		}
 		
 	}
 	
+	private void clearTextField() {
+		jtfNumChambre.setText("");
+		jtfTarif.setText("");
+		cbAnimaux.setSelected(false);
+		cbComm.setSelected(false);
+		cbHandi.setSelected(false);
+		cbTele.setSelected(false);
+	}
+
 	private boolean verificationDonnée() {
 		ChambreDAO c = new ChambreDAO();
 		HotelDAO hDAO = new HotelDAO();
