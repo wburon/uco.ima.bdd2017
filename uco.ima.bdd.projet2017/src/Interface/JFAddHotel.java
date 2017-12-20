@@ -35,7 +35,6 @@ public class JFAddHotel extends JFrame implements ActionListener{
 	private JTextField jtfProprio;
 	private JTextField jtfVille;
 	private JTextField jtfCP;
-	private JTextField jtfNbChambre;
 	private JTextField jtfPays;
 	private JButton btnAnnuler;
 	private JButton btnValider;
@@ -44,6 +43,7 @@ public class JFAddHotel extends JFrame implements ActionListener{
 	private HotelDAO hDAO = new HotelDAO();
 	private Hotel h = new Hotel();
 	private String[] item;
+	private JLabel lblNbChambre;
 
 	/**
 	 * Launch the application.
@@ -65,7 +65,7 @@ public class JFAddHotel extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public JFAddHotel() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -134,9 +134,8 @@ public class JFAddHotel extends JFrame implements ActionListener{
 		lblNombreDeChambre.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(lblNombreDeChambre);
 		
-		jtfNbChambre = new JTextField();
-		panel_1.add(jtfNbChambre);
-		jtfNbChambre.setColumns(10);
+		lblNbChambre = new JLabel("0");
+		panel_1.add(lblNbChambre);
 		
 		JLabel lblPays = new JLabel("Pays");
 		lblPays.setHorizontalAlignment(SwingConstants.CENTER);
@@ -177,7 +176,7 @@ public class JFAddHotel extends JFrame implements ActionListener{
 			String pays = jtfPays.getText();
 			String proprietaire = jtfProprio.getText();
 			int standing = Integer.parseInt(item[comboBox.getSelectedIndex()]);
-			int nb_chambre = Integer.parseInt(jtfNbChambre.getText());
+			int nb_chambre = 0;
 			boolean wifi = checkBox.isSelected();
 			
 			boolean a = creationHotel(adresse, CP, nom, nb_chambre, pays, proprietaire, standing, ville, wifi );
@@ -185,6 +184,7 @@ public class JFAddHotel extends JFrame implements ActionListener{
 			if (a==true){
 				new JOptionPane().showMessageDialog(btnValider, "Votre ajout a bien été effectué", "Validation", JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
+				this.dispose();
 			}else{
 				new JOptionPane().showMessageDialog(btnValider, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
@@ -199,7 +199,6 @@ public class JFAddHotel extends JFrame implements ActionListener{
 		jtfAdresse.setText("");
 		jtfCP.setText("");
 		jtfName.setText("");
-		jtfNbChambre.setText("");
 		jtfPays.setText("");
 		jtfProprio.setText("");
 		jtfVille.setText("");

@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import Singleton.SingletonConnection;
+import model.Chambre;
 import model.Client;
 
 public class ClientDAO extends DAO<Client>{
@@ -112,5 +114,22 @@ public class ClientDAO extends DAO<Client>{
 		return nbRow;
 	}
 	
+	public ArrayList<Client> ListClient() {
+		ArrayList<Client> listClient = new ArrayList<Client>();
+		
+		Client obj = new Client();
+		try{
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM client");
+			ResultSet result = prepare.executeQuery();
+			
+			while(result.next()){
+				obj = find(result.getInt("id_client"));
+				listClient.add(obj);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return listClient;
+	}
 
 }

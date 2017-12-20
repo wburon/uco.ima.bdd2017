@@ -43,12 +43,23 @@ public class ChambreDAO extends DAO<Chambre>{
 			prepare.setInt(10, obj.getType_chambre().getId_type_chambre());
 			
 			prepare.executeUpdate();
+			
+			increaseNbChambreHotel(obj.getHotel().getId_hotel());
+			
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+		
+	}
+
+	private void increaseNbChambreHotel(int id_hotel) {
+		HotelDAO hDAO = new HotelDAO();
+		Hotel h = hDAO.find(id_hotel);
+		h.setNb_chambre_total(h.getNb_chambre_total()+1);
+		hDAO.update(h);
 		
 	}
 

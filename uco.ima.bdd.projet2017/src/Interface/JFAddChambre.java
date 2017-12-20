@@ -22,6 +22,7 @@ import DAO.ChambreDAO;
 import DAO.HotelDAO;
 import DAO.Type_ChambreDAO;
 import model.Chambre;
+import model.Hotel;
 import model.Table_Chambre;
 import model.Type_Chambre;
 
@@ -39,6 +40,7 @@ public class JFAddChambre extends JFrame implements ActionListener{
 	private int id_hotel;
 	private Type_ChambreDAO tcDAO = new Type_ChambreDAO();
 	private Table_Chambre tChambre;
+	private Chambre c = new Chambre();
 
 	/**
 	 * Create the panel.
@@ -156,6 +158,7 @@ public class JFAddChambre extends JFrame implements ActionListener{
 						JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
 				tChambre.addChambre(chambre);
+				this.dispose();
 			}else
 				System.out.println("TRY AGAIN");
 			
@@ -185,4 +188,11 @@ public class JFAddChambre extends JFrame implements ActionListener{
 				
 	}
 
+	/*
+	 * Renvoie le membre du personnel enregistrer dans cette classe
+	 */
+	public Chambre getChambre(){
+		return c;
+	}
+	
 }
