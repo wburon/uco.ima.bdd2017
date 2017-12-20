@@ -158,6 +158,7 @@ public class JFAddChambre extends JFrame implements ActionListener{
 						JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
 				tChambre.addChambre(chambre);
+				siCommunicante();
 				this.dispose();
 			}else
 				System.out.println("TRY AGAIN");
@@ -167,6 +168,13 @@ public class JFAddChambre extends JFrame implements ActionListener{
 		
 	}
 	
+	private void siCommunicante() {
+//		if(cbComm.isSelected()){
+//			JFcreateChambreComm cc = new JFcreateChambreComm();
+//		}
+		
+	}
+
 	private void clearTextField() {
 		jtfNumChambre.setText("");
 		jtfTarif.setText("");

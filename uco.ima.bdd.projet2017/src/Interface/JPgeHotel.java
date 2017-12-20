@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
@@ -83,16 +87,20 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnPlusDinfo){
 			s = table.getSelectedRow();
-			if(s != -1){
+			
 				if(table.getModel() == tHotel){
+					if(s != -1){
 					table.setModel(new Table_Chambre(s+1));
 					btnPlusDinfo.setText("Retour au hotel");
+					}
+					else
+						JOptionPane.showMessageDialog(btnPlusDinfo, "Selectionner un hotel !", "Warning",JOptionPane.INFORMATION_MESSAGE);
 				}else{
 					table.setModel(tHotel);
 					btnPlusDinfo.setText("Plus d'info sur l'hotel");
 				}
-			}else
-				JOptionPane.showMessageDialog(btnPlusDinfo, "Selectionner un hotel !", "Warning",JOptionPane.INFORMATION_MESSAGE);
+			
+
 		}else if(e.getSource() == btnAjout){
 			if(table.getModel() == tHotel){
 				JFAddHotel h1 = new JFAddHotel();

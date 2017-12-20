@@ -23,7 +23,7 @@ import javax.swing.JComponent;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 
-public class JPModifChambre extends JPanel implements ActionListener{
+public class JFModifChambre extends JPanel implements ActionListener{
 	private JTextField jtfNumChambre;
 	private JTextField jtfTarif;
 	private JButton btnUpdate, btnOK;
@@ -47,7 +47,7 @@ public class JPModifChambre extends JPanel implements ActionListener{
 	/**
 	 * Create the panel.
 	 */
-	public JPModifChambre() {
+	public JFModifChambre() {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -169,6 +169,7 @@ public class JPModifChambre extends JPanel implements ActionListener{
 			if(verificationDonnée()){
 				ChambreDAO chambreDao = new ChambreDAO();
 				Chambre chambre = new Chambre();
+				if()
 			}
 			else
 				System.out.println("TRY AGAIN");
