@@ -43,11 +43,14 @@ public class JFModifChambre extends JPanel implements ActionListener{
 	private JPanel panel_1;
 	private ChambreDAO chambreDao = new ChambreDAO();
 	private Chambre chambre = new Chambre();
+	private int idCurrentChambre;
 
 	/**
 	 * Create the panel.
 	 */
-	public JFModifChambre() {
+	public JFModifChambre(int id_chambre) {
+		this.idCurrentChambre = id_chambre;
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -169,7 +172,9 @@ public class JFModifChambre extends JPanel implements ActionListener{
 			if(verificationDonnée()){
 				ChambreDAO chambreDao = new ChambreDAO();
 				Chambre chambre = new Chambre();
-				if()
+				if(cbCommunicante.isSelected()){
+					JFNowCommunicante NowC = new JFNowCommunicante(idCurrentChambre);
+				}
 			}
 			else
 				System.out.println("TRY AGAIN");

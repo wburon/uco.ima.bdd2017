@@ -117,6 +117,9 @@ public class JPgeHotel extends JPanel implements ActionListener{
 			else
 				tChambre.addChambre(c);
 		}
+		if(e.getSource() == btnModif){
+			
+		}
 		
 	}
 	
