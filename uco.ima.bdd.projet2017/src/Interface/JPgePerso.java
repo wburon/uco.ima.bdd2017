@@ -26,10 +26,14 @@ public class JPgePerso extends JPanel implements ActionListener{
 	private JButton btnSupprimer;
 	
 	private JFAddPerso f2;
+	
+	private JFInterface JFInterface;
 	/**
 	 * Create the panel.
 	 */
-	public JPgePerso() {
+	public JPgePerso(JFInterface JFInterface) {
+		this.JFInterface=JFInterface;
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();

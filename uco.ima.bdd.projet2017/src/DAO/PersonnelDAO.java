@@ -157,7 +157,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 	public int findUser(String login, String password){
 		PreparedStatement prepare;
 		try {
-			prepare = SC.prepareStatement("SELECT * FROM personnel where login=? AND password=?");
+			prepare = SC.prepareStatement("SELECT * FROM personnel where login=? AND password=?",ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setString(1, login);
 			prepare.setString(2, password);
 			ResultSet result = prepare.executeQuery();

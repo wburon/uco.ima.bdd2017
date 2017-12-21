@@ -61,6 +61,7 @@ public class TestJPanel extends JPanel implements ActionListener{
 		gbc_btnTest.gridx = 1;
 		gbc_btnTest.gridy = 2;
 		panel_4.add(btnTest, gbc_btnTest);
+		btnTest.addActionListener(this);
 		
 		JLabel lblNewLabel_1 = new JLabel("Bient\u00F4t sur vos \u00E9crans");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();

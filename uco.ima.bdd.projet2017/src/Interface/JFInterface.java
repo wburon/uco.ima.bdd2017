@@ -54,8 +54,12 @@ public class JFInterface extends JFrame implements ActionListener{
 	 */
 	public JFInterface() {
 
+
+
+		JPlog=new JPlog(this);
+		JPgerant = new JPgerant(this);
+		JPgePerso = new JPgePerso(this);
 		Init();
-		
 		
 //		contentPane = new JPanel();
 //		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -144,8 +148,6 @@ public class JFInterface extends JFrame implements ActionListener{
 	public void Init(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 613, 575);
-
-		JPlog=new JPlog(this);
 		setContentPane(JPlog);
 	}
 

@@ -106,6 +106,7 @@ public class JPlog extends JPanel implements ActionListener{
 		gbc_btnConnexion.gridx = 1;
 		gbc_btnConnexion.gridy = 3;
 		panel_4.add(btnConnexion, gbc_btnConnexion);
+		btnConnexion.addActionListener(this);
 		
 		btnCrerUnCompte = new JButton("Cr\u00E9er un compte");
 		GridBagConstraints gbc_btnCrerUnCompte = new GridBagConstraints();
