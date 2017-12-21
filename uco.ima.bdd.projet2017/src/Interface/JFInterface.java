@@ -32,7 +32,8 @@ public class JFInterface extends JFrame implements ActionListener{
 	private JPgeHotel JPgeHotel;
 	private JPgePerso JPgePerso;
 	private JPgerant JPgerant;
-
+	private JPEmployer JPEmployer;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -59,6 +60,7 @@ public class JFInterface extends JFrame implements ActionListener{
 		JPlog=new JPlog(this);
 		JPgerant = new JPgerant(this);
 		JPgePerso = new JPgePerso(this);
+		JPEmployer = new JPEmployer(this);
 		Init();
 		
 //		contentPane = new JPanel();
@@ -145,6 +147,14 @@ public class JFInterface extends JFrame implements ActionListener{
 //		JPQuitter.add(btnQuitter);
 	}
 	
+	public JPEmployer getJPEmployer() {
+		return JPEmployer;
+	}
+
+	public void setJPEmployer(JPEmployer jPEmployer) {
+		JPEmployer = jPEmployer;
+	}
+
 	public void Init(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 613, 575);
@@ -187,7 +197,7 @@ public class JFInterface extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		JPlog.actionPerformed(e);
+//		JPlog.actionPerformed(e);
 //		if(e.getSource()==btnOperationSurLe){
 //			JPgePerso pp=new JPgePerso();
 //			this.setContentPane(pp);

@@ -6,24 +6,19 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
 import DAO.PersonnelDAO;
 import model.Personnel;
 
-import java.awt.FlowLayout;
-import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class JPlog extends JPanel implements ActionListener{
+	
 	private JTextField tfLog;
 	private JPasswordField pfPasswd;
 	private JButton btnConnexion;
@@ -125,20 +120,18 @@ public class JPlog extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnConnexion){
-			System.out.println("Hello World");
 			
 			String login=tfLog.getText();
 			String password=pfPasswd.getText();
 			
 			
 			nel = nDAO.find(nDAO.findUser(login, password));
-			System.out.println(nel);
 			
 			if(nel.getFonction().getNiveau_contrainte()==0){
 				
 			}
 			if(nel.getFonction().getNiveau_contrainte()==1){
-				
+				JFInterface.setContentPane(JFInterface.getJPEmployer());
 			}
 			if(nel.getFonction().getNiveau_contrainte()==2){
 
