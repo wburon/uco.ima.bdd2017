@@ -87,7 +87,6 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnPlusDinfo){
 			s = table.getSelectedRow();
-			
 				if(table.getModel() == tHotel){
 					if(s != -1){
 					table.setModel(new Table_Chambre(s+1));
@@ -118,7 +117,12 @@ public class JPgeHotel extends JPanel implements ActionListener{
 				tChambre.addChambre(c);
 		}
 		if(e.getSource() == btnModif){
-			
+			if(table.getModel() == tHotel){
+				
+			}else{
+				JFModifChambre mC = new JFModifChambre(tChambre.getChambre(s).getId_chambre());
+				mC.setVisible(true);
+			}
 		}
 		
 	}

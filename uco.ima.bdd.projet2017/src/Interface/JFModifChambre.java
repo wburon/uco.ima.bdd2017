@@ -1,29 +1,30 @@
 package Interface;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-import DAO.ChambreDAO;
-import DAO.Type_ChambreDAO;
-import model.Chambre;
-
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JButton;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-public class JFModifChambre extends JPanel implements ActionListener{
+import DAO.ChambreDAO;
+import DAO.Type_ChambreDAO;
+import model.Chambre;
+
+public class JFModifChambre extends JFrame implements ActionListener{
 	private JTextField jtfNumChambre;
 	private JTextField jtfTarif;
 	private JButton btnUpdate, btnOK;
@@ -44,11 +45,35 @@ public class JFModifChambre extends JPanel implements ActionListener{
 	private ChambreDAO chambreDao = new ChambreDAO();
 	private Chambre chambre = new Chambre();
 	private int idCurrentChambre;
+	private JPanel contentPane;
 
 	/**
-	 * Create the panel.
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JFModifChambre frame = new JFModifChambre(1);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
 	 */
 	public JFModifChambre(int id_chambre) {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
 		this.idCurrentChambre = id_chambre;
 		
 		setLayout(new BorderLayout(0, 0));
@@ -163,7 +188,6 @@ public class JFModifChambre extends JPanel implements ActionListener{
 		
 		btnUpdate.addActionListener(this);
 		btnOK.addActionListener(this);
-
 	}
 
 	@Override
@@ -193,9 +217,8 @@ public class JFModifChambre extends JPanel implements ActionListener{
 			cbTele.setSelected(chambre.isTele());
 			comboBoxTypeChambre.setSelectedIndex(chambre.getType_chambre().getId_type_chambre());
 		}
-		
 	}
-
+	
 	private void clear() {
 		
 		
