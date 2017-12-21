@@ -50,7 +50,8 @@ private ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
 		case 4 :
 			return listChambre.get(rowIndex).isAnimaux();
 		case 5 :
-			return listChambre.get(rowIndex).getType_chambre().getNom();
+			Object obj =  listChambre.get(rowIndex).getType_chambre().getNom();
+			return obj;
 		case 6 :
 			return listChambre.get(rowIndex).getTarif();
 		default : 

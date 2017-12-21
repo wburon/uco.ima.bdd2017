@@ -41,6 +41,7 @@ public class JFAddChambre extends JFrame implements ActionListener{
 	private Type_ChambreDAO tcDAO = new Type_ChambreDAO();
 	private Table_Chambre tChambre;
 	private Chambre c = new Chambre();
+	private ChambreDAO cDAO = new ChambreDAO();;
 
 	/**
 	 * Create the panel.
@@ -141,7 +142,7 @@ public class JFAddChambre extends JFrame implements ActionListener{
 			Chambre chambre = new Chambre();
 			HotelDAO hDAO = new HotelDAO();
 			Type_ChambreDAO tDAO = new Type_ChambreDAO();
-			ChambreDAO cDAO = new ChambreDAO();
+			
 			chambre.setAnimaux(cbAnimaux.isSelected());
 			chambre.setCommunicante(cbComm.isSelected());
 			chambre.setHandicap(cbHandi.isSelected());
@@ -157,9 +158,9 @@ public class JFAddChambre extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(btnAjouter, "Votre ajout a bien été effectué", "Validation",
 						JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
-				tChambre.addChambre(chambre);
-				siCommunicante();
-				this.dispose();
+//				tChambre.addChambre(chambre);
+				this.c = chambre;
+				siCommunicante(cDAO.maxId()-1);
 			}else
 				System.out.println("TRY AGAIN");
 			
@@ -168,10 +169,10 @@ public class JFAddChambre extends JFrame implements ActionListener{
 		
 	}
 	
-	private void siCommunicante() {
-//		if(cbComm.isSelected()){
-//			JFcreateChambreComm cc = new JFcreateChambreComm();
-//		}
+	private void siCommunicante(int id_chambre) {
+		if(cDAO.find(id_chambre).isCommunicante()){
+			JFcreateChambreComm cc = new JFcreateChambreComm(id_chambre);
+		}
 		
 	}
 

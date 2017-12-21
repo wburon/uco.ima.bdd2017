@@ -34,11 +34,12 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	private Hotel h;
 	private Chambre c;
 	private Table_Chambre tChambre;
+	private boolean addH=false,addC=false, supprH=false, supprC=false, modifH=false, modifC=false;
 
 	/**
 	 * Create the panel.
 	 */
-	public JPgeHotel() {
+	public JPgeHotel(JFInterface JFInterface) {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -89,8 +90,9 @@ public class JPgeHotel extends JPanel implements ActionListener{
 			s = table.getSelectedRow();
 				if(table.getModel() == tHotel){
 					if(s != -1){
-					table.setModel(new Table_Chambre(s+1));
 					btnPlusDinfo.setText("Retour au hotel");
+					tChambre = new Table_Chambre(tHotel.getHotel(s).getId_hotel());
+					table.setModel(tChambre);
 					}
 					else
 						JOptionPane.showMessageDialog(btnPlusDinfo, "Selectionner un hotel !", "Warning",JOptionPane.INFORMATION_MESSAGE);
@@ -105,16 +107,31 @@ public class JPgeHotel extends JPanel implements ActionListener{
 				JFAddHotel h1 = new JFAddHotel();
 				h1.setVisible(true);
 				h = h1.getHotel();
+				addH = true;
 			}else{
 				JFAddChambre c1 = new JFAddChambre(tHotel.getHotel(s).getId_hotel());
 				c1.setVisible(true);
 				c = c1.getChambre();
+				addC = true;
 			}
 		}else if(e.getSource() == btnActualiser){
-			if(table.getModel() == tHotel)
-				tHotel.addHotel(h);
-			else
-				tChambre.addChambre(c);
+			if(table.getModel() == tHotel){
+				if(addH)
+					tHotel.addHotel(h);
+				if(supprH)
+					tHotel.removeHotel(s);
+				if(modifH)
+					tHotel.setHotel(s);
+				addH=false;supprH=false;modifH=false;
+			}else{
+				if(addC)
+					tChambre.addChambre(c);
+				if(supprC)
+					tChambre.removeChambre(s);
+				if(modifC)
+					tChambre.setChambre(s);
+				addC=false;supprC=false;modifC=false;
+			}
 		}
 		if(e.getSource() == btnModif){
 			if(table.getModel() == tHotel){

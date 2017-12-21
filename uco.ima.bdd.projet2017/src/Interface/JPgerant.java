@@ -78,6 +78,10 @@ public class JPgerant extends JPanel implements ActionListener{
 			JFInterface.setContentPane(JFInterface.getJPgePerso());
 			JFInterface.getJPgePerso().repaint();
 			JFInterface.getJPgePerso().revalidate();
+		}else if(e.getSource() == btnOperationSurHotel){
+			JFInterface.setContentPane(JFInterface.getJPgeHotel());
+			JFInterface.getJPgeHotel().repaint();
+			JFInterface.getJPgeHotel().revalidate();
 		}
 	}
 

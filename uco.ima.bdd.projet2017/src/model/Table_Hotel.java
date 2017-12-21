@@ -70,5 +70,11 @@ public class Table_Hotel extends AbstractTableModel{
 	public Hotel getHotel(int i){
 		return listHotel.get(i);
 	}
+	public void setHotel(int rowIndex){
+		Hotel h = getHotel(rowIndex);
+		listHotel.set(rowIndex, h);
+		
+		fireTableRowsUpdated(rowIndex, rowIndex);
+	}
 
 }

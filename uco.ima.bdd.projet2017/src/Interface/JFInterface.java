@@ -61,6 +61,7 @@ public class JFInterface extends JFrame implements ActionListener{
 		JPgerant = new JPgerant(this);
 		JPgePerso = new JPgePerso(this);
 		JPEmployer = new JPEmployer(this);
+		JPgeHotel = new JPgeHotel(this);
 		Init();
 		
 //		contentPane = new JPanel();
