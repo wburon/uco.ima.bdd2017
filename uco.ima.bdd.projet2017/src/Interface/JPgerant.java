@@ -9,12 +9,21 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class JPgerant extends JPanel {
+public class JPgerant extends JPanel implements ActionListener{
 
+	
+	private JButton btnGestionPersonnel;
+	private JButton btnOperationSurHotel;
+	private JButton btnGestionClient;
+	private JButton btnQuitter; 
+	
+	private JFInterface JFInterface;
 	/**
 	 * Create the panel.
 	 */
-	public JPgerant() {
+	public JPgerant(JFInterface JFInterface) {
+		this.JFInterface=JFInterface;
+		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
@@ -58,22 +67,30 @@ public class JPgerant extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
-		JButton btnNewButton_1 = new JButton("Gestion Personnel");
-		add(btnNewButton_1, "16, 10");
+		btnGestionPersonnel= new JButton("Gestion Personnel");
+		add(btnGestionPersonnel, "16, 10");
+		btnGestionPersonnel.addActionListener(this);
 		
-		JButton btnNewButton_2 = new JButton("Opération sur hotel");
-		add(btnNewButton_2, "16, 12");
+		btnOperationSurHotel= new JButton("Opération sur hotel");
+		add(btnOperationSurHotel, "16, 12");
+		btnOperationSurHotel.addActionListener(this);
 		
-		JButton btnNewButton = new JButton("Gestion Client");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		add(btnNewButton, "16, 14");
+		btnGestionClient = new JButton("Gestion Client");
+		add(btnGestionClient, "16, 14");
+		btnGestionClient.addActionListener(this);
 		
-		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter = new JButton("Quitter");
 		add(btnQuitter, "16, 20");
 
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource()==btnGestionPersonnel){
+			JFInterface.setContentPane(JFInterface.getJPgePerso());
+			JFInterface.getJPgePerso().repaint();
+			JFInterface.getJPgePerso().revalidate();
+		}
 	}
 
 }

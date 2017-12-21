@@ -19,6 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.SwingConstants;
 
 public class JPlog extends JPanel implements ActionListener{
 	private JTextField tfLog;
@@ -28,11 +31,15 @@ public class JPlog extends JPanel implements ActionListener{
 	
 	private PersonnelDAO nDAO;
 	private Personnel nel;
+	
+	private JFInterface JFInterface;
 
 	/**
 	 * Create the panel.
 	 */
-	public JPlog() {
+	public JPlog(JFInterface JFInterface) {
+		this.JFInterface=JFInterface;
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -49,66 +56,64 @@ public class JPlog extends JPanel implements ActionListener{
 		
 		JPanel panel_4 = new JPanel();
 		add(panel_4, BorderLayout.CENTER);
-		panel_4.setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
+		GridBagLayout gbl_panel_4 = new GridBagLayout();
+		gbl_panel_4.columnWidths = new int[]{114, 97, 113, 0};
+		gbl_panel_4.rowHeights = new int[]{111, 0, 20, 20, 23, 0};
+		gbl_panel_4.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_4.setLayout(gbl_panel_4);
 		
 		JLabel lblNewLabel = new JLabel("Login : ");
-		panel_4.add(lblNewLabel, "12, 8, right, default");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 1;
+		panel_4.add(lblNewLabel, gbc_lblNewLabel);
 		
 		tfLog = new JTextField();
-		panel_4.add(tfLog, "14, 8, fill, default");
+		GridBagConstraints gbc_tfLog = new GridBagConstraints();
+		gbc_tfLog.anchor = GridBagConstraints.NORTH;
+		gbc_tfLog.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfLog.insets = new Insets(0, 0, 5, 0);
+		gbc_tfLog.gridx = 2;
+		gbc_tfLog.gridy = 1;
+		panel_4.add(tfLog, gbc_tfLog);
 		tfLog.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Password : ");
-		panel_4.add(lblNewLabel_1, "12, 10, right, default");
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1.gridx = 1;
+		gbc_lblNewLabel_1.gridy = 2;
+		panel_4.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		pfPasswd = new JPasswordField();
 		pfPasswd.setColumns(10);
-		panel_4.add(pfPasswd, "14, 10, fill, default");
+		GridBagConstraints gbc_pfPasswd = new GridBagConstraints();
+		gbc_pfPasswd.anchor = GridBagConstraints.NORTH;
+		gbc_pfPasswd.fill = GridBagConstraints.HORIZONTAL;
+		gbc_pfPasswd.insets = new Insets(0, 0, 5, 0);
+		gbc_pfPasswd.gridx = 2;
+		gbc_pfPasswd.gridy = 2;
+		panel_4.add(pfPasswd, gbc_pfPasswd);
 		
 		btnConnexion = new JButton("Se Connecter");
-		panel_4.add(btnConnexion, "12, 12");
+		GridBagConstraints gbc_btnConnexion = new GridBagConstraints();
+		gbc_btnConnexion.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnConnexion.insets = new Insets(0, 0, 5, 5);
+		gbc_btnConnexion.gridx = 1;
+		gbc_btnConnexion.gridy = 3;
+		panel_4.add(btnConnexion, gbc_btnConnexion);
 		
 		btnCrerUnCompte = new JButton("Cr\u00E9er un compte");
-		panel_4.add(btnCrerUnCompte, "14, 12");
+		GridBagConstraints gbc_btnCrerUnCompte = new GridBagConstraints();
+		gbc_btnCrerUnCompte.insets = new Insets(0, 0, 5, 0);
+		gbc_btnCrerUnCompte.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnCrerUnCompte.gridx = 2;
+		gbc_btnCrerUnCompte.gridy = 3;
+		panel_4.add(btnCrerUnCompte, gbc_btnCrerUnCompte);
 
 		nDAO=new PersonnelDAO();
 		nel = new Personnel();
@@ -119,11 +124,14 @@ public class JPlog extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnConnexion){
+			System.out.println("Hello World");
+			
 			String login=tfLog.getText();
 			String password=pfPasswd.getText();
 			
 			
 			nel = nDAO.find(nDAO.findUser(login, password));
+			System.out.println(nel);
 			
 			if(nel.getFonction().getNiveau_contrainte()==0){
 				
@@ -132,8 +140,10 @@ public class JPlog extends JPanel implements ActionListener{
 				
 			}
 			if(nel.getFonction().getNiveau_contrainte()==2){
-				JPgerant jpg=new JPgerant();
-				
+
+				JFInterface.setContentPane(JFInterface.getJPgerant());
+				JFInterface.getJPgerant().repaint();
+				JFInterface.getJPgerant().revalidate();
 			}
 		}
 		

@@ -197,7 +197,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		panel_4.add(lblNewLabel_8);
 
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Réceptionniste", "Agent entretien" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Réceptionniste", "Agent entretien","Gérant" }));
 		panel_4.add(comboBox);
 
 		perso = new Personne();
