@@ -79,17 +79,24 @@ public class JFcreateChambreComm extends JFrame implements ActionListener {
 		
 		btnNouvelleChambre = new JButton("Nouvelle Chambre");
 		panel_4.add(btnNouvelleChambre);
+		btnNouvelleChambre.addActionListener(this);
 		
 		btnChambreExistante = new JButton("Chambre Existante");
 		panel_4.add(btnChambreExistante);
+		btnChambreExistante.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnNouvelleChambre){
 			JFAddChambre newC = new JFAddChambre(c.getId_chambre());
+			newC.getCbComm().setEnabled(false);
+			newC.setVisible(true);
+			this.dispose();
 		}else if(e.getSource() == btnChambreExistante){
-			JFModifChambre modifC = new JFModifChambre(c.getId_chambre());
+			JFNowCommunicante nowC = new JFNowCommunicante(this.id_chambre);
+			nowC.setVisible(true);
+			this.dispose();
 		}
 		
 	}

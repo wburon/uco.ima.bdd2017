@@ -41,7 +41,23 @@ public class JFAddChambre extends JFrame implements ActionListener{
 	private Type_ChambreDAO tcDAO = new Type_ChambreDAO();
 	private Table_Chambre tChambre;
 	private Chambre c = new Chambre();
-	private ChambreDAO cDAO = new ChambreDAO();;
+	private ChambreDAO cDAO = new ChambreDAO();
+
+	public JCheckBox getCbComm() {
+		return cbComm;
+	}
+
+	public void setCbComm(JCheckBox cbComm) {
+		this.cbComm = cbComm;
+	}
+
+	public Chambre getC() {
+		return c;
+	}
+
+	public void setC(Chambre c) {
+		this.c = c;
+	}
 
 	/**
 	 * Create the panel.
@@ -153,6 +169,7 @@ public class JFAddChambre extends JFrame implements ActionListener{
 			chambre.setTele(cbTele.isSelected());
 			Type_Chambre tc = tDAO.find(tDAO.findId(comboBoxTypeChambre.getSelectedItem().toString()));
 			chambre.setType_chambre(tc);
+			chambre.setId_chambre(cDAO.maxId());
 			if(verificationDonnée()){
 				cDAO.create(chambre);
 				JOptionPane.showMessageDialog(btnAjouter, "Votre ajout a bien été effectué", "Validation",
@@ -172,6 +189,7 @@ public class JFAddChambre extends JFrame implements ActionListener{
 	private void siCommunicante(int id_chambre) {
 		if(cDAO.find(id_chambre).isCommunicante()){
 			JFcreateChambreComm cc = new JFcreateChambreComm(id_chambre);
+			cc.setVisible(true);
 		}
 		
 	}

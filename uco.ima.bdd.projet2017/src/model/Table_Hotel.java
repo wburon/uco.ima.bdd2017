@@ -76,5 +76,8 @@ public class Table_Hotel extends AbstractTableModel{
 		
 		fireTableRowsUpdated(rowIndex, rowIndex);
 	}
+	public void actualiser(){
+		fireTableDataChanged();
+	}
 
 }

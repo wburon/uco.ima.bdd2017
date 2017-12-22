@@ -72,10 +72,13 @@ private ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
 	public Chambre getChambre(int i){
 		return listChambre.get(i);
 	}
-	public void setChambre(int rowIndex){
-		Chambre c = getChambre(rowIndex);
-		listChambre.set(rowIndex, c);
+	public void setChambre(int rowIndex, Chambre chambre){
+
+		listChambre.set(rowIndex, chambre);
 		
 		fireTableRowsUpdated(rowIndex, rowIndex);
+	}
+	public void actualiser(){
+		fireTableDataChanged();
 	}
 }

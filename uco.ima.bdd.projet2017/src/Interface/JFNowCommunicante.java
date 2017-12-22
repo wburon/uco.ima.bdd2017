@@ -55,6 +55,9 @@ public class JFNowCommunicante extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public JFNowCommunicante(int id_chambre) {
+		
+		this.cTab = cDAO.chambresVoisines(id_chambre); 
+				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -85,37 +88,49 @@ public class JFNowCommunicante extends JFrame implements ActionListener{
 		
 		JPanel panel_4 = new JPanel();
 		contentPane.add(panel_4, BorderLayout.CENTER);
-		panel_4.setLayout(new GridLayout(3, 2, 0, 0));
+		panel_4.setLayout(new GridLayout(1, 2, 0, 0));
+		
+		JPanel panelOuest = new JPanel();
+		panel_4.add(panelOuest);
+		panelOuest.setLayout(new GridLayout(3, 1, 0, 0));
+		
+		JPanel panelEst = new JPanel();
+		panel_4.add(panelEst);
+		panelEst.setLayout(new GridLayout(3, 1, 0, 0));
 		
 		cTab = cDAO.chambresVoisines(id_chambre); 
-		if(!cTab[0].isCommunicante()){
+		if(cTab[0]!=null)
+			if(!cTab[0].isCommunicante()){
 			lblMoins = new JLabel(""+cTab[0].getNumero_chambre());
 			lblMoins.setHorizontalAlignment(SwingConstants.CENTER);
-			panel_4.add(lblMoins);
+			panelOuest.add(lblMoins);
 			
 		
 			lblIdMoins = new JLabel("ID : "+cTab[0].getId_chambre());
 			lblIdMoins.setHorizontalAlignment(SwingConstants.CENTER);
-			panel_4.add(lblIdMoins);
+			panelOuest.add(lblIdMoins);
 		
 			btnCelleci = new JButton("Celle-ci");
-			panel_4.add(btnCelleci);
+			panelOuest.add(btnCelleci);
+			btnCelleci.addActionListener(this);
 		}
-		if(!cTab[1].isCommunicante()){
+		if(cTab[1]!=null)
+			if(!cTab[1].isCommunicante()){
 			lblPlus = new JLabel(""+cTab[1].getNumero_chambre());
 			lblPlus.setHorizontalAlignment(SwingConstants.CENTER);
-			panel_4.add(lblPlus);
+			panelEst.add(lblPlus);
 			
 			lblIdPlus = new JLabel("ID : "+cTab[1].getId_chambre());
 			lblIdPlus.setHorizontalAlignment(SwingConstants.CENTER);
-			panel_4.add(lblIdPlus);
+			panelEst.add(lblIdPlus);
 			
 			btnCellel = new JButton("Celle-l\u00E0");
-			panel_4.add(btnCellel);
+			panelEst.add(btnCellel);
+			btnCellel.addActionListener(this);
 		}
 		
-		btnCelleci.addActionListener(this);
-		btnCellel.addActionListener(this);
+		
+		
 	}
 
 	@Override
@@ -125,12 +140,16 @@ public class JFNowCommunicante extends JFrame implements ActionListener{
 		comm.setC1(c1);
 		if(arg0.getSource() == btnCelleci){
 			comm.setC2(cDAO.find(cTab[0].getId_chambre()));
-			
+			cDAO.update(comm.getC2());
+			commDao.create(comm);
+			this.dispose();
 		}else if(arg0.getSource() == btnCellel){
 			comm.setC2(cDAO.find(cTab[1].getId_chambre()));
-			
+			cDAO.update(comm.getC2());
+			commDao.create(comm);
+			this.dispose();
 		}
-		commDao.create(comm);
+		
 	}
 
 }

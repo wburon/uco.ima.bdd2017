@@ -62,6 +62,12 @@ public class ChambreDAO extends DAO<Chambre>{
 		hDAO.update(h);
 		
 	}
+	
+	private void decreaseNbChambreHotel(int id_hotel){
+		HotelDAO hDAO = new HotelDAO();
+		Hotel h = hDAO.find(id_hotel);
+		h.setNb_chambre_total(h.getNb_chambre_total()-1);
+	}
 
 	@Override
 	/**
@@ -76,6 +82,8 @@ public class ChambreDAO extends DAO<Chambre>{
 			prepare.setInt(1, obj.getId_chambre());
 			
 			prepare.executeUpdate();
+			
+			decreaseNbChambreHotel(obj.getHotel().getId_hotel());
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -103,6 +111,8 @@ public class ChambreDAO extends DAO<Chambre>{
 			prepare.setBoolean(7, obj.isAnimaux());
 			prepare.setInt(8, obj.getType_chambre().getId_type_chambre());
 			prepare.setInt(9, obj.getId_chambre());
+			
+			prepare.executeUpdate();
 			
 			return true;
 		}catch(SQLException e) {
@@ -308,15 +318,15 @@ public class ChambreDAO extends DAO<Chambre>{
 		return true;
 	}
 
-	public boolean NumChambreExisteDeja(String text, JTextField idchambre, JTextField idhotel) {
+	public boolean NumChambreExisteDeja(String text,  int idchambre, int idhotel) {
 		PreparedStatement prepare;
 		try {
-			prepare = SC.prepareStatement("SELECT * FROM chambre WHERE id_hotel=? AND numero_chambre=?");
-			prepare.setInt(1, Integer.parseInt(idhotel.getText()));
+			prepare = SC.prepareStatement("SELECT * FROM chambre WHERE id_hotel=? AND numero_chambre=?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			prepare.setInt(1, idhotel);
 			prepare.setInt(2, Integer.parseInt(text));
 			ResultSet result=prepare.executeQuery();
 			
-			if(result.first() && result.getInt("id-chambre") == Integer.parseInt(idchambre.getText())){
+			if(result.first() && result.getInt("id_chambre") == idchambre){
 				System.out.println("tout va bien, le num chambre n'a pas été changé");
 				return true;
 			}

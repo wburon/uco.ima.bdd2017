@@ -15,6 +15,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -23,15 +24,15 @@ import javax.swing.border.EmptyBorder;
 import DAO.ChambreDAO;
 import DAO.Type_ChambreDAO;
 import model.Chambre;
+import model.Personnel;
+import model.Type_Chambre;
 
 public class JFModifChambre extends JFrame implements ActionListener{
 	private JTextField jtfNumChambre;
 	private JTextField jtfTarif;
-	private JButton btnUpdate, btnOK;
+	private JButton btnUpdate;
 	private JCheckBox cbTele, cbHandicap, cbLibre, cbCommunicante, cbAnimaux;
 	private JComboBox comboBoxTypeChambre;
-	private JTextField idhotel;
-	private JTextField idchambre;
 	private JLabel lblNumroDeChambre;
 	private JLabel lblTarif;
 	private JLabel lblTlevision;
@@ -43,9 +44,16 @@ public class JFModifChambre extends JFrame implements ActionListener{
 	private JPanel panel_2;
 	private JPanel panel_1;
 	private ChambreDAO chambreDao = new ChambreDAO();
-	private Chambre chambre = new Chambre();
-	private int idCurrentChambre;
+	private Chambre CurrentChambre;
 	private JPanel contentPane;
+
+	public Chambre getCurrentChambre() {
+		return CurrentChambre;
+	}
+
+	public void setCurrentChambre(Chambre currentChambre) {
+		CurrentChambre = currentChambre;
+	}
 
 	/**
 	 * Launch the application.
@@ -54,7 +62,7 @@ public class JFModifChambre extends JFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFModifChambre frame = new JFModifChambre(1);
+					JFModifChambre frame = new JFModifChambre(new Chambre());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,55 +74,29 @@ public class JFModifChambre extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	public JFModifChambre(int id_chambre) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public JFModifChambre(Chambre c) {
+		this.CurrentChambre = c;
+		
+		setTitle("Modification d'une chambre");
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		this.idCurrentChambre = id_chambre;
-		
-		setLayout(new BorderLayout(0, 0));
-		
-		JPanel panel = new JPanel();
-		panel.setPreferredSize(new Dimension(10, 50));
-		add(panel, BorderLayout.NORTH);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JLabel lblIdhotel = new JLabel("id_Hotel : ");
-		lblIdhotel.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		panel.add(lblIdhotel);
-		
-		idhotel = new JTextField();
-		panel.add(idhotel);
-		idhotel.setColumns(10);
-		
-		JLabel lblIdchambre = new JLabel("Id_chambre : ");
-		lblIdchambre.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		panel.add(lblIdchambre);
-		
-		idchambre = new JTextField();
-		panel.add(idchambre);
-		idchambre.setColumns(10);
-		
-		btnOK = new JButton("OK");
-		btnOK.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		panel.add(btnOK);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		panel_1 = new JPanel();
-		panel_1.setVisible(false);
 		panel_1.setPreferredSize(new Dimension(10, 50));
-		add(panel_1, BorderLayout.SOUTH);
+		getContentPane().add(panel_1, BorderLayout.SOUTH);
 		
 		btnUpdate = new JButton("UPDATE");
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel_1.add(btnUpdate);
 		
 		panel_2 = new JPanel();
-		panel_2.setVisible(false);
-		add(panel_2, BorderLayout.CENTER);
+		getContentPane().add(panel_2, BorderLayout.CENTER);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_3 = new JPanel();
@@ -187,35 +169,27 @@ public class JFModifChambre extends JFrame implements ActionListener{
 		panel_4.add(comboBoxTypeChambre);
 		
 		btnUpdate.addActionListener(this);
-		btnOK.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() == btnUpdate){
 			if(verificationDonnée()){
-				ChambreDAO chambreDao = new ChambreDAO();
-				Chambre chambre = new Chambre();
-				if(cbCommunicante.isSelected()){
-					JFNowCommunicante NowC = new JFNowCommunicante(idCurrentChambre);
+				
+				
+				if(cbCommunicante.isSelected() && CurrentChambre.isCommunicante()==false){
+					JFNowCommunicante NowC = new JFNowCommunicante(CurrentChambre.getId_chambre());
+				}else if(!cbCommunicante.isSelected() && CurrentChambre.isCommunicante()){
+					JOptionPane.showMessageDialog(btnUpdate, "Si cette chambre n'est plus communicante, nous changeons automatiquement cette dernière !", "Information",JOptionPane.INFORMATION_MESSAGE);
 				}
+				else{
+					updateChambre();
+				}
+
 			}
 			else
 				System.out.println("TRY AGAIN");
 			clear();
-		}
-		else if(arg0.getSource() == btnOK){
-			panel_1.setVisible(true);
-			panel_2.setVisible(true);
-			chambre = chambreDao.find(Integer.parseInt(idchambre.getText()));
-			jtfNumChambre.setText(""+chambre.getNumero_chambre());
-			jtfTarif.setText(""+chambre.getTarif());
-			cbAnimaux.setSelected(chambre.isAnimaux());
-			cbCommunicante.setSelected(chambre.isCommunicante());
-			cbHandicap.setSelected(chambre.isHandicap());
-			cbLibre.setSelected(chambre.isLibre());
-			cbTele.setSelected(chambre.isTele());
-			comboBoxTypeChambre.setSelectedIndex(chambre.getType_chambre().getId_type_chambre());
 		}
 	}
 	
@@ -226,13 +200,45 @@ public class JFModifChambre extends JFrame implements ActionListener{
 
 	private boolean verificationDonnée() {
 		ChambreDAO c = new ChambreDAO();
-		if(c.NumChambreExisteDeja(jtfNumChambre.getText(), idchambre, idhotel) == false)
+		if(c.NumChambreExisteDeja(jtfNumChambre.getText(), CurrentChambre.getId_chambre(), CurrentChambre.getHotel().getId_hotel()) == false)
 			return false;
 		if(Double.parseDouble(jtfTarif.getText()) <= 0 )
 			return false;
 		
 		return true;
 				
+	}
+	
+	public void preAffichage(Chambre chambre){
+		jtfNumChambre.setText(""+chambre.getNumero_chambre());
+		jtfTarif.setText(""+chambre.getTarif());
+		cbAnimaux.setSelected(chambre.isAnimaux());
+		cbCommunicante.setSelected(chambre.isCommunicante());
+		cbHandicap.setSelected(chambre.isHandicap());
+		cbLibre.setSelected(chambre.isLibre());
+		cbTele.setSelected(chambre.isTele());
+		comboBoxTypeChambre.setSelectedIndex(chambre.getType_chambre().getId_type_chambre()-1);
+	}
+	
+	public boolean updateChambre() {
+		Chambre chambre = new Chambre();
+		Type_ChambreDAO tDAO = new Type_ChambreDAO();
+		
+		chambre.setAnimaux(cbAnimaux.isSelected());
+			chambre.setCommunicante(cbCommunicante.isSelected());
+			chambre.setHandicap(cbHandicap.isSelected());
+			chambre.setHotel(CurrentChambre.getHotel());
+			chambre.setLibre(CurrentChambre.isLibre());
+			chambre.setNumero_chambre(Integer.parseInt(jtfNumChambre.getText()));
+			chambre.setTarif(Double.parseDouble(jtfTarif.getText()));
+			chambre.setTele(cbTele.isSelected());
+			Type_Chambre tc = tDAO.find(tDAO.findId(comboBoxTypeChambre.getSelectedItem().toString()));
+			chambre.setType_chambre(tc);
+			chambre.setId_chambre(CurrentChambre.getId_chambre());
+		 
+			this.setCurrentChambre(chambre);
+			return chambreDao.update(chambre);
+
 	}
 
 }

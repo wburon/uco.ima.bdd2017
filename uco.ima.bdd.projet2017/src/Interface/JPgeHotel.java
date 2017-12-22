@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import DAO.ChambreDAO;
+import DAO.HotelDAO;
 import model.Chambre;
 import model.Hotel;
 import model.Table_Chambre;
@@ -35,6 +37,11 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	private Chambre c;
 	private Table_Chambre tChambre;
 	private boolean addH=false,addC=false, supprH=false, supprC=false, modifH=false, modifC=false;
+	private JFModifChambre mC;
+	private JFAddChambre c1;
+	private JFAddHotel h1;
+	private HotelDAO hDAO = new HotelDAO();
+	private ChambreDAO cDAO = new ChambreDAO();
 
 	/**
 	 * Create the panel.
@@ -104,18 +111,18 @@ public class JPgeHotel extends JPanel implements ActionListener{
 
 		}else if(e.getSource() == btnAjout){
 			if(table.getModel() == tHotel){
-				JFAddHotel h1 = new JFAddHotel();
+				h1 = new JFAddHotel();
 				h1.setVisible(true);
-				h = h1.getHotel();
 				addH = true;
 			}else{
-				JFAddChambre c1 = new JFAddChambre(tHotel.getHotel(s).getId_hotel());
+				c1 = new JFAddChambre(tHotel.getHotel(s).getId_hotel());
 				c1.setVisible(true);
-				c = c1.getChambre();
 				addC = true;
 			}
 		}else if(e.getSource() == btnActualiser){
+			
 			if(table.getModel() == tHotel){
+				tHotel.actualiser();
 				if(addH)
 					tHotel.addHotel(h);
 				if(supprH)
@@ -124,21 +131,37 @@ public class JPgeHotel extends JPanel implements ActionListener{
 					tHotel.setHotel(s);
 				addH=false;supprH=false;modifH=false;
 			}else{
+				tChambre.actualiser();
 				if(addC)
-					tChambre.addChambre(c);
+					tChambre.addChambre(c1.getC());
 				if(supprC)
 					tChambre.removeChambre(s);
 				if(modifC)
-					tChambre.setChambre(s);
+					tChambre.setChambre(s, mC.getCurrentChambre());
 				addC=false;supprC=false;modifC=false;
 			}
-		}
-		if(e.getSource() == btnModif){
+		}else if(e.getSource() == btnModif){
 			if(table.getModel() == tHotel){
-				
+				s = table.getSelectedRow();
+				//
+				modifH=true;
 			}else{
-				JFModifChambre mC = new JFModifChambre(tChambre.getChambre(s).getId_chambre());
+				s = table.getSelectedRow();
+				mC = new JFModifChambre(tChambre.getChambre(s));
+				mC.preAffichage(tChambre.getChambre(s));
 				mC.setVisible(true);
+				modifC=true;
+			}
+		}else if(e.getSource() == btnSupprimer){
+			s = table.getSelectedRow();
+			if(table.getModel() == tHotel){
+				hDAO.delete(tHotel.getHotel(s));
+				
+				supprH = true;
+			}else{
+				cDAO.delete(tChambre.getChambre(s));
+				
+				supprC = true;
 			}
 		}
 		

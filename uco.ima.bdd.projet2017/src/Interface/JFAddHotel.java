@@ -184,13 +184,14 @@ public class JFAddHotel extends JFrame implements ActionListener{
 			if (a==true){
 				new JOptionPane().showMessageDialog(btnValider, "Votre ajout a bien été effectué", "Validation", JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
-				this.dispose();
+				
+//				this.dispose();
 			}else{
 				new JOptionPane().showMessageDialog(btnValider, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}else if(e.getSource() == btnAnnuler){
-			
+			this.dispose();
 		}
 		
 	}
