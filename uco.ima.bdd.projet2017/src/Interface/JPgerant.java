@@ -1,10 +1,9 @@
 package Interface;
 
 import javax.swing.JPanel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
+
+import model.Personnel;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -12,6 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+@SuppressWarnings("serial")
 public class JPgerant extends JPanel implements ActionListener{
 
 	
@@ -21,6 +21,8 @@ public class JPgerant extends JPanel implements ActionListener{
 	private JButton btnQuitter; 
 	
 	private JFInterface JFInterface;
+	
+	private Personnel PersoConn;
 	/**
 	 * Create the panel.
 	 */
@@ -69,6 +71,7 @@ public class JPgerant extends JPanel implements ActionListener{
 		gbc_btnQuitter.gridx = 1;
 		gbc_btnQuitter.gridy = 5;
 		add(btnQuitter, gbc_btnQuitter);
+		btnQuitter.addActionListener(this);
 
 	}
 	@Override
@@ -82,7 +85,20 @@ public class JPgerant extends JPanel implements ActionListener{
 			JFInterface.setContentPane(JFInterface.getJPgeHotel());
 			JFInterface.getJPgeHotel().repaint();
 			JFInterface.getJPgeHotel().revalidate();
+		}else if(e.getSource()==btnGestionClient){
+			JFInterface.setContentPane(JFInterface.getJPgeClient());
+			JFInterface.getJPgeClient().repaint();
+			JFInterface.getJPgeClient().revalidate();
+		}else if(e.getSource()==btnQuitter){
+			JFInterface.dispose();
 		}
 	}
+	
+	public void setPersoConn(Personnel PersoConn){
+		this.PersoConn=PersoConn;
+	}
 
+	public Personnel getPersoConn(){
+		return PersoConn;
+	}
 }

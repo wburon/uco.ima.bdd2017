@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
+
+import model.Personnel;
+
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
@@ -17,6 +20,9 @@ public class JPEmployer extends JPanel implements ActionListener{
 	private JButton btnQuitter;
 	
 	private JFInterface JFInterface;
+	
+	private Personnel PersoConn;
+
 	/**
 	 * Create the panel.
 	 */
@@ -53,6 +59,7 @@ public class JPEmployer extends JPanel implements ActionListener{
 		gbc_btnOperationSurHotel.gridx = 7;
 		gbc_btnOperationSurHotel.gridy = 3;
 		panel_4.add(btnOperationSurHotel, gbc_btnOperationSurHotel);
+		btnOperationSurHotel.addActionListener(this);
 		
 		btnGestionClient = new JButton("Gestion Client");
 		GridBagConstraints gbc_btnGestionClient = new GridBagConstraints();
@@ -60,19 +67,37 @@ public class JPEmployer extends JPanel implements ActionListener{
 		gbc_btnGestionClient.gridx = 7;
 		gbc_btnGestionClient.gridy = 4;
 		panel_4.add(btnGestionClient, gbc_btnGestionClient);
+		btnGestionClient.addActionListener(this);
 		
 		btnQuitter = new JButton("Quitter");
 		GridBagConstraints gbc_btnQuitter = new GridBagConstraints();
 		gbc_btnQuitter.gridx = 7;
 		gbc_btnQuitter.gridy = 8;
 		panel_4.add(btnQuitter, gbc_btnQuitter);
+		btnQuitter.addActionListener(this);
 
+	}
+	public Personnel getPersoConn() {
+		return PersoConn;
+	}
+
+	public void setPersoConn(Personnel persoConn) {
+		PersoConn = persoConn;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getSource() == btnOperationSurHotel){
+			JFInterface.setContentPane(JFInterface.getJPgeHotel());
+			JFInterface.getJPgeHotel().repaint();
+			JFInterface.getJPgeHotel().revalidate();
+		}else if(e.getSource()==btnGestionClient){
+			JFInterface.setContentPane(JFInterface.getJPgeClient());
+			JFInterface.getJPgeClient().repaint();
+			JFInterface.getJPgeClient().revalidate();
+		}else if(e.getSource()==btnQuitter){
+			JFInterface.dispose();
+		}
 	}
 
 }

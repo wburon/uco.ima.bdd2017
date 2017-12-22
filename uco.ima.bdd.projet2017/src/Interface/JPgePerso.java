@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
+import model.Personnel;
 import model.Table_Personnel;
 
 import javax.swing.JTable;
@@ -24,10 +26,18 @@ public class JPgePerso extends JPanel implements ActionListener{
 	private JButton btnAjout;
 	private JButton btnModif;
 	private JButton btnSupprimer;
+	private JButton btnRetourMenu;
+	private JButton btnActualiser;
+	
+	private Personnel nel;
+	private boolean addP;
+	private boolean setP;
 	
 	private JFAddPerso f2;
 	
 	private JFInterface JFInterface;
+	
+	
 	/**
 	 * Create the panel.
 	 */
@@ -48,6 +58,10 @@ public class JPgePerso extends JPanel implements ActionListener{
 		JPanel panel_2 = new JPanel();
 		add(panel_2, BorderLayout.SOUTH);
 		
+		btnActualiser = new JButton("Actualiser");
+		panel_2.add(btnActualiser);
+		btnActualiser.addActionListener(this);
+		
 		btnAjout = new JButton("Ajouter"/*new AddAction()*/);
 		panel_2.add(btnAjout);
 		btnAjout.addActionListener(this);
@@ -59,6 +73,10 @@ public class JPgePerso extends JPanel implements ActionListener{
 		btnSupprimer = new JButton("Supprimer");
 		panel_2.add(btnSupprimer);
 		btnSupprimer.addActionListener(this);
+		
+		btnRetourMenu = new JButton("Retour Menu");
+		panel_2.add(btnRetourMenu);
+		btnRetourMenu.addActionListener(this);
 		
 		JPanel panel_3 = new JPanel();
 		add(panel_3, BorderLayout.EAST);
@@ -76,18 +94,46 @@ public class JPgePerso extends JPanel implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		int s=-1;
 		if (e.getSource()==btnModif){
-			JFModifPerso f1 = new JFModifPerso();
-			int s = table.getSelectedRow();
-			f1.preAffichage(tPerso.getPersonnel(s));
-			f1.setVisible(true);
+
+			s = table.getSelectedRow();
 			
+			if(s==-1){
+				JOptionPane.showMessageDialog(btnModif, "Vous devez sélectionné une ligne dans le tableau !","Selection",JOptionPane.INFORMATION_MESSAGE);
+			}
+			else {
+				JFModifPerso f1 = new JFModifPerso();
+				f1.preAffichage(tPerso.getPersonnel(s));
+				f1.setVisible(true);
+				
+			}
+		}
+		if (e.getSource()==btnAjout){ 
+			f2.setVisible(true);
+			nel = f2.getPersonnel();
+			addP = true;
 			
 		}
-		else if (e.getSource()==btnAjout){ 
-			f2.setVisible(true);
-					
+		if (e.getSource()==btnRetourMenu){
+			JFInterface.setContentPane(JFInterface.getJPgerant());
+			JFInterface.repaint();
+			JFInterface.revalidate();
+		}
+		if (e.getSource()==btnActualiser){
 			
+		}
+		if (e.getSource()==btnSupprimer){
+			s = table.getSelectedRow();
+			if (s==-1){
+				JOptionPane.showMessageDialog(btnSupprimer, "Vous devez sélectionné une ligne dans le tableau !","Selection",JOptionPane.INFORMATION_MESSAGE);
+			}
+			else{
+				String nom=tPerso.getPersonnel(s).getPersonne().getNom();
+				String prenom=tPerso.getPersonnel(s).getPersonne().getPrenom();
+				String message="Le membre du personnel "+prenom+" "+nom+" a été supprimé !";
+				JOptionPane.showMessageDialog(btnSupprimer, message,"Suppression",JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		
 	}
@@ -95,20 +141,4 @@ public class JPgePerso extends JPanel implements ActionListener{
 	public Table_Personnel getTPerso(){
 		return tPerso;
 	}
-//	private class AddAction extends AbstractAction {
-//
-//		private AddAction(){
-//			super("Ajouter");
-//		}
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			JFAddPerso f2 = new JFAddPerso();
-//			f2.setVisible(true);
-//			if(e.getSource()==){
-//				tPerso.addPersonnel(f2.getPersonnel());
-//			}
-//		}
-		
-//	}
-
 }

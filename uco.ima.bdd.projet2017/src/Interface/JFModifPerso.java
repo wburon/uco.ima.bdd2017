@@ -24,16 +24,19 @@ import javax.swing.JButton;
 public class JFModifPerso extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField tfNom;
+	private JTextField tfPrenom;
+	private JTextField tfSalaire;
+	private JTextField tfAArrivee;
+	private JTextField tfLogin;
 	private JPasswordField passwordField;
 	
 	private JComboBox comboBox;
 	private JButton btnValider;
 	private JButton btnAnnuler;
+	
+	private Personnel nel;
+
 
 	/**
 	 * Launch the application.
@@ -95,30 +98,30 @@ public class JFModifPerso extends JFrame implements ActionListener {
 		JLabel lblNewLabel = new JLabel("Nom :");
 		panel_4.add(lblNewLabel);
 		
-		textField = new JTextField();
-		panel_4.add(textField);
-		textField.setColumns(10);
+		tfNom = new JTextField();
+		panel_4.add(tfNom);
+		tfNom.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Pr\u00E9nom : ");
 		panel_4.add(lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		panel_4.add(textField_1);
-		textField_1.setColumns(10);
+		tfPrenom = new JTextField();
+		panel_4.add(tfPrenom);
+		tfPrenom.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Salaire :");
 		panel_4.add(lblNewLabel_2);
 		
-		textField_2 = new JTextField();
-		panel_4.add(textField_2);
-		textField_2.setColumns(10);
+		tfSalaire = new JTextField();
+		panel_4.add(tfSalaire);
+		tfSalaire.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Ann\u00E9e d'arriv\u00E9e :");
 		panel_4.add(lblNewLabel_3);
 		
-		textField_3 = new JTextField();
-		panel_4.add(textField_3);
-		textField_3.setColumns(10);
+		tfAArrivee = new JTextField();
+		panel_4.add(tfAArrivee);
+		tfAArrivee.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Fonction :");
 		panel_4.add(lblNewLabel_4);
@@ -131,9 +134,9 @@ public class JFModifPerso extends JFrame implements ActionListener {
 		JLabel lblNewLabel_5 = new JLabel("Login :");
 		panel_4.add(lblNewLabel_5);
 		
-		textField_4 = new JTextField();
-		panel_4.add(textField_4);
-		textField_4.setColumns(10);
+		tfLogin = new JTextField();
+		panel_4.add(tfLogin);
+		tfLogin.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("Password :");
 		panel_4.add(lblNewLabel_6);
@@ -142,24 +145,36 @@ public class JFModifPerso extends JFrame implements ActionListener {
 		panel_4.add(passwordField);
 	}
 
+	public Personnel getPersonnel() {
+		return nel;
+	}
+
+	@SuppressWarnings("deprecation")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==btnValider){
-			@SuppressWarnings("deprecation")
-			String a = passwordField.getText();
-			System.out.println(a);
+			String nom = tfNom.getText();
+			String prenom = tfPrenom.getText();
+			double salaire = Double.parseDouble(tfSalaire.getText());
+			int AArrivee = Integer.parseInt(tfAArrivee.getText());
+			String fonction = comboBox.getSelectedItem().toString();
+			String login = tfLogin.getText();
+			String password = passwordField.getText();
+			
+			
 		}
 		
 	}
 	
 	public void preAffichage(Personnel perso){
-		textField.setText(perso.getPersonne().getNom());
-		textField_1.setText(perso.getPersonne().getPrenom());
-		textField_2.setText(String.valueOf(perso.getSalaire()));
-		textField_3.setText(String.valueOf(perso.getAnnee_arrivee()));
+		tfNom.setText(perso.getPersonne().getNom());
+		tfPrenom.setText(perso.getPersonne().getPrenom());
+		tfSalaire.setText(String.valueOf(perso.getSalaire()));
+		tfAArrivee.setText(String.valueOf(perso.getAnnee_arrivee()));
 		//Faire une méthode pour sélectionner le bon item dans jcomboBox
-		textField_4.setText(perso.getLogin());
+		tfLogin.setText(perso.getLogin());
+		
 	}
 
 }
