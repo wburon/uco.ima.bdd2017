@@ -22,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.Dimension;
@@ -31,21 +30,22 @@ import java.awt.Font;
 /*
  * La classe est une JFrame qui s'ouvre lorsqu'uon veut ajouter un membre du personnel
  */
+@SuppressWarnings("serial")
 public class JFAddPerso extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
-	private JTextField textField_5;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField tfNom;
+	private JTextField tfPrenom;
+	private JTextField tfAdresse;
+	private JTextField tfVille;
+	private JTextField tfCodePostal;
+	private JTextField tfSalaire;
+	private JTextField tfAArrivee;
+	private JButton btnValider;
+	private JButton btnAnnuler;
+	private JTextField tfJ;
+	private JTextField tfM;
+	private JTextField tfA;
 	private JComboBox<String> comboBox;
 
 	private Personne perso;
@@ -54,10 +54,6 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	private PersonnelDAO nDAO;
 	private Fonction f;
 	private FonctionDAO fDAO;
-	
-//	private JPgePerso jpge;
-
-	private boolean valid;
 	
 
 	/**
@@ -78,6 +74,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 
 	/**
 	 * Create the frame.
+	 * @param tfVille 
 	 */
 	public JFAddPerso() {
 		setTitle("Ajout d'un membre du personnel");
@@ -97,13 +94,13 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 
-		btnNewButton = new JButton("Valider");
-		panel_2.add(btnNewButton);
-		btnNewButton.addActionListener(this);
+		btnValider = new JButton("Valider");
+		panel_2.add(btnValider);
+		btnValider.addActionListener(this);
 
-		btnNewButton_1 = new JButton("Annuler");
-		panel_2.add(btnNewButton_1);
-		btnNewButton_1.addActionListener(this);
+		btnAnnuler = new JButton("Annuler");
+		panel_2.add(btnAnnuler);
+		btnAnnuler.addActionListener(this);
 
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3, BorderLayout.EAST);
@@ -115,37 +112,37 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		JLabel lblNewLabel = new JLabel("Nom : ");
 		panel_4.add(lblNewLabel);
 
-		textField = new JTextField();
-		panel_4.add(textField);
-		textField.setColumns(10);
+		tfNom = new JTextField();
+		panel_4.add(tfNom);
+		tfNom.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("Pr\u00E9nom :");
 		panel_4.add(lblNewLabel_1);
 
-		textField_1 = new JTextField();
-		panel_4.add(textField_1);
-		textField_1.setColumns(10);
+		tfPrenom = new JTextField();
+		panel_4.add(tfPrenom);
+		tfPrenom.setColumns(10);
 
 		JLabel lblNewLabel_2 = new JLabel("Adresse :");
 		panel_4.add(lblNewLabel_2);
 
-		textField_2 = new JTextField();
-		panel_4.add(textField_2);
-		textField_2.setColumns(10);
+		tfAdresse = new JTextField();
+		panel_4.add(tfAdresse);
+		tfAdresse.setColumns(10);
 
 		JLabel lblNewLabel_3 = new JLabel("Ville : ");
 		panel_4.add(lblNewLabel_3);
 
-		textField_3 = new JTextField();
-		panel_4.add(textField_3);
-		textField_3.setColumns(10);
+		tfVille = new JTextField();
+		panel_4.add(tfVille);
+		tfVille.setColumns(10);
 
 		JLabel lblNewLabel_4 = new JLabel("Code Postal : ");
 		panel_4.add(lblNewLabel_4);
 
-		textField_4 = new JTextField();
-		panel_4.add(textField_4);
-		textField_4.setColumns(10);
+		tfCodePostal = new JTextField();
+		panel_4.add(tfCodePostal);
+		tfCodePostal.setColumns(10);
 
 		JLabel lblNewLabel_5 = new JLabel("Date de naissance : ");
 		panel_4.add(lblNewLabel_5);
@@ -157,41 +154,41 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		lblNewLabel_9.setPreferredSize(new Dimension(20, 14));
 		panel_5.add(lblNewLabel_9);
 
-		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		panel_5.add(textField_5);
-		textField_5.setColumns(3);
+		tfJ = new JTextField();
+		tfJ.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panel_5.add(tfJ);
+		tfJ.setColumns(3);
 
 		JLabel lblNewLabel_10 = new JLabel("M :");
 		lblNewLabel_10.setPreferredSize(new Dimension(20, 14));
 		panel_5.add(lblNewLabel_10);
 
-		textField_8 = new JTextField();
-		textField_8.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		panel_5.add(textField_8);
-		textField_8.setColumns(3);
+		tfM = new JTextField();
+		tfM.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panel_5.add(tfM);
+		tfM.setColumns(3);
 
 		JLabel lblNewLabel_11 = new JLabel("A :");
 		panel_5.add(lblNewLabel_11);
 
-		textField_9 = new JTextField();
-		textField_9.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		panel_5.add(textField_9);
-		textField_9.setColumns(5);
+		tfA = new JTextField();
+		tfA.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panel_5.add(tfA);
+		tfA.setColumns(5);
 
 		JLabel lblNewLabel_6 = new JLabel("Salaire : ");
 		panel_4.add(lblNewLabel_6);
 
-		textField_6 = new JTextField();
-		panel_4.add(textField_6);
-		textField_6.setColumns(10);
+		tfSalaire = new JTextField();
+		panel_4.add(tfSalaire);
+		tfSalaire.setColumns(10);
 
 		JLabel lblNewLabel_7 = new JLabel("Ann\u00E9e d'arriv\u00E9e :");
 		panel_4.add(lblNewLabel_7);
 
-		textField_7 = new JTextField();
-		panel_4.add(textField_7);
-		textField_7.setColumns(10);
+		tfAArrivee = new JTextField();
+		panel_4.add(tfAArrivee);
+		tfAArrivee.setColumns(10);
 
 		JLabel lblNewLabel_8 = new JLabel("Fonction : ");
 		panel_4.add(lblNewLabel_8);
@@ -207,7 +204,6 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		f = new Fonction();
 		fDAO = new FonctionDAO();
 		
-//		jpge = new JPgePerso();
 
 
 	}
@@ -222,18 +218,18 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == btnNewButton) {
-			String nom = textField.getText();
-			String prenom = textField_1.getText();
-			String adresse = textField_2.getText();
-			String ville = textField_3.getText();
-			int codePostal = Integer.parseInt(textField_4.getText());
-			int annee = Integer.parseInt(textField_9.getText()) - 1900;
-			int mois = Integer.parseInt(textField_8.getText()) - 1;
-			int jour = Integer.parseInt(textField_5.getText());
+		if (e.getSource() == btnValider) {
+			String nom = tfNom.getText();
+			String prenom = tfPrenom.getText();
+			String adresse = tfAdresse.getText();
+			String ville = tfVille.getText();
+			int codePostal = Integer.parseInt(tfCodePostal.getText());
+			int annee = Integer.parseInt(tfA.getText()) - 1900;
+			int mois = Integer.parseInt(tfM.getText()) - 1;
+			int jour = Integer.parseInt(tfJ.getText());
 			Date date = new Date(annee, mois, jour);
-			double salaire = Double.parseDouble(textField_6.getText());
-			int anneeArrivee = Integer.parseInt(textField_7.getText());
+			double salaire = Double.parseDouble(tfSalaire.getText());
+			int anneeArrivee = Integer.parseInt(tfAArrivee.getText());
 			String fonction = comboBox.getSelectedItem().toString();
 
 			f = fDAO.find(fDAO.renvoieId(fonction));
@@ -245,23 +241,21 @@ public class JFAddPerso extends JFrame implements ActionListener {
 			boolean b = creationNel(anneeArrivee, salaire, password, login);
 
 			if (a == true && b == true) {
-				JOptionPane.showMessageDialog(btnNewButton, "Votre ajout a bien été effectué", "Validation",
+				JOptionPane.showMessageDialog(btnValider, "Votre ajout a bien été effectué", "Validation",
 						JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
-				valid=true;
-//				jpge.getTPerso().addPersonnel(nel);
+				this.dispose();
 				
 			} else {
-				JOptionPane.showMessageDialog(btnNewButton, "Vous avez fait une erreur dans la saisie", "Erreur",
+				JOptionPane.showMessageDialog(btnValider, "Vous avez fait une erreur dans la saisie", "Erreur",
 						JOptionPane.ERROR_MESSAGE);
 				if (a)
 					pDAO.delete(perso);
 				else if (b)
 					nDAO.delete(nel);
-				valid=false;
 			}
 
-		} else if (e.getSource() == btnNewButton_1)
+		} else if (e.getSource() == btnAnnuler)
 			clearTextField();
 
 	}
@@ -270,16 +264,16 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	 * Permet d'effacer le contenu des TextField
 	 */
 	public void clearTextField() {
-		textField.setText("");
-		textField_1.setText("");
-		textField_2.setText("");
-		textField_3.setText("");
-		textField_4.setText("");
-		textField_5.setText("");
-		textField_6.setText("");
-		textField_7.setText("");
-		textField_8.setText("");
-		textField_9.setText("");
+		tfNom.setText("");
+		tfPrenom.setText("");
+		tfAdresse.setText("");
+		tfVille.setText("");
+		tfCodePostal.setText("");
+		tfJ.setText("");
+		tfM.setText("");
+		tfA.setText("");
+		tfSalaire.setText("");
+		tfAArrivee.setText("");
 
 	}
 
@@ -323,8 +317,4 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	public Personnel getPersonnel() {
 		return nel;
 	}
-	public boolean isValid(){
-		return valid;
-	}
-
 }

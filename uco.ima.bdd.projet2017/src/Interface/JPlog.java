@@ -10,6 +10,7 @@ import DAO.PersonnelDAO;
 import model.Personnel;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -23,6 +24,9 @@ public class JPlog extends JPanel implements ActionListener{
 	private JPasswordField pfPasswd;
 	private JButton btnConnexion;
 	private JButton btnCrerUnCompte;
+	private JPanel JPBlock;
+	private JPanel panel_4;
+	private JButton btnRetour;
 	
 	private PersonnelDAO nDAO;
 	private Personnel nel;
@@ -49,7 +53,7 @@ public class JPlog extends JPanel implements ActionListener{
 		JPanel panel_3 = new JPanel();
 		add(panel_3, BorderLayout.SOUTH);
 		
-		JPanel panel_4 = new JPanel();
+		panel_4 = new JPanel();
 		add(panel_4, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
 		gbl_panel_4.columnWidths = new int[]{114, 97, 113, 0};
@@ -110,7 +114,15 @@ public class JPlog extends JPanel implements ActionListener{
 		gbc_btnCrerUnCompte.gridx = 2;
 		gbc_btnCrerUnCompte.gridy = 3;
 		panel_4.add(btnCrerUnCompte, gbc_btnCrerUnCompte);
-
+		
+		JPBlock = new JPanel();
+		JPBlock.setLayout(new BorderLayout(0,0));
+		
+		JLabel labelBlock=new JLabel("Vous n'êtes pas autoriser à accéder au logiciel");
+		JPBlock.add(labelBlock, BorderLayout.CENTER);
+		
+		
+		
 		nDAO=new PersonnelDAO();
 		nel = new Personnel();
 		
@@ -128,16 +140,21 @@ public class JPlog extends JPanel implements ActionListener{
 			nel = nDAO.find(nDAO.findUser(login, password));
 			
 			if(nel.getFonction().getNiveau_contrainte()==0){
+				JOptionPane.showMessageDialog(panel_4, "Vous n'êtes pas autorisé à accéder au logiciel", "Autorisation", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 			if(nel.getFonction().getNiveau_contrainte()==1){
 				JFInterface.setContentPane(JFInterface.getJPEmployer());
+				JFInterface.getJPEmployer().repaint();
+				JFInterface.getJPEmployer().revalidate();
+				JFInterface.getJPEmployer().setPersoConn(nel);
 			}
 			if(nel.getFonction().getNiveau_contrainte()==2){
 
 				JFInterface.setContentPane(JFInterface.getJPgerant());
 				JFInterface.getJPgerant().repaint();
 				JFInterface.getJPgerant().revalidate();
+				JFInterface.getJPgerant().setPersoConn(nel);
 			}
 		}
 		

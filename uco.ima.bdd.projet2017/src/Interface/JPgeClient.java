@@ -12,6 +12,7 @@ import javax.swing.JTable;
 
 import model.Table_Client;
 
+@SuppressWarnings("serial")
 public class JPgeClient extends JPanel implements ActionListener {
 
 	private JButton btnActualiser;
@@ -21,11 +22,15 @@ public class JPgeClient extends JPanel implements ActionListener {
 	private JButton btnPlusDinfo;
 	private JTable table;
 	private Table_Client tClient = new Table_Client();
+	private JFInterface JFInterface;
 
 	/**
 	 * Create the panel.
 	 */
-	public JPgeClient() {
+	public JPgeClient(JFInterface JFInterface) {
+		
+		this.JFInterface=JFInterface;
+		
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
