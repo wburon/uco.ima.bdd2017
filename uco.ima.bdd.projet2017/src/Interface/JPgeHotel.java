@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 
 import DAO.ChambreDAO;
 import DAO.HotelDAO;
@@ -140,6 +141,7 @@ public class JPgeHotel extends JPanel implements ActionListener{
 					tChambre.setChambre(s, mC.getCurrentChambre());
 				addC=false;supprC=false;modifC=false;
 			}
+			
 		}else if(e.getSource() == btnModif){
 			if(table.getModel() == tHotel){
 				s = table.getSelectedRow();

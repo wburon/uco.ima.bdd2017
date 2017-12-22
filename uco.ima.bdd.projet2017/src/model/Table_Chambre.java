@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 import DAO.ChambreDAO;
 import DAO.HotelDAO;
@@ -12,6 +13,7 @@ public class Table_Chambre extends AbstractTableModel{
 private ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
 	
 	private final String[] entetes = {"Numero", "Tele", "Handicap", "Communicante", "Animaux", "Type", "Tarif"};
+	private javax.swing.JTable defaultModificationsTable; 
 	
 	public Table_Chambre(int id_hotel) {
 		super();
@@ -61,13 +63,13 @@ private ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
 	public void addChambre(Chambre c){
 		listChambre.add(c);
 		
-		fireTableRowsInserted(listChambre.size()-1, listChambre.size()-1);
+		this.fireTableRowsInserted(listChambre.size()-1, listChambre.size()-1);
 		
 	}
 	public void removeChambre(int rowIndex){
 		listChambre.remove(rowIndex);
 		
-		fireTableRowsDeleted(rowIndex, rowIndex);
+		this.fireTableRowsDeleted(rowIndex, rowIndex);
 	}
 	public Chambre getChambre(int i){
 		return listChambre.get(i);
@@ -76,9 +78,10 @@ private ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
 
 		listChambre.set(rowIndex, chambre);
 		
-		fireTableRowsUpdated(rowIndex, rowIndex);
+		this.fireTableRowsUpdated(rowIndex, rowIndex);
 	}
 	public void actualiser(){
-		fireTableDataChanged();
+		this.fireTableDataChanged();
 	}
+	
 }
