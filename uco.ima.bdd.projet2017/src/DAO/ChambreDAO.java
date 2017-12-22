@@ -55,6 +55,14 @@ public class ChambreDAO extends DAO<Chambre>{
 		
 	}
 
+	private void increaseNbChambreHotelLibre(int id_hotel) {
+		HotelDAO hDAO = new HotelDAO();
+		Hotel h = hDAO.find(id_hotel);
+		h.setNb_chambre_libre(h.getNb_chambre_libre()+1);
+		hDAO.update(h);
+		
+	}
+	
 	private void increaseNbChambreHotel(int id_hotel) {
 		HotelDAO hDAO = new HotelDAO();
 		Hotel h = hDAO.find(id_hotel);
@@ -67,6 +75,12 @@ public class ChambreDAO extends DAO<Chambre>{
 		HotelDAO hDAO = new HotelDAO();
 		Hotel h = hDAO.find(id_hotel);
 		h.setNb_chambre_total(h.getNb_chambre_total()-1);
+	}
+	
+	private void decreaseNbChambreHotelLibre(int id_hotel){
+		HotelDAO hDAO = new HotelDAO();
+		Hotel h = hDAO.find(id_hotel);
+		h.setNb_chambre_libre(h.getNb_chambre_libre()-1);
 	}
 
 	@Override
@@ -84,6 +98,8 @@ public class ChambreDAO extends DAO<Chambre>{
 			prepare.executeUpdate();
 			
 			decreaseNbChambreHotel(obj.getHotel().getId_hotel());
+			if(obj.isLibre())
+				decreaseNbChambreHotelLibre(obj.getHotel().getId_hotel());
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
