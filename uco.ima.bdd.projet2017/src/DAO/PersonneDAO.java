@@ -67,7 +67,7 @@ public class PersonneDAO extends DAO<Personne> {
 	@Override
 	public boolean update(Personne obj) {
 		try{
-			PreparedStatement prepare=SC.prepareStatement("Update personne set nom=?, prenom=?, ville=?, code_postal=?, adresse=?, date_naissance=? where id_personne=?");
+			PreparedStatement prepare=SC.prepareStatement("Update personne set nom=?, prenom=?, ville=?, code_postal=?, adresse=?, date_de_naissance=? where id_personne=?");
 			
 			prepare.setString(1, obj.getNom());
 			prepare.setString(2, obj.getPrenom());

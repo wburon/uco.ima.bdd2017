@@ -103,7 +103,7 @@ public class JPgePerso extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(btnModif, "Vous devez sélectionné une ligne dans le tableau !","Selection",JOptionPane.INFORMATION_MESSAGE);
 			}
 			else {
-				JFModifPerso f1 = new JFModifPerso();
+				JFModifPerso f1 = new JFModifPerso(tPerso.getPersonnel(s));
 				f1.preAffichage(tPerso.getPersonnel(s));
 				f1.setVisible(true);
 				

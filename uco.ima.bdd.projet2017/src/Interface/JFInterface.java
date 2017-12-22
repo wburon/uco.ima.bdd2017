@@ -37,6 +37,7 @@ public class JFInterface extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public JFInterface() {
+		setTitle("Progiciel Gerotel");
 
 
 
