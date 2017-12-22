@@ -3,11 +3,14 @@ package Interface;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
+import model.Personnel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
-public class JFInterface extends JFrame implements ActionListener{
+public class JFInterface extends JFrame{
 
 	
 	private JPlog JPlog;
@@ -16,6 +19,8 @@ public class JFInterface extends JFrame implements ActionListener{
 	private JPgerant JPgerant;
 	private JPEmployer JPEmployer;
 	private JPgeClient JPgeClient;
+	
+	private Personnel PersoConn;
 
 	/**
 	 * Launch the application.
@@ -58,6 +63,14 @@ public class JFInterface extends JFrame implements ActionListener{
 	}
 
 	
+	public Personnel getPersoConn() {
+		return PersoConn;
+	}
+
+	public void setPersoConn(Personnel persoConn) {
+		PersoConn = persoConn;
+	}
+
 	public JPEmployer getJPEmployer() {
 		return JPEmployer;
 	}
@@ -103,12 +116,6 @@ public class JFInterface extends JFrame implements ActionListener{
 
 	public void setJPgerant(JPgerant jPgerant) {
 		JPgerant = jPgerant;
-	}
-
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
 	}
 
 }

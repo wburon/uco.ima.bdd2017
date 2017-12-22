@@ -43,11 +43,15 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	private JFAddHotel h1;
 	private HotelDAO hDAO = new HotelDAO();
 	private ChambreDAO cDAO = new ChambreDAO();
+	private JButton btnRetourMenu;
+	private JFInterface JFInterface;
 
 	/**
 	 * Create the panel.
 	 */
 	public JPgeHotel(JFInterface JFInterface) {
+		this.JFInterface=JFInterface;
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -77,6 +81,9 @@ public class JPgeHotel extends JPanel implements ActionListener{
 		btnSupprimer = new JButton("Supprimer");
 		panel_2.add(btnSupprimer);
 		btnSupprimer.addActionListener(this);
+		
+		btnRetourMenu = new JButton("Retour Menu");
+		panel_2.add(btnRetourMenu);
 		
 		btnPlusDinfo = new JButton("Plus d'info sur l'hotel");
 		panel_2.add(btnPlusDinfo);
@@ -164,6 +171,17 @@ public class JPgeHotel extends JPanel implements ActionListener{
 				cDAO.delete(tChambre.getChambre(s));
 				
 				supprC = true;
+			}
+		}else if(e.getSource()==btnRetourMenu){
+			if (JFInterface.getPersoConn().getFonction().getNiveau_contrainte()==2){
+				JFInterface.setContentPane(JFInterface.getJPgerant());
+				JFInterface.repaint();
+				JFInterface.revalidate();
+			}
+			else{
+				JFInterface.setContentPane(JFInterface.getJPEmployer());
+				JFInterface.repaint();
+				JFInterface.revalidate();
 			}
 		}
 		

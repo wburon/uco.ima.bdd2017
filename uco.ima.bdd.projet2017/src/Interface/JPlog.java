@@ -147,14 +147,14 @@ public class JPlog extends JPanel implements ActionListener{
 				JFInterface.setContentPane(JFInterface.getJPEmployer());
 				JFInterface.getJPEmployer().repaint();
 				JFInterface.getJPEmployer().revalidate();
-				JFInterface.getJPEmployer().setPersoConn(nel);
+				JFInterface.setPersoConn(nel);
 			}
 			if(nel.getFonction().getNiveau_contrainte()==2){
 
 				JFInterface.setContentPane(JFInterface.getJPgerant());
 				JFInterface.getJPgerant().repaint();
 				JFInterface.getJPgerant().revalidate();
-				JFInterface.getJPgerant().setPersoConn(nel);
+				JFInterface.setPersoConn(nel);
 			}
 		}
 		

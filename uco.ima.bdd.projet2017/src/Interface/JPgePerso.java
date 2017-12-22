@@ -32,6 +32,7 @@ public class JPgePerso extends JPanel implements ActionListener{
 	private Personnel nel;
 	private boolean addP;
 	private boolean setP;
+	private boolean delP;
 	
 	private JFAddPerso f2;
 	
@@ -95,6 +96,8 @@ public class JPgePerso extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int s=-1;
+		int indexSet=-1;
+		int indexDel=-1;
 		if (e.getSource()==btnModif){
 
 			s = table.getSelectedRow();
@@ -106,6 +109,9 @@ public class JPgePerso extends JPanel implements ActionListener{
 				JFModifPerso f1 = new JFModifPerso(tPerso.getPersonnel(s));
 				f1.preAffichage(tPerso.getPersonnel(s));
 				f1.setVisible(true);
+				nel=f1.getPersonnel();
+				indexSet=s;
+				setP=true;
 				
 			}
 		}
@@ -121,7 +127,13 @@ public class JPgePerso extends JPanel implements ActionListener{
 			JFInterface.revalidate();
 		}
 		if (e.getSource()==btnActualiser){
-			
+			if(addP)
+				tPerso.addPersonnel(nel);
+			if(setP)
+				tPerso.setPersonnel(indexSet,nel);
+			if(delP){
+				tPerso.removePersonnel(indexDel);
+			}
 		}
 		if (e.getSource()==btnSupprimer){
 			s = table.getSelectedRow();
@@ -133,6 +145,8 @@ public class JPgePerso extends JPanel implements ActionListener{
 				String prenom=tPerso.getPersonnel(s).getPersonne().getPrenom();
 				String message="Le membre du personnel "+prenom+" "+nom+" a été supprimé !";
 				JOptionPane.showMessageDialog(btnSupprimer, message,"Suppression",JOptionPane.INFORMATION_MESSAGE);
+				indexDel=s;
+				delP=true;
 			}
 		}
 		

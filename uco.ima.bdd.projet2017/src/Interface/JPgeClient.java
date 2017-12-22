@@ -23,6 +23,7 @@ public class JPgeClient extends JPanel implements ActionListener {
 	private JTable table;
 	private Table_Client tClient = new Table_Client();
 	private JFInterface JFInterface;
+	private JButton btnRetourMenu;
 
 	/**
 	 * Create the panel.
@@ -60,6 +61,10 @@ public class JPgeClient extends JPanel implements ActionListener {
 		btnSupprimer = new JButton("Supprimer");
 		panel_2.add(btnSupprimer);
 		btnSupprimer.addActionListener(this);
+		
+		btnRetourMenu = new JButton("Retour Menu");
+		panel_2.add(btnRetourMenu);
+		btnRetourMenu.addActionListener(this);
 
 		btnPlusDinfo = new JButton("Plus d'info sur l'hotel");
 		panel_2.add(btnPlusDinfo);
@@ -77,8 +82,18 @@ public class JPgeClient extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		if(arg0.getSource()==btnRetourMenu){
+			if (JFInterface.getPersoConn().getFonction().getNiveau_contrainte()==2){
+				JFInterface.setContentPane(JFInterface.getJPgerant());
+				JFInterface.repaint();
+				JFInterface.revalidate();
+			}
+			else{
+				JFInterface.setContentPane(JFInterface.getJPEmployer());
+				JFInterface.repaint();
+				JFInterface.revalidate();
+			}
+		}
 	}
 
 }
