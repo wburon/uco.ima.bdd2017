@@ -6,24 +6,44 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DAO.ChambreDAO;
+import DAO.Type_ChambreDAO;
+import model.Table_Chambre;
+
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.Rectangle;
 
-public class JFReservation extends JFrame {
+public class JFReservation extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtJjmmaaaa;
+	private JTextField txtJjmmaaaa_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
 	private JTable table;
+	private JButton btnRecherche;
+	private int currentIdHotel;
+	private ChambreDAO cDAO = new ChambreDAO();
+	private JComboBox comboBoxTC;
+	private Type_ChambreDAO tDAO = new Type_ChambreDAO();
+	private JTextField textField;
+	private JComboBox comboBoxH;
+	private JComboBox comboBoxA;
+	private JComboBox comboBoxT;
+	private JComboBox comboBoxC;
 
 	/**
 	 * Launch the application.
@@ -32,7 +52,7 @@ public class JFReservation extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFReservation frame = new JFReservation();
+					JFReservation frame = new JFReservation(1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,9 +64,12 @@ public class JFReservation extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFReservation() {
+	public JFReservation(int id_hotel) {
+		this.currentIdHotel = id_hotel;
+		
+		setTitle("Reserver");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 548);
+		setBounds(100, 100, 659, 548);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -74,69 +97,106 @@ public class JFReservation extends JFrame {
 		JLabel lblDbutDuSjour = new JLabel("D\u00E9but du s\u00E9jour ");
 		panel_3.add(lblDbutDuSjour);
 		
-		textField = new JTextField();
-		panel_3.add(textField);
-		textField.setColumns(10);
+		txtJjmmaaaa = new JTextField();
+		txtJjmmaaaa.setText("jj-MM-AAAA");
+		panel_3.add(txtJjmmaaaa);
+		txtJjmmaaaa.setColumns(10);
 		
 		JLabel lblFinDuSjour = new JLabel("Fin du s\u00E9jour ");
 		panel_3.add(lblFinDuSjour);
 		
-		textField_1 = new JTextField();
-		panel_3.add(textField_1);
-		textField_1.setColumns(10);
+		txtJjmmaaaa_1 = new JTextField();
+		txtJjmmaaaa_1.setText("jj-MM-AAAA");
+		panel_3.add(txtJjmmaaaa_1);
+		txtJjmmaaaa_1.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
 		panel_2.add(panel_4);
 		
-		JLabel lblPays = new JLabel("Pays ");
+		JLabel lblPays = new JLabel("Nombre de chambre");
 		panel_4.add(lblPays);
 		
 		textField_2 = new JTextField();
 		panel_4.add(textField_2);
 		textField_2.setColumns(10);
 		
-		JLabel lblVille = new JLabel("Ville");
-		panel_4.add(lblVille);
-		
-		textField_3 = new JTextField();
-		panel_4.add(textField_3);
-		textField_3.setColumns(10);
-		
-		JLabel lblCodePostal = new JLabel("Code Postal ");
-		panel_4.add(lblCodePostal);
-		
-		textField_4 = new JTextField();
-		panel_4.add(textField_4);
-		textField_4.setColumns(10);
+		JButton btnReserver = new JButton("Reserver");
+		panel_4.add(btnReserver);
 		
 		JPanel panel_5 = new JPanel();
 		panel_1.add(panel_5, BorderLayout.CENTER);
-		panel_5.setLayout(new GridLayout(1, 2, 0, 0));
+		panel_5.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_6 = new JPanel();
-		panel_5.add(panel_6);
-		panel_6.setLayout(new GridLayout(3, 1, 0, 0));
+		panel_6.setPreferredSize(new Dimension(230, 10));
+		panel_5.add(panel_6, BorderLayout.WEST);
+		panel_6.setLayout(new GridLayout(7, 2, 0, 0));
 		
-		JLabel lblChoisirUnHotel = new JLabel("Choisir un hotel :");
-		lblChoisirUnHotel.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_6.add(lblChoisirUnHotel);
+		JLabel lblTypeDeChambre = new JLabel("Type de chambre");
+		panel_6.add(lblTypeDeChambre);
 		
-		table = new JTable();
-		panel_6.add(table);
+		comboBoxTC = new JComboBox();
+		comboBoxTC.setModel(new DefaultComboBoxModel(tDAO.listNameTypeChambre()));
+		panel_6.add(comboBoxTC);
 		
-		JButton btnOk = new JButton("OK");
-		panel_6.add(btnOk);
+		JLabel lblCommunicante = new JLabel("Communicante");
+		panel_6.add(lblCommunicante);
+		
+		comboBoxC = new JComboBox();
+		comboBoxC.setModel(new DefaultComboBoxModel(new String[] {"Oui", "Non", "Peu Importe"}));
+		panel_6.add(comboBoxC);
+		
+		JLabel lblTelevision = new JLabel("Television");
+		panel_6.add(lblTelevision);
+		
+		comboBoxT = new JComboBox();
+		comboBoxT.setModel(new DefaultComboBoxModel(new String[] {"Oui", "Non", "Peu Importe"}));
+		panel_6.add(comboBoxT);
+		
+		JLabel lblAnimaux = new JLabel("Animaux");
+		panel_6.add(lblAnimaux);
+		
+		comboBoxA = new JComboBox();
+		comboBoxA.setModel(new DefaultComboBoxModel(new String[] {"Oui", "Non", "Peu Importe"}));
+		panel_6.add(comboBoxA);
+		
+		JLabel lblHandicap = new JLabel("Handicap");
+		panel_6.add(lblHandicap);
+		
+		comboBoxH = new JComboBox();
+		comboBoxH.setBounds(new Rectangle(5, 5, 5, 5));
+		comboBoxH.setModel(new DefaultComboBoxModel(new String[] {"Oui", "Non", "Peu Importe"}));
+		panel_6.add(comboBoxH);
+		
+		JLabel lblTarifMaximum = new JLabel("Tarif Maximum");
+		panel_6.add(lblTarifMaximum);
+		
+		textField = new JTextField();
+		panel_6.add(textField);
+		textField.setColumns(10);
+		
+		JLabel label = new JLabel("");
+		panel_6.add(label);
+		
+		btnRecherche = new JButton("Recherche");
+		panel_6.add(btnRecherche);
 		
 		JPanel panel_7 = new JPanel();
-		panel_5.add(panel_7);
-		panel_7.setLayout(new GridLayout(2, 1, 0, 0));
+		panel_5.add(panel_7, BorderLayout.CENTER);
+		panel_7.setLayout(new GridLayout(1, 1, 0, 0));
 		
-		JLabel lblNombreDeChambre = new JLabel("Nombre de chambre libre : ");
-		lblNombreDeChambre.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_7.add(lblNombreDeChambre);
-		
-		JButton btnTrouverUneChambre = new JButton("Trouver une chambre !");
-		panel_7.add(btnTrouverUneChambre);
+		table = new JTable();
+		panel_7.add(table);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btnRecherche){
+			cDAO.udpateLibre(txtJjmmaaaa,txtJjmmaaaa_1);
+			Table_Chambre tChambre = new Table_Chambre(this.currentIdHotel);
+			tChambre.setListChambre(cDAO.findWithCritereAndLibre(tDAO.find(comboBoxTC.getSelectedIndex()+1),Name.comboBoxA.getSelectedIndex(),comboBoxC.isSelected(),checkBoxH.isSelected(),checkBoxT.isSelected()));
+			table.setModel()
+		}
 	}
 
 }

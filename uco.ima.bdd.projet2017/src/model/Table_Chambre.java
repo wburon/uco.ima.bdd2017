@@ -1,19 +1,15 @@
 package model;
 
 import java.util.ArrayList;
-
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-
 import DAO.ChambreDAO;
-import DAO.HotelDAO;
 
 public class Table_Chambre extends AbstractTableModel{
 
 private ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
 	
 	private final String[] entetes = {"Numero", "Tele", "Handicap", "Communicante", "Animaux", "Type", "Tarif"};
-	private javax.swing.JTable defaultModificationsTable; 
+
 	
 	public Table_Chambre(int id_hotel) {
 		super();
@@ -21,6 +17,14 @@ private ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
 		listChambre = cDAO.ListChambre(id_hotel);
 	}
 	
+	public ArrayList<Chambre> getListChambre() {
+		return listChambre;
+	}
+
+	public void setListChambre(ArrayList<Chambre> listChambre) {
+		this.listChambre = listChambre;
+	}
+
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub

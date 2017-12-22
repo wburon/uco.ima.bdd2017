@@ -236,18 +236,18 @@ public class ChambreDAO extends DAO<Chambre>{
 	 * @param prixInf
 	 * @param prixSup
 	 * @param comm
-	 * Cette methode recherche une chambre avec l'ensembles des paramètre demander.
+	 * Cette methode recherche les chambres avec l'ensembles des paramètres demandés.
 	 * @return
-	 * La Chambre qui correspond au contrainte
+	 * Les Chambres qui correspondent aux contraintes
 	 */
-	public Chambre findPerfect(boolean tele, boolean animaux, boolean handi, Type_Chambre TC, double prixInf, 
-			double prixSup, boolean comm){
+	public ArrayList<Chambre> findPerfect(boolean tele, boolean animaux, boolean handi, Type_Chambre TC, 
+			double prixSup, boolean comm, int id_hotel){
 		Chambre chambre=new Chambre();
 		HotelDAO hotel=new HotelDAO();
 		Type_ChambreDAO type_c= new Type_ChambreDAO();
 		try{
 			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM chambre WHERE tele=? AND animaux=? "
-					+ "AND handicap=? AND communicante=? AND id_type_chambre=? AND tarif>=? AND tarif<=?");
+					+ "AND handicap=? AND communicante=? AND id_type_chambre=? AND tarif<=?");
 			prepare.setBoolean(1, tele);
 			prepare.setBoolean(2, animaux);
 			prepare.setBoolean(3, handi);
@@ -257,8 +257,9 @@ public class ChambreDAO extends DAO<Chambre>{
 			else 
 				prepare.setString(5, "id_type_chambre");
 			
-			prepare.setDouble(6, prixInf);	
-			prepare.setDouble(7, prixSup);
+				
+			prepare.setDouble(6, prixSup);
+			prepare.setInt(7, id_hotel);
 
 			
 			
@@ -304,16 +305,30 @@ public class ChambreDAO extends DAO<Chambre>{
 		return nbRow;
 	}
 	
-	public boolean findIfChambreIsLibre(Date debutResa, Date finResa){
-		// récuperation de la date du jour
-//		String format = "dd/MM/yyyy"; 
-//		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
-		java.util.Date date = new java.util.Date(); 
+	public ArrayList<Integer> findChambreIsNotLibre(Date debutResa, Date finResa, int id_hotel){ 
+		ArrayList<Integer> listIdNotLibre = new ArrayList<Integer>();
+
+		try {
+			String format = "dd-MM-yyyy"; 
+			java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM reservation where (date_debut<? AND date_debut>?) OR (date_fin<? AND date_fin>?) AND id_hotel=?");
+			prepare.setString(1, formater.format(finResa));
+			prepare.setString(2, formater.format(debutResa));
+			prepare.setString(3, formater.format(finResa));
+			prepare.setString(4, formater.format(debutResa));
+			prepare.setInt(5, id_hotel);
+			ResultSet result = prepare.executeQuery();
+			
+			while(result.next()){
+				listIdNotLibre.add(result.getInt("id_chambre"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listIdNotLibre;
 		
-		if (date.before(debutResa) || date.after(finResa))
-			return true;
-		else
-			return false;
 	}
 	
 	public boolean findIfChambreIsLibreToday(int id_chambre){
@@ -425,6 +440,10 @@ public class ChambreDAO extends DAO<Chambre>{
 		}
 		return listChambre;
 	}
+	
+	public ArrayList<Chambre> ListChambreLibre()
+
+	
 	
 	
 
