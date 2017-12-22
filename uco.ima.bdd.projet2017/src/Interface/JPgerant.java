@@ -71,6 +71,7 @@ public class JPgerant extends JPanel implements ActionListener{
 		gbc_btnQuitter.gridx = 1;
 		gbc_btnQuitter.gridy = 5;
 		add(btnQuitter, gbc_btnQuitter);
+		btnQuitter.addActionListener(this);
 
 	}
 	@Override
