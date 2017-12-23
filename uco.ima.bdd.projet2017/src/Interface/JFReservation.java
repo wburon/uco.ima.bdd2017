@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import DAO.ChambreDAO;
 import DAO.Type_ChambreDAO;
+import model.Name;
 import model.Table_Chambre;
 
 import java.awt.Dimension;
@@ -17,6 +18,10 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -44,6 +49,8 @@ public class JFReservation extends JFrame implements ActionListener{
 	private JComboBox comboBoxA;
 	private JComboBox comboBoxT;
 	private JComboBox comboBoxC;
+	private String[] comboBoxBoolean = new String[] {"OUI", "NON", "PEU_IMPORTE"};
+	private String[] comboBoxType = new String[] {"", "Suite Royal", "Simple", "Double", "Famille"};
 
 	/**
 	 * Launch the application.
@@ -98,7 +105,7 @@ public class JFReservation extends JFrame implements ActionListener{
 		panel_3.add(lblDbutDuSjour);
 		
 		txtJjmmaaaa = new JTextField();
-		txtJjmmaaaa.setText("jj-MM-AAAA");
+		txtJjmmaaaa.setText("dd-MM-yyyy");
 		panel_3.add(txtJjmmaaaa);
 		txtJjmmaaaa.setColumns(10);
 		
@@ -106,7 +113,7 @@ public class JFReservation extends JFrame implements ActionListener{
 		panel_3.add(lblFinDuSjour);
 		
 		txtJjmmaaaa_1 = new JTextField();
-		txtJjmmaaaa_1.setText("jj-MM-AAAA");
+		txtJjmmaaaa_1.setText("dd-MM-yyyy");
 		panel_3.add(txtJjmmaaaa_1);
 		txtJjmmaaaa_1.setColumns(10);
 		
@@ -136,28 +143,28 @@ public class JFReservation extends JFrame implements ActionListener{
 		panel_6.add(lblTypeDeChambre);
 		
 		comboBoxTC = new JComboBox();
-		comboBoxTC.setModel(new DefaultComboBoxModel(tDAO.listNameTypeChambre()));
+		comboBoxTC.setModel(new DefaultComboBoxModel(comboBoxType));
 		panel_6.add(comboBoxTC);
 		
 		JLabel lblCommunicante = new JLabel("Communicante");
 		panel_6.add(lblCommunicante);
 		
 		comboBoxC = new JComboBox();
-		comboBoxC.setModel(new DefaultComboBoxModel(new String[] {"Oui", "Non", "Peu Importe"}));
+		comboBoxC.setModel(new DefaultComboBoxModel(comboBoxBoolean));
 		panel_6.add(comboBoxC);
 		
 		JLabel lblTelevision = new JLabel("Television");
 		panel_6.add(lblTelevision);
 		
 		comboBoxT = new JComboBox();
-		comboBoxT.setModel(new DefaultComboBoxModel(new String[] {"Oui", "Non", "Peu Importe"}));
+		comboBoxT.setModel(new DefaultComboBoxModel(comboBoxBoolean));
 		panel_6.add(comboBoxT);
 		
 		JLabel lblAnimaux = new JLabel("Animaux");
 		panel_6.add(lblAnimaux);
 		
 		comboBoxA = new JComboBox();
-		comboBoxA.setModel(new DefaultComboBoxModel(new String[] {"Oui", "Non", "Peu Importe"}));
+		comboBoxA.setModel(new DefaultComboBoxModel(comboBoxBoolean));
 		panel_6.add(comboBoxA);
 		
 		JLabel lblHandicap = new JLabel("Handicap");
@@ -165,7 +172,7 @@ public class JFReservation extends JFrame implements ActionListener{
 		
 		comboBoxH = new JComboBox();
 		comboBoxH.setBounds(new Rectangle(5, 5, 5, 5));
-		comboBoxH.setModel(new DefaultComboBoxModel(new String[] {"Oui", "Non", "Peu Importe"}));
+		comboBoxH.setModel(new DefaultComboBoxModel(comboBoxBoolean));
 		panel_6.add(comboBoxH);
 		
 		JLabel lblTarifMaximum = new JLabel("Tarif Maximum");
@@ -192,10 +199,17 @@ public class JFReservation extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnRecherche){
-			cDAO.udpateLibre(txtJjmmaaaa,txtJjmmaaaa_1);
+			try {
 			Table_Chambre tChambre = new Table_Chambre(this.currentIdHotel);
-			tChambre.setListChambre(cDAO.findWithCritereAndLibre(tDAO.find(comboBoxTC.getSelectedIndex()+1),Name.comboBoxA.getSelectedIndex(),comboBoxC.isSelected(),checkBoxH.isSelected(),checkBoxT.isSelected()));
-			table.setModel()
+			DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+			Date debut = format.parse(txtJjmmaaaa.getText());
+			Date fin = format.parse(txtJjmmaaaa_1.getText());
+			tChambre.setListChambre(cDAO.findPerfect(tDAO.find(comboBoxTC.getSelectedIndex()+2),Name.getName(comboBoxBoolean[comboBoxA.getSelectedIndex()]),Name.getName(comboBoxBoolean[comboBoxC.getSelectedIndex()]),Name.getName(comboBoxBoolean[comboBoxH.getSelectedIndex()]),Name.getName(comboBoxBoolean[comboBoxT.getSelectedIndex()]), Double.parseDouble(textField.getText()), currentIdHotel, debut, fin ));
+			table.setModel(tChambre);
+			} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		}
 	}
 

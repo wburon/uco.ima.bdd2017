@@ -1,12 +1,13 @@
 package DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -15,11 +16,14 @@ import Singleton.SingletonConnection;
 import model.Chambre;
 import model.Communicante;
 import model.Hotel;
+import model.Name;
 import model.Type_Chambre;
 
 public class ChambreDAO extends DAO<Chambre>{
 	
 	Connection SC = SingletonConnection.getConnection();
+	private HotelDAO hotel=new HotelDAO();
+	private Type_ChambreDAO type_c= new Type_ChambreDAO();
 
 	@Override
 	/**
@@ -240,18 +244,33 @@ public class ChambreDAO extends DAO<Chambre>{
 	 * @return
 	 * Les Chambres qui correspondent aux contraintes
 	 */
-	public ArrayList<Chambre> findPerfect(boolean tele, boolean animaux, boolean handi, Type_Chambre TC, 
-			double prixSup, boolean comm, int id_hotel){
-		Chambre chambre=new Chambre();
-		HotelDAO hotel=new HotelDAO();
-		Type_ChambreDAO type_c= new Type_ChambreDAO();
+	public ArrayList<Chambre> findPerfect(Type_Chambre TC, Name animaux, Name comm,  Name handi, Name tele,  double prixSup,  int id_hotel, Date debut, Date fin){
+		ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
+		
 		try{
 			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM chambre WHERE tele=? AND animaux=? "
-					+ "AND handicap=? AND communicante=? AND id_type_chambre=? AND tarif<=?");
-			prepare.setBoolean(1, tele);
-			prepare.setBoolean(2, animaux);
-			prepare.setBoolean(3, handi);
-			prepare.setBoolean(4, comm);
+					+ "AND handicap=? AND communicante=? AND id_type_chambre=? AND tarif<=? AND id_hotel=?");
+			
+			if(tele == Name.PEU_IMPORTE)
+				prepare.setString(1, "tele");
+			else
+				prepare.setBoolean(1, tele.value());
+			
+			if(animaux == Name.PEU_IMPORTE)
+				prepare.setString(2, "animaux");
+			else
+				prepare.setBoolean(2, animaux.value());
+			
+			if(handi == Name.PEU_IMPORTE)
+				prepare.setString(3, "handicap");
+			else
+				prepare.setBoolean(3, handi.value());
+			
+			if(comm == Name.PEU_IMPORTE)
+				prepare.setString(4, "communicante");
+			else
+				prepare.setBoolean(4, comm.value());
+			
 			if (TC != null)
 				prepare.setInt(5, TC.getId_type_chambre());
 			else 
@@ -261,24 +280,35 @@ public class ChambreDAO extends DAO<Chambre>{
 			prepare.setDouble(6, prixSup);
 			prepare.setInt(7, id_hotel);
 
-			
-			
 			ResultSet result=prepare.executeQuery();
 			
-			if(result.first()){
-				chambre.setId_chambre(result.getInt("id_chambre"));
-				chambre.setHotel(hotel.find(result.getInt("id_hotel")));
-				chambre.setNumero_chambre(result.getInt("numero_chambre"));
-				chambre.setTele(result.getBoolean("tele"));
-				chambre.setHandicap(result.getBoolean("handicap"));
-				chambre.setTarif(result.getDouble("tarif"));
-				chambre.setLibre(result.getBoolean("libre"));
-				chambre.setCommunicante(result.getBoolean("communicante"));
-				chambre.setAnimaux(result.getBoolean("animaux"));
-				chambre.setType_chambre(type_c.find(result.getInt("id_type_chambre")));
-									
+			ArrayList<Integer> notLibre = findChambreIsNotLibre(debut,fin,id_hotel);
+			
+			while(result.next()){
+				if(!notLibre.contains(result.getInt("id_chambre")))
+						listChambre.add(createChambre(result));
 			}
 		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return listChambre;
+	}
+	
+	public Chambre createChambre(ResultSet result){
+		Chambre chambre = new Chambre();
+		try {
+			chambre.setId_chambre(result.getInt("id_chambre"));
+		chambre.setHotel(hotel.find(result.getInt("id_hotel")));
+		chambre.setNumero_chambre(result.getInt("numero_chambre"));
+		chambre.setTele(result.getBoolean("tele"));
+		chambre.setHandicap(result.getBoolean("handicap"));
+		chambre.setTarif(result.getDouble("tarif"));
+		chambre.setLibre(result.getBoolean("libre"));
+		chambre.setCommunicante(result.getBoolean("communicante"));
+		chambre.setAnimaux(result.getBoolean("animaux"));
+		chambre.setType_chambre(type_c.find(result.getInt("id_type_chambre")));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return chambre;
@@ -311,7 +341,7 @@ public class ChambreDAO extends DAO<Chambre>{
 		try {
 			String format = "dd-MM-yyyy"; 
 			java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
-			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM reservation where (date_debut<? AND date_debut>?) OR (date_fin<? AND date_fin>?) AND id_hotel=?");
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM reservation where (date_debut<? AND date_debut>?) OR (date_fin<? AND date_fin>?) AND id_hotel=?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setString(1, formater.format(finResa));
 			prepare.setString(2, formater.format(debutResa));
 			prepare.setString(3, formater.format(finResa));
@@ -440,8 +470,6 @@ public class ChambreDAO extends DAO<Chambre>{
 		}
 		return listChambre;
 	}
-	
-	public ArrayList<Chambre> ListChambreLibre()
 
 	
 	
