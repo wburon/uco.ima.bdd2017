@@ -3,11 +3,6 @@ package Interface;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
@@ -15,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 
 import DAO.ChambreDAO;
 import DAO.HotelDAO;
@@ -24,6 +18,7 @@ import model.Hotel;
 import model.Table_Chambre;
 import model.Table_Hotel;
 
+@SuppressWarnings("serial")
 public class JPgeHotel extends JPanel implements ActionListener{
 
 	private JButton btnAjout;
@@ -84,6 +79,7 @@ public class JPgeHotel extends JPanel implements ActionListener{
 		
 		btnRetourMenu = new JButton("Retour Menu");
 		panel_2.add(btnRetourMenu);
+		btnRetourMenu.addActionListener(this);
 		
 		btnPlusDinfo = new JButton("Plus d'info sur l'hotel");
 		panel_2.add(btnPlusDinfo);
