@@ -11,7 +11,6 @@ import DAO.ChambreDAO;
 import DAO.Type_ChambreDAO;
 import model.Chambre;
 import model.Client;
-import model.Name;
 import model.Reservation;
 import model.Table_Chambre;
 
@@ -25,7 +24,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -53,7 +52,7 @@ public class JFReservation extends JFrame implements ActionListener {
 	private JComboBox comboBoxA;
 	private JComboBox comboBoxT;
 	private JComboBox comboBoxC;
-	private String[] comboBoxBoolean = new String[] { "OUI", "NON", "PEU_IMPORTE" };
+	private String[] comboBoxBoolean = new String[] { "OUI", "NON"};
 	private String[] comboBoxType = new String[] { "", "Suite Royal", "Simple", "Double", "Famille" };
 	private JButton btnReserver;
 	private ArrayList<Reservation> listReservation = new ArrayList<Reservation>();
@@ -141,9 +140,11 @@ public class JFReservation extends JFrame implements ActionListener {
 
 		btnReserver = new JButton("Reserver");
 		panel_4.add(btnReserver);
+		btnReserver.addActionListener(this);
 		
 		btnFinaliserLaReservation = new JButton("Finaliser la reservation");
 		panel_4.add(btnFinaliserLaReservation);
+		btnFinaliserLaReservation.addActionListener(this);
 
 		JPanel panel_5 = new JPanel();
 		panel_1.add(panel_5, BorderLayout.CENTER);
@@ -202,6 +203,7 @@ public class JFReservation extends JFrame implements ActionListener {
 
 		btnRecherche = new JButton("Recherche");
 		panel_6.add(btnRecherche);
+		btnRecherche.addActionListener(this);
 
 		JPanel panel_7 = new JPanel();
 		panel_5.add(panel_7, BorderLayout.CENTER);
@@ -217,13 +219,13 @@ public class JFReservation extends JFrame implements ActionListener {
 			try {
 				tChambre = new Table_Chambre(this.currentIdHotel);
 				format = new SimpleDateFormat("dd-MM-yyyy");
-				debut = (Date) format.parse(txtJjmmaaaa.getText());
-				fin = (Date) format.parse(txtJjmmaaaa_1.getText());
+				debut = format.parse(txtJjmmaaaa.getText());
+				fin = format.parse(txtJjmmaaaa_1.getText());
 				tChambre.setListChambre(cDAO.findPerfect(tDAO.find(comboBoxTC.getSelectedIndex() + 2),
-						Name.getName(comboBoxBoolean[comboBoxA.getSelectedIndex()]),
-						Name.getName(comboBoxBoolean[comboBoxC.getSelectedIndex()]),
-						Name.getName(comboBoxBoolean[comboBoxH.getSelectedIndex()]),
-						Name.getName(comboBoxBoolean[comboBoxT.getSelectedIndex()]),
+						choixComboBox(comboBoxA),
+						choixComboBox(comboBoxC),
+						choixComboBox(comboBoxH),
+						choixComboBox(comboBoxT),
 						Double.parseDouble(textField.getText()), currentIdHotel, debut, fin));
 				table.setModel(tChambre);
 			} catch (ParseException e1) {
@@ -247,6 +249,13 @@ public class JFReservation extends JFrame implements ActionListener {
 		resa.setDate_fin(fin);
 		resa.setHotel(c.getHotel());
 		return resa;
+	}
+	
+	private boolean choixComboBox(JComboBox a){
+		if(comboBoxBoolean[a.getSelectedIndex()].equals("OUI"))
+			return true;
+		else
+			return false;
 	}
 	
 	

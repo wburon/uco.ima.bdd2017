@@ -83,7 +83,9 @@ public class JFClientReservation extends JFrame implements ActionListener{
 			this.repaint();
 			
 		}else if(e.getSource() == btnAdd){
-			
+			JFAddClient newClient = new JFAddClient(this);
+			this.setVisible(false);
+			newClient.setVisible(true);
 		}
 		
 	}

@@ -16,7 +16,6 @@ import Singleton.SingletonConnection;
 import model.Chambre;
 import model.Communicante;
 import model.Hotel;
-import model.Name;
 import model.Type_Chambre;
 
 public class ChambreDAO extends DAO<Chambre>{
@@ -244,32 +243,17 @@ public class ChambreDAO extends DAO<Chambre>{
 	 * @return
 	 * Les Chambres qui correspondent aux contraintes
 	 */
-	public ArrayList<Chambre> findPerfect(Type_Chambre TC, Name animaux, Name comm,  Name handi, Name tele,  double prixSup,  int id_hotel, Date debut, Date fin){
+	public ArrayList<Chambre> findPerfect(Type_Chambre TC, boolean animaux, boolean comm,  boolean handi, boolean tele,  double prixSup,  int id_hotel, Date debut, Date fin){
 		ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
-		
 		try{
 			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM chambre WHERE tele=? AND animaux=? "
 					+ "AND handicap=? AND communicante=? AND id_type_chambre=? AND tarif<=? AND id_hotel=?");
 			
-			if(tele == Name.PEU_IMPORTE)
-				prepare.setString(1, "tele");
-			else
-				prepare.setBoolean(1, tele.value());
 			
-			if(animaux == Name.PEU_IMPORTE)
-				prepare.setString(2, "animaux");
-			else
-				prepare.setBoolean(2, animaux.value());
-			
-			if(handi == Name.PEU_IMPORTE)
-				prepare.setString(3, "handicap");
-			else
-				prepare.setBoolean(3, handi.value());
-			
-			if(comm == Name.PEU_IMPORTE)
-				prepare.setString(4, "communicante");
-			else
-				prepare.setBoolean(4, comm.value());
+			prepare.setBoolean(1, tele);
+			prepare.setBoolean(2, animaux);
+			prepare.setBoolean(3, handi);
+			prepare.setBoolean(4, comm);
 			
 			if (TC != null)
 				prepare.setInt(5, TC.getId_type_chambre());
