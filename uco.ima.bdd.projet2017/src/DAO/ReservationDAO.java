@@ -22,8 +22,8 @@ public class ReservationDAO extends DAO<Reservation>{
 			prepare.setInt(2, obj.getChambre().getId_chambre());
 			prepare.setInt(3, obj.getHotel().getId_hotel());
 			prepare.setInt(4, obj.getClient().getId_client());
-			prepare.setDate(5, obj.getDate_debut());
-			prepare.setDate(6, obj.getDate_fin());
+			prepare.setDate(5, new java.sql.Date(obj.getDate_debut().getTime()));
+			prepare.setDate(6, new java.sql.Date(obj.getDate_fin().getTime()));
 
 			prepare.executeUpdate();
 
@@ -59,8 +59,8 @@ public class ReservationDAO extends DAO<Reservation>{
 			prepare.setInt(1, obj.getChambre().getId_chambre());
 			prepare.setInt(2, obj.getHotel().getId_hotel());
 			prepare.setInt(3, obj.getClient().getId_client());
-			prepare.setDate(4, obj.getDate_debut());
-			prepare.setDate(5, obj.getDate_fin());
+			prepare.setDate(4, new java.sql.Date(obj.getDate_debut().getTime()));
+			prepare.setDate(5, new java.sql.Date(obj.getDate_fin().getTime()));
 
 			prepare.executeUpdate();
 			return true;

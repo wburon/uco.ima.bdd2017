@@ -87,6 +87,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 		Personnel personnel = new Personnel();
 		PersonneDAO personne = new PersonneDAO();
 		FonctionDAO fonction = new FonctionDAO();
+		HotelDAO hDAO = new HotelDAO();
 		try {
 			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM personnel where id_personnel = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setInt(1, id);
@@ -95,6 +96,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 			if (result.first()) {
 				personnel.setId_personnel(result.getInt("id_personnel"));
 				personnel.setPersonne(personne.find(result.getInt("id_personne")));
+				personnel.setHotel(hDAO.find(result.getInt("id_hotel")));
 				personnel.setSalaire(result.getInt("salaire"));
 				personnel.setFonction(fonction.find(result.getInt("id_fonction")));
 				personnel.setAnnee_arrivee(result.getInt("annee_arrivee"));
