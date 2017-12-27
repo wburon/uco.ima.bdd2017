@@ -55,9 +55,9 @@ public class JPgeClient extends JPanel implements ActionListener {
 		panel_2.add(btnActualiser);
 		btnActualiser.addActionListener(this);
 
-		btnAjout = new JButton("Ajouter");
-		panel_2.add(btnAjout);
-		btnAjout.addActionListener(this);
+//		btnAjout = new JButton("Ajouter");
+//		panel_2.add(btnAjout);
+//		btnAjout.addActionListener(this);
 
 		btnModif = new JButton("Modifier");
 		panel_2.add(btnModif);
