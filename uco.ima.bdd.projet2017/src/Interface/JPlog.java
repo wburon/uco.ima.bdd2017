@@ -132,7 +132,9 @@ public class JPlog extends JPanel implements ActionListener{
 		if(e.getSource()==btnConnexion){
 			
 			String login=tfLog.getText();
-			String password=pfPasswd.getText();
+			
+			String passwordNotHash=pfPasswd.getText();
+			String password = nDAO.HashPassword(passwordNotHash);
 			
 			
 			nel = nDAO.find(nDAO.findUser(login, password));

@@ -204,7 +204,8 @@ public class JFModifPerso extends JFrame implements ActionListener {
 			int AArrivee = Integer.parseInt(tfAArrivee.getText());
 			String fonction = comboBox.getSelectedItem().toString();
 			String login = tfLogin.getText();
-			String password = passwordField.getText();
+			String passwordToHash = passwordField.getText();
+			String password = nDAO.HashPassword(passwordToHash);
 			String adresse = tfAdresse.getText();
 			String ville = tfVille.getText();
 			int codePostal = Integer.parseInt(tfCodePostal.getText());

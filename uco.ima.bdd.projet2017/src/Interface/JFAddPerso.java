@@ -234,7 +234,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 
 			f = fDAO.find(fDAO.renvoieId(fonction));
 
-			String password = "";
+			String password = nDAO.HashPassword("");
 			String login = (prenom.charAt(0) + nom);
 
 			boolean a = creationPerso(adresse, nom, prenom, ville, codePostal, date);
