@@ -26,8 +26,6 @@ public class JPlog extends JPanel implements ActionListener{
 	private JButton btnCrerUnCompte;
 	private JPanel JPBlock;
 	private JPanel panel_4;
-	private JButton btnRetour;
-	
 	private PersonnelDAO nDAO;
 	private Personnel nel;
 	

@@ -6,19 +6,20 @@ import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
 
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 
 import model.Personnel;
 import model.Table_Personnel;
 
 import javax.swing.JTable;
-import javax.swing.AbstractAction;
+
+import DAO.PersonnelDAO;
+
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class JPgePerso extends JPanel implements ActionListener{
 	private Table_Personnel tPerso = new Table_Personnel();
 	private JTable table;
@@ -33,6 +34,10 @@ public class JPgePerso extends JPanel implements ActionListener{
 	private boolean addP;
 	private boolean setP;
 	private boolean delP;
+	
+
+	int indexSet;
+	int indexDel;
 	
 	private JFAddPerso f2;
 	
@@ -89,15 +94,14 @@ public class JPgePerso extends JPanel implements ActionListener{
 		panel_4.add(new JScrollPane(table));
 		
 		f2 = new JFAddPerso();
-		
+		indexSet=-1;
+		indexDel=-1;
 		
 
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int s=-1;
-		int indexSet=-1;
-		int indexDel=-1;
 		if (e.getSource()==btnModif){
 
 			s = table.getSelectedRow();
@@ -106,11 +110,11 @@ public class JPgePerso extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(btnModif, "Vous devez sélectionné une ligne dans le tableau !","Selection",JOptionPane.INFORMATION_MESSAGE);
 			}
 			else {
+				indexSet=s;
 				JFModifPerso f1 = new JFModifPerso(tPerso.getPersonnel(s));
 				f1.preAffichage(tPerso.getPersonnel(s));
 				f1.setVisible(true);
 				nel=f1.getPersonnel();
-				indexSet=s;
 				setP=true;
 				
 			}
@@ -127,6 +131,7 @@ public class JPgePerso extends JPanel implements ActionListener{
 			JFInterface.revalidate();
 		}
 		if (e.getSource()==btnActualiser){
+
 			if(addP)
 				tPerso.addPersonnel(nel);
 			if(setP)
@@ -134,6 +139,8 @@ public class JPgePerso extends JPanel implements ActionListener{
 			if(delP){
 				tPerso.removePersonnel(indexDel);
 			}
+			addP=false;setP=false;delP=false;
+			indexSet=-1;indexDel=-1;
 		}
 		if (e.getSource()==btnSupprimer){
 			s = table.getSelectedRow();
@@ -141,12 +148,21 @@ public class JPgePerso extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(btnSupprimer, "Vous devez sélectionné une ligne dans le tableau !","Selection",JOptionPane.INFORMATION_MESSAGE);
 			}
 			else{
-				String nom=tPerso.getPersonnel(s).getPersonne().getNom();
-				String prenom=tPerso.getPersonnel(s).getPersonne().getPrenom();
-				String message="Le membre du personnel "+prenom+" "+nom+" a été supprimé !";
-				JOptionPane.showMessageDialog(btnSupprimer, message,"Suppression",JOptionPane.INFORMATION_MESSAGE);
 				indexDel=s;
-				delP=true;
+				PersonnelDAO pDAO= new PersonnelDAO();
+				boolean a = pDAO.delete(tPerso.getPersonnel(s));
+				if (a){
+					String nom=tPerso.getPersonnel(s).getPersonne().getNom();
+					String prenom=tPerso.getPersonnel(s).getPersonne().getPrenom();
+					String message="Le membre du personnel "+prenom+" "+nom+" a été supprimé !";
+					JOptionPane.showMessageDialog(btnSupprimer, message,"Suppression",JOptionPane.INFORMATION_MESSAGE);
+					delP=true;
+				}
+				else if(a==false){
+					JOptionPane.showMessageDialog(btnSupprimer, "Le membre du personnel n'a pas pu être supprimé","Erreur Suppression",JOptionPane.ERROR_MESSAGE);
+					delP=false;
+				}
+				
 			}
 		}
 		
