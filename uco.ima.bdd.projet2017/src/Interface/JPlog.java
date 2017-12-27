@@ -112,6 +112,7 @@ public class JPlog extends JPanel implements ActionListener{
 		gbc_btnCrerUnCompte.gridx = 2;
 		gbc_btnCrerUnCompte.gridy = 3;
 		panel_4.add(btnCrerUnCompte, gbc_btnCrerUnCompte);
+		btnCrerUnCompte.addActionListener(this);
 		
 		JPBlock = new JPanel();
 		JPBlock.setLayout(new BorderLayout(0,0));
@@ -156,6 +157,10 @@ public class JPlog extends JPanel implements ActionListener{
 				JFInterface.getJPgerant().revalidate();
 				JFInterface.setPersoConn(nel);
 			}
+		}
+		if(e.getSource()==btnCrerUnCompte){
+			JFCréationCompte jfcc = new JFCréationCompte();
+			jfcc.setVisible(true);
 		}
 		
 	}
