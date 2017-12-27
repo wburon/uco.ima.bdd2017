@@ -139,12 +139,22 @@ public class JFNowCommunicante extends JFrame implements ActionListener{
 		Communicante comm = new Communicante();
 		comm.setC1(c1);
 		if(arg0.getSource() == btnCelleci){
-			comm.setC2(cDAO.find(cTab[0].getId_chambre()));
-			cDAO.update(comm.getC2());
+			// Récupération de la seconde chambre
+			Chambre c2 = cDAO.find(cTab[0].getId_chambre());
+			// La chambre en question est maintennant communicante
+			c2.setCommunicante(true);
+			comm.setC2(c2);
+			// Update de c2 et création de la communication
+			cDAO.update(c2);
 			commDao.create(comm);
 			this.dispose();
 		}else if(arg0.getSource() == btnCellel){
-			comm.setC2(cDAO.find(cTab[1].getId_chambre()));
+			// Récupération de la seconde chambre
+			Chambre c2 = cDAO.find(cTab[1].getId_chambre());
+			// LA chambre en question est maintennant communicante
+			c2.setCommunicante(true);
+			comm.setC2(c2);
+			// Update de c2 et création de la communication
 			cDAO.update(comm.getC2());
 			commDao.create(comm);
 			this.dispose();

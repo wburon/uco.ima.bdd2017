@@ -24,6 +24,7 @@ public class JPgeClient extends JPanel implements ActionListener {
 	private Table_Client tClient = new Table_Client();
 	private JFInterface JFInterface;
 	private JButton btnRetourMenu;
+	private JButton btnReservation;
 
 	/**
 	 * Create the panel.
@@ -45,6 +46,10 @@ public class JPgeClient extends JPanel implements ActionListener {
 
 		JPanel panel_2 = new JPanel();
 		add(panel_2, BorderLayout.SOUTH);
+		
+		btnReservation = new JButton("Reservation");
+		panel_2.add(btnReservation);
+		btnReservation.addActionListener(this);
 
 		btnActualiser = new JButton("Actualiser");
 		panel_2.add(btnActualiser);
@@ -66,9 +71,9 @@ public class JPgeClient extends JPanel implements ActionListener {
 		panel_2.add(btnRetourMenu);
 		btnRetourMenu.addActionListener(this);
 
-		btnPlusDinfo = new JButton("Plus d'info sur l'hotel");
-		panel_2.add(btnPlusDinfo);
-		btnPlusDinfo.addActionListener(this);
+//		btnPlusDinfo = new JButton("Plus d'info sur l'hotel");
+//		panel_2.add(btnPlusDinfo);
+//		btnPlusDinfo.addActionListener(this);
 
 		JPanel panel_3 = new JPanel();
 		add(panel_3, BorderLayout.EAST);
@@ -93,6 +98,9 @@ public class JPgeClient extends JPanel implements ActionListener {
 				JFInterface.repaint();
 				JFInterface.revalidate();
 			}
+		}else if(arg0.getSource() == btnReservation){
+			JFReservation JFresa = new JFReservation(JFInterface.getPersoConn().getHotel().getId_hotel());
+			JFresa.setVisible(true);
 		}
 	}
 

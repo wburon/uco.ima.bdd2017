@@ -89,7 +89,8 @@ public class JFcreateChambreComm extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnNouvelleChambre){
-			JFAddChambre newC = new JFAddChambre(c.getId_chambre());
+			JFAddChambre newC = new JFAddChambre(c.getHotel().getId_hotel());
+			newC.getCbComm().setSelected(true);
 			newC.getCbComm().setEnabled(false);
 			newC.setVisible(true);
 			this.dispose();

@@ -9,7 +9,14 @@ public class Personnel {
 	private int annee_arrivee;
 	private String password;
 	private String login;
+	private Hotel hotel;
 	
+	public Hotel getHotel() {
+		return hotel;
+	}
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
 	public String getLogin() {
 		return login;
 	}

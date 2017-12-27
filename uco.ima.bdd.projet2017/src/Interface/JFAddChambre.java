@@ -187,7 +187,7 @@ public class JFAddChambre extends JFrame implements ActionListener{
 	}
 	
 	private void siCommunicante(int id_chambre) {
-		if(cDAO.find(id_chambre).isCommunicante()){
+		if(cDAO.find(id_chambre).isCommunicante() && cbComm.isEnabled()){
 			JFcreateChambreComm cc = new JFcreateChambreComm(id_chambre);
 			cc.setVisible(true);
 		}
