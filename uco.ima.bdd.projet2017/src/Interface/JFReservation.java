@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import DAO.ChambreDAO;
@@ -16,6 +17,8 @@ import model.Table_Chambre;
 
 import java.awt.Dimension;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -52,16 +55,16 @@ public class JFReservation extends JFrame implements ActionListener {
 	private JComboBox comboBoxA;
 	private JComboBox comboBoxT;
 	private JComboBox comboBoxC;
-	private String[] comboBoxBoolean = new String[] { "OUI", "NON"};
+	private String[] comboBoxBoolean = new String[] { "OUI", "NON" };
 	private String[] comboBoxType = new String[] { "", "Suite Royal", "Simple", "Double", "Famille" };
 	private JButton btnReserver;
-	private ArrayList<Reservation> listReservation = new ArrayList<Reservation>();
+	private ArrayList<Reservation> listReservation;
 	private Table_Chambre tChambre;
 	private JButton btnFinaliserLaReservation;
-	private int s;
+	private int s=-1;
 	private SimpleDateFormat format;
 	private Date debut;
-	private Date fin; 
+	private Date fin;
 
 	/**
 	 * Launch the application.
@@ -84,6 +87,7 @@ public class JFReservation extends JFrame implements ActionListener {
 	 */
 	public JFReservation(int id_hotel) {
 		this.currentIdHotel = id_hotel;
+		this.listReservation  = new ArrayList<Reservation>();
 
 		setTitle("Reserver");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -141,7 +145,7 @@ public class JFReservation extends JFrame implements ActionListener {
 		btnReserver = new JButton("Reserver");
 		panel_4.add(btnReserver);
 		btnReserver.addActionListener(this);
-		
+
 		btnFinaliserLaReservation = new JButton("Finaliser la reservation");
 		panel_4.add(btnFinaliserLaReservation);
 		btnFinaliserLaReservation.addActionListener(this);
@@ -207,57 +211,75 @@ public class JFReservation extends JFrame implements ActionListener {
 
 		JPanel panel_7 = new JPanel();
 		panel_5.add(panel_7, BorderLayout.CENTER);
-		panel_7.setLayout(new GridLayout(1, 1, 0, 0));
+		panel_7.setLayout(new BorderLayout(0, 0));
 
 		table = new JTable();
-		panel_7.add(table);
+		panel_7.add(new JScrollPane(table));
+
+		JPanel panel_8 = new JPanel();
+		panel_7.add(panel_8, BorderLayout.NORTH);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// Trouver une chambre correspondant au critère
 		if (e.getSource() == btnRecherche) {
+
+			tChambre = new Table_Chambre(this.currentIdHotel);
+			format = new SimpleDateFormat("dd-MM-yyyy");
+			// Récupération des dates
 			try {
-				tChambre = new Table_Chambre(this.currentIdHotel);
-				format = new SimpleDateFormat("dd-MM-yyyy");
 				debut = format.parse(txtJjmmaaaa.getText());
 				fin = format.parse(txtJjmmaaaa_1.getText());
-				tChambre.setListChambre(cDAO.findPerfect(tDAO.find(comboBoxTC.getSelectedIndex() + 2),
-						choixComboBox(comboBoxA),
-						choixComboBox(comboBoxC),
-						choixComboBox(comboBoxH),
-						choixComboBox(comboBoxT),
-						Double.parseDouble(textField.getText()), currentIdHotel, debut, fin));
-				table.setModel(tChambre);
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}else if(e.getSource() == btnReserver){
+			// Actualisation de la liste de la table selon les dates et critères
+			tChambre.setListChambre(cDAO.findPerfect(tDAO.find(comboBoxTC.getSelectedIndex()), choixComboBox(comboBoxA),
+					choixComboBox(comboBoxC), choixComboBox(comboBoxH), choixComboBox(comboBoxT),
+					Double.parseDouble(textField.getText()), currentIdHotel, debut, fin));
+			table.setModel(tChambre);
+			// Rafraichissement de la table, technique barbare !
+			table.setVisible(false);
+			table.setVisible(true);
+
+		} else if (e.getSource() == btnReserver) {
+			// A partir de là, il n'est plus possible de changer le nombre de chambre
 			textField_2.setEnabled(false);
+			// Ajout dans la liste de chambre à reserver
 			s = table.getSelectedRow();
-			listReservation.add(createReservation(tChambre.getChambre(s),debut, fin));
-		}else if(e.getSource() == btnFinaliserLaReservation){
-			JFClientReservation newClient = new JFClientReservation(listReservation);
-			newClient.setVisible(true);
+			if (s != -1)
+				listReservation.add(createReservation(tChambre.getChambre(s), debut, fin));
+			else
+				JOptionPane.showMessageDialog(btnReserver, "Selectionner une chambre !", "Warning",
+						JOptionPane.INFORMATION_MESSAGE);
+		} else if (e.getSource() == btnFinaliserLaReservation) {
+			// Fin de la selection de chambre
+			if (listReservation.isEmpty())
+				JOptionPane.showMessageDialog(btnFinaliserLaReservation, "Aucune reservation n'a été faite !",
+						"Warning", JOptionPane.INFORMATION_MESSAGE);
+			else {
+				JFClientReservation newClient = new JFClientReservation(listReservation);
+				newClient.setVisible(true);
+			}
 		}
 	}
-	
-	private Reservation createReservation(Chambre c, Date debut, Date fin){
-		Reservation resa =new Reservation();
+
+	private Reservation createReservation(Chambre c, Date debut, Date fin) {
+		Reservation resa = new Reservation();
 		resa.setChambre(c);
 		resa.setDate_debut(debut);
 		resa.setDate_fin(fin);
 		resa.setHotel(c.getHotel());
 		return resa;
 	}
-	
-	private boolean choixComboBox(JComboBox a){
-		if(comboBoxBoolean[a.getSelectedIndex()].equals("OUI"))
+
+	private boolean choixComboBox(JComboBox a) {
+		if (comboBoxBoolean[a.getSelectedIndex()].equals("OUI"))
 			return true;
 		else
 			return false;
 	}
-	
-	
 
 }

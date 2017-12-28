@@ -7,7 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import DAO.ClientDAO;
 import DAO.PersonneDAO;
+import model.Client;
 import model.Personne;
 
 import javax.swing.JButton;
@@ -36,6 +38,8 @@ public class JFAddClient extends JFrame implements ActionListener{
 	private JButton btnValider;
 	private Personne perso = new Personne();
 	private PersonneDAO pDAO = new PersonneDAO();
+	private Client client = new Client();
+	private ClientDAO clDAO = new ClientDAO();
 	private JFClientReservation frame;
 
 	/**
@@ -159,6 +163,7 @@ public class JFAddClient extends JFrame implements ActionListener{
 			Date date = new Date(annee, mois, jour);
 			
 			boolean a = creationPerso(adresse, nom, prenom, ville, codePostal, date);
+			boolean b = creationClient(frame.getListReservation().size());
 			if (a) {
 				JOptionPane.showMessageDialog(btnValider, "Votre ajout a bien été effectué", "Validation",
 						JOptionPane.INFORMATION_MESSAGE);
@@ -198,9 +203,20 @@ public class JFAddClient extends JFrame implements ActionListener{
 		perso.setVille(ville);
 		perso.setCode_postal(codePostal);
 		perso.setDate_de_naissance(date);
+		perso.setId_personne(pDAO.maxId());
 
 		boolean verif = pDAO.create(perso);
 		return verif;
 	}
+	
+	public boolean creationClient(int nbResaEnCour){
+		client.setPersonne(perso);
+		client.setNb_resa_en_cours(nbResaEnCour);
+		
+		boolean verif = clDAO.create(client);
+		return verif;
+	}
+	
+	
 
 }

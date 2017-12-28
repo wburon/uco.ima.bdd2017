@@ -32,7 +32,8 @@ public class ClientDAO extends DAO<Client>{
 			prepare.setInt(1, maxId());
 			prepare.setInt(2, obj.getPersonne().getId_personne());
 			prepare.setInt(3, obj.getNb_resa_en_cours());
-			prepare.setInt(4, obj.getFidelite());
+			// A la création un client gagne autant de point de fidelité qu'il fait de resa
+			prepare.setInt(4, obj.getNb_resa_en_cours());
 
 			prepare.executeUpdate();
 
@@ -104,7 +105,7 @@ public class ClientDAO extends DAO<Client>{
 		int nbRow=0;
 		try {
 			state = SC.createStatement();
-			ResultSet nbLigne = state.executeQuery("SELECT MAX(id_client) FROM id_client");
+			ResultSet nbLigne = state.executeQuery("SELECT MAX(id_client) FROM client");
 			nbLigne.next();
 			nbRow = nbLigne.getInt(1) + 1;
 		} catch (SQLException e) {
