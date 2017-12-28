@@ -29,18 +29,18 @@ public class JFClientReservation extends JFrame implements ActionListener{
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					JFClientReservation frame = new JFClientReservation();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JFClientReservation frame = new JFClientReservation(new ArrayList<Reservation>());
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	public ArrayList<Reservation> getListReservation() {
 		return listReservation;

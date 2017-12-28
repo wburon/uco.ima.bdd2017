@@ -82,7 +82,7 @@ public class ClientDAO extends DAO<Client>{
 		Client client = new Client();
 		PersonneDAO personne = new PersonneDAO();
 		try {
-			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM client where id_client = ?");
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM client where id_client = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setInt(1, id);
 			ResultSet result = prepare.executeQuery();
 			
@@ -120,7 +120,7 @@ public class ClientDAO extends DAO<Client>{
 		
 		Client obj = new Client();
 		try{
-			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM client");
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM client", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			ResultSet result = prepare.executeQuery();
 			
 			while(result.next()){
