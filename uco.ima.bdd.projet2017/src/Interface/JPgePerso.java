@@ -21,7 +21,7 @@ import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class JPgePerso extends JPanel implements ActionListener{
-	private Table_Personnel tPerso = new Table_Personnel();
+	private Table_Personnel tPerso;
 	private JTable table;
 
 	private JButton btnAjout;
@@ -49,6 +49,8 @@ public class JPgePerso extends JPanel implements ActionListener{
 	 */
 	public JPgePerso(JFInterface JFInterface) {
 		this.JFInterface=JFInterface;
+		
+		tPerso = new Table_Personnel(this.JFInterface.getPersoConn().getHotel());
 		
 		setLayout(new BorderLayout(0, 0));
 		
@@ -93,7 +95,7 @@ public class JPgePerso extends JPanel implements ActionListener{
 		table = new JTable(tPerso);
 		panel_4.add(new JScrollPane(table));
 		
-		f2 = new JFAddPerso();
+		f2 = new JFAddPerso(JFInterface.getPersoConn().getHotel());
 		indexSet=-1;
 		indexDel=-1;
 		
@@ -116,6 +118,7 @@ public class JPgePerso extends JPanel implements ActionListener{
 				f1.setVisible(true);
 				nel=f1.getPersonnel();
 				setP=true;
+				
 				
 			}
 		}

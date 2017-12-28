@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import DAO.PersonnelDAO;
+import model.Hotel;
 import model.Personnel;
 
 @SuppressWarnings("serial")
@@ -13,6 +15,7 @@ public class JFCréationCompte extends JFrame {
 	private JPaddHotel JPaddHotel;
 	
 	private Personnel NewPerso;
+	private PersonnelDAO pDAO;
 
 	/**
 	 * Launch the application.
@@ -37,6 +40,7 @@ public class JFCréationCompte extends JFrame {
 		JPaddGerant=new JPaddGerant(this);
 		JPaddHotel=new JPaddHotel(this);
 		Init();
+		pDAO = new PersonnelDAO();
 	}
 
 	public Personnel getNewPerso() {
@@ -67,6 +71,10 @@ public class JFCréationCompte extends JFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 489, 341);
 		setContentPane(JPaddGerant);
+	}
+	public void AssociationHotelPerso(Hotel hotel){
+		NewPerso.setHotel(hotel);
+		pDAO.update(NewPerso);
 	}
 
 }

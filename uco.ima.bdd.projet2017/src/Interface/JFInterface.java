@@ -48,11 +48,15 @@ public class JFInterface extends JFrame{
 
 		JPlog=new JPlog(this);
 		JPgerant = new JPgerant(this);
-		JPgePerso = new JPgePerso(this);
 		JPEmployer = new JPEmployer(this);
+		Init();
+		
+	}
+	public void LancementPanelGestion(){
+		
+		JPgePerso = new JPgePerso(this);
 		JPgeHotel = new JPgeHotel(this);
 		JPgeClient = new JPgeClient(this);
-		Init();
 		
 	}
 

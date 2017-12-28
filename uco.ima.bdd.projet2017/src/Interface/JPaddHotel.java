@@ -162,6 +162,7 @@ public class JPaddHotel extends JPanel implements ActionListener{
 			if (a==true){
 				JOptionPane.showMessageDialog(btnFinir, "Votre compte est bien inscrit", "Validation", JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
+				JFCreationCompte.AssociationHotelPerso(h);
 				JFCreationCompte.dispose();
 			}else{
 				JOptionPane.showMessageDialog(btnFinir, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);

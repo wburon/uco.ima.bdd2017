@@ -149,6 +149,7 @@ public class JPlog extends JPanel implements ActionListener{
 				JFInterface.getJPEmployer().repaint();
 				JFInterface.getJPEmployer().revalidate();
 				JFInterface.setPersoConn(nel);
+				JFInterface.LancementPanelGestion();
 			}
 			if(nel.getFonction().getNiveau_contrainte()==2){
 
@@ -156,6 +157,7 @@ public class JPlog extends JPanel implements ActionListener{
 				JFInterface.getJPgerant().repaint();
 				JFInterface.getJPgerant().revalidate();
 				JFInterface.setPersoConn(nel);
+				JFInterface.LancementPanelGestion();
 			}
 		}
 		if(e.getSource()==btnCrerUnCompte){
