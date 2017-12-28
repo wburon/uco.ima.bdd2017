@@ -66,9 +66,11 @@ public class JPaddGerant extends JPanel implements ActionListener{
 		
 		btnSuivant = new JButton("Suivant >");
 		panel_2.add(btnSuivant);
+		btnSuivant.addActionListener(this);
 		
 		btnAnnuler = new JButton("Annuler");
 		panel_2.add(btnAnnuler);
+		btnAnnuler.addActionListener(this);
 		
 		JPanel panel_3 = new JPanel();
 		add(panel_3, BorderLayout.EAST);
@@ -158,6 +160,13 @@ public class JPaddGerant extends JPanel implements ActionListener{
 		tfAArrivee = new JTextField();
 		panel_4.add(tfAArrivee);
 		tfAArrivee.setColumns(10);
+		
+		perso = new Personne();
+		pDAO = new PersonneDAO();
+		nel = new Personnel();
+		nDAO = new PersonnelDAO();
+		f = new Fonction();
+		fDAO = new FonctionDAO();
 
 	}
 	public void clearTextField() {
@@ -224,7 +233,11 @@ public class JPaddGerant extends JPanel implements ActionListener{
 			if (a == true && b == true) {
 				JOptionPane.showMessageDialog(btnSuivant, "Votre ajout a bien été effectué", "Validation",
 						JOptionPane.INFORMATION_MESSAGE);
-				clearTextField();
+				JFCreationCompte.setContentPane(JFCreationCompte.getJPaddHotel());
+				JFCreationCompte.getJPaddHotel().repaint();
+				JFCreationCompte.getJPaddHotel().revalidate();
+				JFCreationCompte.setNewPerso(nel);
+				
 				
 			} else {
 				JOptionPane.showMessageDialog(btnSuivant, "Vous avez fait une erreur dans la saisie", "Erreur",

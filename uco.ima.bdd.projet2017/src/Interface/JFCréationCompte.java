@@ -1,15 +1,18 @@
 package Interface;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
+import model.Personnel;
+
+@SuppressWarnings("serial")
 public class JFCréationCompte extends JFrame {
 
-	private JPanel contentPane;
+	private JPaddGerant JPaddGerant;
+	private JPaddHotel JPaddHotel;
+	
+	private Personnel NewPerso;
 
 	/**
 	 * Launch the application.
@@ -31,12 +34,39 @@ public class JFCréationCompte extends JFrame {
 	 * Create the frame.
 	 */
 	public JFCréationCompte() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		JPaddGerant=new JPaddGerant(this);
+		JPaddHotel=new JPaddHotel(this);
+		Init();
+	}
+
+	public Personnel getNewPerso() {
+		return NewPerso;
+	}
+
+	public void setNewPerso(Personnel newPerso) {
+		NewPerso = newPerso;
+	}
+	public JPaddGerant getJPaddGerant() {
+		return JPaddGerant;
+	}
+
+	public void setJPaddGerant(JPaddGerant jPaddGerant) {
+		JPaddGerant = jPaddGerant;
+	}
+
+	public JPaddHotel getJPaddHotel() {
+		return JPaddHotel;
+	}
+
+	public void setJPaddHotel(JPaddHotel jPaddHotel) {
+		JPaddHotel = jPaddHotel;
+	}
+
+	public void Init(){
+		setTitle("Création d'un compte");
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setBounds(100, 100, 489, 341);
+		setContentPane(JPaddGerant);
 	}
 
 }
