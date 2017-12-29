@@ -140,10 +140,14 @@ public class JPgeHotel extends JPanel implements ActionListener{
 		}else if(e.getSource() == btnSupprimer){
 			s = table.getSelectedRow();
 			if(table.getModel() == tHotel){
-				hDAO.delete(tHotel.getHotel(s));
+				if(hDAO.delete(tHotel.getHotel(s)))
+					JOptionPane.showMessageDialog(btnSupprimer, "Votre suppression a bien été effectué", "Validation",
+							JOptionPane.INFORMATION_MESSAGE);
 				
 			}else{
-				cDAO.delete(tChambre.getChambre(s));
+				if(cDAO.delete(tChambre.getChambre(s)))
+					JOptionPane.showMessageDialog(btnSupprimer, "Votre suppression a bien été effectué", "Validation",
+							JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 		}else if(e.getSource()==btnRetourMenu){
