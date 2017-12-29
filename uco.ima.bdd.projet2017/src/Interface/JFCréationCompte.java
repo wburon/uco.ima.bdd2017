@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import DAO.HotelDAO;
 import DAO.PersonnelDAO;
 import model.Hotel;
 import model.Personnel;
@@ -15,7 +16,9 @@ public class JFCréationCompte extends JFrame {
 	private JPaddHotel JPaddHotel;
 	
 	private Personnel NewPerso;
-	private PersonnelDAO pDAO;
+	private HotelDAO hDAO;
+	private Hotel hotel;
+
 
 	/**
 	 * Launch the application.
@@ -40,7 +43,7 @@ public class JFCréationCompte extends JFrame {
 		JPaddGerant=new JPaddGerant(this);
 		JPaddHotel=new JPaddHotel(this);
 		Init();
-		pDAO = new PersonnelDAO();
+		hDAO = new HotelDAO();
 	}
 
 	public Personnel getNewPerso() {
@@ -66,15 +69,23 @@ public class JFCréationCompte extends JFrame {
 		JPaddHotel = jPaddHotel;
 	}
 
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
 	public void Init(){
 		setTitle("Création d'un compte");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 489, 341);
-		setContentPane(JPaddGerant);
+		setContentPane(JPaddHotel);
 	}
-	public void AssociationHotelPerso(Hotel hotel){
-		NewPerso.setHotel(hotel);
-		pDAO.update(NewPerso);
+	public void associationProprioHotel(Personnel personnel){
+		hotel.setProprietaire(personnel.getPersonne().getNom());
+		hDAO.update(hotel);
 	}
 
 }

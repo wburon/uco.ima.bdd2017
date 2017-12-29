@@ -15,6 +15,7 @@ import DAO.FonctionDAO;
 import DAO.PersonneDAO;
 import DAO.PersonnelDAO;
 import model.Fonction;
+import model.Hotel;
 import model.Personne;
 import model.Personnel;
 
@@ -32,7 +33,7 @@ public class JPaddGerant extends JPanel implements ActionListener{
 	private JTextField tfM;
 	private JTextField tfA;
 	
-	private JButton btnSuivant;
+	private JButton btnFinir;
 	private JButton btnAnnuler;
 	
 	private Personne perso;
@@ -64,9 +65,9 @@ public class JPaddGerant extends JPanel implements ActionListener{
 		JPanel panel_2 = new JPanel();
 		add(panel_2, BorderLayout.SOUTH);
 		
-		btnSuivant = new JButton("Suivant >");
-		panel_2.add(btnSuivant);
-		btnSuivant.addActionListener(this);
+		btnFinir = new JButton("Finir");
+		panel_2.add(btnFinir);
+		btnFinir.addActionListener(this);
 		
 		btnAnnuler = new JButton("Annuler");
 		panel_2.add(btnAnnuler);
@@ -194,7 +195,7 @@ public class JPaddGerant extends JPanel implements ActionListener{
 		boolean verif = pDAO.create(perso);
 		return verif;
 	}
-	public boolean creationNel(int anneeArrivee, double salaire, String password, String login) {
+	public boolean creationNel(int anneeArrivee, double salaire, String password, String login, Hotel hotel) {
 		nel.setAnnee_arrivee(anneeArrivee);
 		nel.setFonction(f);
 		nel.setId_personnel(nDAO.maxId());
@@ -202,6 +203,7 @@ public class JPaddGerant extends JPanel implements ActionListener{
 		nel.setSalaire(salaire);
 		nel.setPassword(password);
 		nel.setLogin(login);
+		nel.setHotel(hotel);
 
 		boolean verif = nDAO.create(nel);
 		return verif;
@@ -209,7 +211,7 @@ public class JPaddGerant extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getSource() == btnSuivant) {
+		if (e.getSource() == btnFinir) {
 			String nom = tfNom.getText();
 			String prenom = tfPrenom.getText();
 			String adresse = tfAdresse.getText();
@@ -228,19 +230,17 @@ public class JPaddGerant extends JPanel implements ActionListener{
 			String login = (prenom.charAt(0) + nom);
 
 			boolean a = creationPerso(adresse, nom, prenom, ville, codePostal, date);
-			boolean b = creationNel(anneeArrivee, salaire, password, login);
+			boolean b = creationNel(anneeArrivee, salaire, password, login, JFCreationCompte.getHotel());
 
 			if (a == true && b == true) {
-				JOptionPane.showMessageDialog(btnSuivant, "Votre ajout a bien été effectué", "Validation",
+				JOptionPane.showMessageDialog(btnFinir, "La création de votre compte a réussi", "Validation",
 						JOptionPane.INFORMATION_MESSAGE);
-				JFCreationCompte.setContentPane(JFCreationCompte.getJPaddHotel());
-				JFCreationCompte.getJPaddHotel().repaint();
-				JFCreationCompte.getJPaddHotel().revalidate();
-				JFCreationCompte.setNewPerso(nel);
+				JFCreationCompte.associationProprioHotel(nel);
+				JFCreationCompte.dispose();
 				
 				
 			} else {
-				JOptionPane.showMessageDialog(btnSuivant, "Vous avez fait une erreur dans la saisie", "Erreur",
+				JOptionPane.showMessageDialog(btnFinir, "Vous avez fait une erreur dans la saisie", "Erreur",
 						JOptionPane.ERROR_MESSAGE);
 				if (a)
 					pDAO.delete(perso);

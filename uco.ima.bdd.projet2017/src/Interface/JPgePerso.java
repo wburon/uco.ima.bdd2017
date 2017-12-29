@@ -98,7 +98,7 @@ public class JPgePerso extends JPanel implements ActionListener{
 		f2 = new JFAddPerso(JFInterface.getPersoConn().getHotel());
 		indexSet=-1;
 		indexDel=-1;
-		
+		System.out.println(JFInterface.getPersoConn().getId_personnel());
 
 	}
 	@Override

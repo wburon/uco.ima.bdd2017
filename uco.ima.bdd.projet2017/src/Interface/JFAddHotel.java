@@ -210,6 +210,7 @@ public class JFAddHotel extends JFrame implements ActionListener{
 	 * Permet de créer une nouvel hotel dans la base de données et de renvoyer un booléen pour savoir si l'opération a été réussi
 	 */
 	public boolean creationHotel(String adresse, int code_postal, String nom, int nb_chambre_total, String pays, String proprietaire, int standing, String ville, boolean wifi ){
+		h.setId_hotel(hDAO.maxId());
 		h.setAdresse(adresse);
 		h.setCode_postal(code_postal);
 		h.setName(nom);
