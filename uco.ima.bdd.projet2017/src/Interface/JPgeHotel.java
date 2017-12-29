@@ -32,7 +32,6 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	private Hotel h;
 	private Chambre c;
 	private Table_Chambre tChambre;
-	private boolean addH=false,addC=false, supprH=false, supprC=false, modifH=false, modifC=false;
 	private JFModifChambre mC;
 	private JFAddChambre c1;
 	private JFAddHotel h1;
@@ -40,6 +39,7 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	private ChambreDAO cDAO = new ChambreDAO();
 	private JButton btnRetourMenu;
 	private JFInterface JFInterface;
+	private JFModifHotel mH;
 
 	/**
 	 * Create the panel.
@@ -117,56 +117,34 @@ public class JPgeHotel extends JPanel implements ActionListener{
 			if(table.getModel() == tHotel){
 				h1 = new JFAddHotel();
 				h1.setVisible(true);
-				addH = true;
 			}else{
 				c1 = new JFAddChambre(tHotel.getHotel(s).getId_hotel());
 				c1.setVisible(true);
-				addC = true;
 			}
 		}else if(e.getSource() == btnActualiser){
-			
-			if(table.getModel() == tHotel){
-				tHotel.actualiser();
-				if(addH)
-					tHotel.addHotel(h);
-				if(supprH)
-					tHotel.removeHotel(s);
-				if(modifH)
-					tHotel.setHotel(s);
-				addH=false;supprH=false;modifH=false;
-			}else{
-				tChambre.actualiser();
-				if(addC)
-					tChambre.addChambre(c1.getC());
-				if(supprC)
-					tChambre.removeChambre(s);
-				if(modifC)
-					tChambre.setChambre(s, mC.getCurrentChambre());
-				addC=false;supprC=false;modifC=false;
-			}
+			table.setVisible(false);
+			table.setVisible(true);
 			
 		}else if(e.getSource() == btnModif){
 			if(table.getModel() == tHotel){
 				s = table.getSelectedRow();
-				//
-				modifH=true;
+				mH = new JFModifHotel(tHotel.getHotel(s));
+				mH.preAffichage(tHotel.getHotel(s));
+				mH.setVisible(true);
 			}else{
 				s = table.getSelectedRow();
 				mC = new JFModifChambre(tChambre.getChambre(s));
 				mC.preAffichage(tChambre.getChambre(s));
 				mC.setVisible(true);
-				modifC=true;
 			}
 		}else if(e.getSource() == btnSupprimer){
 			s = table.getSelectedRow();
 			if(table.getModel() == tHotel){
 				hDAO.delete(tHotel.getHotel(s));
 				
-				supprH = true;
 			}else{
 				cDAO.delete(tChambre.getChambre(s));
 				
-				supprC = true;
 			}
 		}else if(e.getSource()==btnRetourMenu){
 			if (JFInterface.getPersoConn().getFonction().getNiveau_contrainte()==2){

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import DAO.PersonneDAO;
 import model.Table_Client;
 
 @SuppressWarnings("serial")
@@ -25,6 +26,8 @@ public class JPgeClient extends JPanel implements ActionListener {
 	private JFInterface JFInterface;
 	private JButton btnRetourMenu;
 	private JButton btnReservation;
+	
+	private PersonneDAO pDAO;
 
 	/**
 	 * Create the panel.
@@ -32,6 +35,7 @@ public class JPgeClient extends JPanel implements ActionListener {
 	public JPgeClient(JFInterface JFInterface) {
 		
 		this.JFInterface=JFInterface;
+		this.pDAO = new PersonneDAO();
 		
 		setLayout(new BorderLayout(0, 0));
 
@@ -101,6 +105,13 @@ public class JPgeClient extends JPanel implements ActionListener {
 		}else if(arg0.getSource() == btnReservation){
 			JFReservation JFresa = new JFReservation(JFInterface.getPersoConn().getHotel().getId_hotel());
 			JFresa.setVisible(true);
+		}else if(arg0.getSource() == btnModif){
+			JFModifClient modifclient = new JFModifClient(tClient.getClient(table.getSelectedRow()));
+			modifclient.preAffichage(tClient.getClient(table.getSelectedRow()).getPersonne());
+			modifclient.setVisible(true);
+		}else if(arg0.getSource() == btnActualiser){
+			table.setVisible(false);
+			table.setVisible(true);
 		}
 	}
 
