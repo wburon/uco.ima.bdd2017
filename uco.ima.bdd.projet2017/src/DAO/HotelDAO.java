@@ -43,10 +43,10 @@ public class HotelDAO extends DAO<Hotel> {
 
 	@Override
 	public boolean delete(Hotel obj) {
-		PreparedStatement prepare;
+		PreparedStatement prepare, prepareFirst;
 		try {
 			prepare = SC.prepareStatement("DELETE FROM hotel WHERE id_hotel=?");
-			
+
 			prepare.setInt(1, obj.getId_hotel());
 			
 			prepare.executeUpdate();
