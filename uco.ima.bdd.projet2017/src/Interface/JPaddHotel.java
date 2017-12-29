@@ -22,7 +22,6 @@ import model.Hotel;
 
 public class JPaddHotel extends JPanel implements ActionListener{
 	private JTextField jtfAdresse;
-	private JTextField jtfProprio;
 	private JTextField jtfVille;
 	private JTextField jtfCP;
 	private JTextField jtfPays;
@@ -81,14 +80,6 @@ public class JPaddHotel extends JPanel implements ActionListener{
 		jtfAdresse = new JTextField();
 		panel_1.add(jtfAdresse);
 		jtfAdresse.setColumns(10);
-		
-		JLabel lblPropritaire = new JLabel("Propri\u00E9taire");
-		lblPropritaire.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(lblPropritaire);
-		
-		jtfProprio = new JTextField();
-		panel_1.add(jtfProprio);
-		jtfProprio.setColumns(10);
 		
 		JLabel lblVille = new JLabel("Ville");
 		lblVille.setHorizontalAlignment(SwingConstants.CENTER);
@@ -161,7 +152,7 @@ public class JPaddHotel extends JPanel implements ActionListener{
 			String ville = jtfVille.getText();
 			int CP = Integer.parseInt(jtfCP.getText());
 			String pays = jtfPays.getText();
-			String proprietaire = jtfProprio.getText();
+			String proprietaire = JFCreationCompte.getNewPerso().getPersonne().getNom();
 			int standing = Integer.parseInt(item[comboBox.getSelectedIndex()]);
 			int nb_chambre = 0;
 			boolean wifi = checkBox.isSelected();
@@ -169,8 +160,9 @@ public class JPaddHotel extends JPanel implements ActionListener{
 			boolean a = creationHotel(adresse, CP, nom, nb_chambre, pays, proprietaire, standing, ville, wifi );
 			
 			if (a==true){
-				JOptionPane.showMessageDialog(btnFinir, "Votre ajout a bien été effectué", "Validation", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(btnFinir, "Votre compte est bien inscrit", "Validation", JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
+				JFCreationCompte.AssociationHotelPerso(h);
 				JFCreationCompte.dispose();
 			}else{
 				JOptionPane.showMessageDialog(btnFinir, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -187,7 +179,6 @@ public class JPaddHotel extends JPanel implements ActionListener{
 		jtfCP.setText("");
 		jtfName.setText("");
 		jtfPays.setText("");
-		jtfProprio.setText("");
 		jtfVille.setText("");
 		
 	}

@@ -12,10 +12,10 @@ public class Table_Personnel extends AbstractTableModel {
 	
 	private final String[] entetes = {"Nom", "Prénom", "Salaire", "Année d'arrivée", "Fonction", "Login"};
 	
-	public Table_Personnel() {
+	public Table_Personnel(Hotel hotel) {
 		super();
 		PersonnelDAO pDAO=new PersonnelDAO();
-		listPerso = pDAO.ListPersonnel();
+		listPerso = pDAO.ListPersonnel(hotel);
 	}
 	
 	@Override

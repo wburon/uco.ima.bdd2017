@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import Singleton.SingletonConnection;
+import model.Hotel;
 import model.Personnel;
 
 public class PersonnelDAO extends DAO<Personnel> {
@@ -178,13 +179,14 @@ public class PersonnelDAO extends DAO<Personnel> {
 		return -1;
 	}
 	
-	public ArrayList<Personnel> ListPersonnel(){
+	public ArrayList<Personnel> ListPersonnel(Hotel hotel){
 		ArrayList<Personnel> listPersonnel = new ArrayList<Personnel>();
 		Statement state;
 		Personnel obj = new Personnel();
+		int id_hotel = hotel.getId_hotel();
 		try{
 			state = SC.createStatement();
-			state.executeQuery("SELECT * FROM personnel");
+			state.executeQuery("SELECT * FROM personnel WHERE id_hotel="+id_hotel);
 			ResultSet result = state.getResultSet();
 			
 			while(result.next()){

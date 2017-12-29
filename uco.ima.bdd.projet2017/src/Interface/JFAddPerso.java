@@ -14,6 +14,7 @@ import DAO.FonctionDAO;
 import DAO.PersonneDAO;
 import DAO.PersonnelDAO;
 import model.Fonction;
+import model.Hotel;
 import model.Personne;
 import model.Personnel;
 
@@ -55,6 +56,8 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	private Fonction f;
 	private FonctionDAO fDAO;
 	
+	private Hotel hotel;
+	
 
 	/**
 	 * Launch the application.
@@ -63,7 +66,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFAddPerso frame = new JFAddPerso();
+					JFAddPerso frame = new JFAddPerso(new Hotel());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -76,7 +79,8 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	 * Create the frame.
 	 * @param tfVille 
 	 */
-	public JFAddPerso() {
+	public JFAddPerso(Hotel hotel) {
+		this.hotel = hotel;
 		setTitle("Ajout d'un membre du personnel");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 596, 362);
@@ -233,12 +237,13 @@ public class JFAddPerso extends JFrame implements ActionListener {
 			String fonction = comboBox.getSelectedItem().toString();
 
 			f = fDAO.find(fDAO.renvoieId(fonction));
+			
 
 			String password = nDAO.HashPassword("");
 			String login = (prenom.charAt(0) + nom);
 
 			boolean a = creationPerso(adresse, nom, prenom, ville, codePostal, date);
-			boolean b = creationNel(anneeArrivee, salaire, password, login);
+			boolean b = creationNel(anneeArrivee, salaire, password, login, hotel);
 
 			if (a == true && b == true) {
 				JOptionPane.showMessageDialog(btnValider, "Votre ajout a bien été effectué", "Validation",
@@ -298,7 +303,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 	 * Permet de créer une nouveau membre du personnel dans la base de données
 	 * et de renvoyer un booléen pour savoir si l'opération a été réussi
 	 */
-	public boolean creationNel(int anneeArrivee, double salaire, String password, String login) {
+	public boolean creationNel(int anneeArrivee, double salaire, String password, String login, Hotel hotel) {
 		nel.setAnnee_arrivee(anneeArrivee);
 		nel.setFonction(f);
 		nel.setId_personnel(nDAO.maxId());
@@ -306,6 +311,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 		nel.setSalaire(salaire);
 		nel.setPassword(password);
 		nel.setLogin(login);
+		nel.setHotel(hotel);
 
 		boolean verif = nDAO.create(nel);
 		return verif;
