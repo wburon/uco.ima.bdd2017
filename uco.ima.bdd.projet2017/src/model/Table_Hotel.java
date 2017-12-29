@@ -14,10 +14,10 @@ public class Table_Hotel extends AbstractTableModel{
 	
 	private final String[] entetes = {"Nom", "Ville", "Pays", "Propriétaire", "Standing", "Nombre de chambre"};
 	
-	public Table_Hotel() {
+	public Table_Hotel(Hotel hotel) {
 		super();
 		HotelDAO hDAO=new HotelDAO();
-		listHotel = hDAO.ListHotel();
+		listHotel = hDAO.ListHotel(hotel);
 	}
 	
 	@Override

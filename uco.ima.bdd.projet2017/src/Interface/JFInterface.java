@@ -62,7 +62,7 @@ public class JFInterface extends JFrame{
 
 	public void Init(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 613, 575);
+		setBounds(100, 100, 711, 575);
 		setContentPane(JPlog);
 	}
 

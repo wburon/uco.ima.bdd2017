@@ -142,13 +142,14 @@ public class HotelDAO extends DAO<Hotel> {
 		return etoile;
 	}
 	
-	public ArrayList<Hotel> ListHotel(){
+	public ArrayList<Hotel> ListHotel(Hotel hotel){
 		ArrayList<Hotel> listHotel = new ArrayList<Hotel>();
 		Statement state;
 		Hotel obj = new Hotel();
+		int id_hotel=hotel.getId_hotel();
 		try{
 			state = SC.createStatement();
-			state.executeQuery("SELECT * FROM hotel");
+			state.executeQuery("SELECT * FROM hotel WHERE id_hotel="+id_hotel);
 			ResultSet result = state.getResultSet();
 			
 			while(result.next()){
