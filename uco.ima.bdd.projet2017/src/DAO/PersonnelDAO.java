@@ -26,7 +26,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 	public boolean create(Personnel obj) {
 		try {
 
-			PreparedStatement prepare = SC.prepareStatement("Insert into personnel values (?,?,?,?,?,?,?);");
+			PreparedStatement prepare = SC.prepareStatement("Insert into personnel values (?,?,?,?,?,?,?,?);");
 
 			prepare.setInt(1, maxId());
 			prepare.setInt(2, obj.getPersonne().getId_personne());
@@ -35,6 +35,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 			prepare.setInt(5, obj.getAnnee_arrivee());
 			prepare.setString(6, obj.getPassword());
 			prepare.setString(7, obj.getLogin());
+			prepare.setInt(8, obj.getHotel().getId_hotel());
 
 			prepare.executeUpdate();
 

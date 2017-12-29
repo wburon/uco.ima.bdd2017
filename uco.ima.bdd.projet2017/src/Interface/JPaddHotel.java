@@ -28,7 +28,7 @@ public class JPaddHotel extends JPanel implements ActionListener{
 
 	private JComboBox comboBox;
 	
-	private JButton btnFinir;
+	private JButton btnSuivant;
 	private JButton btnAnnuler;
 	
 	private JCheckBox checkBox;
@@ -132,9 +132,9 @@ public class JPaddHotel extends JPanel implements ActionListener{
 		JPanel panel_2 = new JPanel();
 		panel_2.setPreferredSize(new Dimension(10, 30));add(panel_2, BorderLayout.SOUTH);
 		
-		btnFinir = new JButton("Finir");
-		panel_2.add(btnFinir);
-		btnFinir.addActionListener(this);
+		btnSuivant = new JButton("Suivant >");
+		panel_2.add(btnSuivant);
+		btnSuivant.addActionListener(this);
 		
 		btnAnnuler = new JButton("Annuler");
 		panel_2.add(btnAnnuler);
@@ -146,26 +146,27 @@ public class JPaddHotel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if(e.getSource() == btnFinir){
+		if(e.getSource() == btnSuivant){
 			String nom = jtfName.getText();
 			String adresse = jtfAdresse.getText();
 			String ville = jtfVille.getText();
 			int CP = Integer.parseInt(jtfCP.getText());
 			String pays = jtfPays.getText();
-			String proprietaire = JFCreationCompte.getNewPerso().getPersonne().getNom();
 			int standing = Integer.parseInt(item[comboBox.getSelectedIndex()]);
 			int nb_chambre = 0;
 			boolean wifi = checkBox.isSelected();
 			
-			boolean a = creationHotel(adresse, CP, nom, nb_chambre, pays, proprietaire, standing, ville, wifi );
+			boolean a = creationHotel(adresse, CP, nom, nb_chambre, pays, standing, ville, wifi );
 			
 			if (a==true){
-				JOptionPane.showMessageDialog(btnFinir, "Votre compte est bien inscrit", "Validation", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(btnSuivant, "Votre hotel est bien enregistré", "Validation", JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
-				JFCreationCompte.AssociationHotelPerso(h);
-				JFCreationCompte.dispose();
+				JFCreationCompte.setHotel(h);
+				JFCreationCompte.setContentPane(JFCreationCompte.getJPaddGerant());
+				JFCreationCompte.getJPaddGerant().repaint();
+				JFCreationCompte.getJPaddGerant().revalidate();
 			}else{
-				JOptionPane.showMessageDialog(btnFinir, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(btnSuivant, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}else if(e.getSource() == btnAnnuler){
@@ -182,16 +183,17 @@ public class JPaddHotel extends JPanel implements ActionListener{
 		jtfVille.setText("");
 		
 	}
-	public boolean creationHotel(String adresse, int code_postal, String nom, int nb_chambre_total, String pays, String proprietaire, int standing, String ville, boolean wifi ){
+	public boolean creationHotel(String adresse, int code_postal, String nom, int nb_chambre_total, String pays, int standing, String ville, boolean wifi ){
+		h.setId_hotel(hDAO.maxId());
 		h.setAdresse(adresse);
 		h.setCode_postal(code_postal);
 		h.setName(nom);
 		h.setNb_chambre_total(nb_chambre_total);
 		h.setPays(pays);
-		h.setProprietaire(proprietaire);
 		h.setStanding(standing);
 		h.setVille(ville);
 		h.setWifi(wifi);
+		h.setProprietaire("");
 
 		boolean verif = hDAO.create(h);
 		return verif;
