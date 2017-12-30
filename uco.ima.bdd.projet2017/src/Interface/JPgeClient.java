@@ -59,10 +59,6 @@ public class JPgeClient extends JPanel implements ActionListener {
 		panel_2.add(btnActualiser);
 		btnActualiser.addActionListener(this);
 
-//		btnAjout = new JButton("Ajouter");
-//		panel_2.add(btnAjout);
-//		btnAjout.addActionListener(this);
-
 		btnModif = new JButton("Modifier");
 		panel_2.add(btnModif);
 		btnModif.addActionListener(this);
@@ -74,10 +70,6 @@ public class JPgeClient extends JPanel implements ActionListener {
 		btnRetourMenu = new JButton("Retour Menu");
 		panel_2.add(btnRetourMenu);
 		btnRetourMenu.addActionListener(this);
-
-//		btnPlusDinfo = new JButton("Plus d'info sur l'hotel");
-//		panel_2.add(btnPlusDinfo);
-//		btnPlusDinfo.addActionListener(this);
 
 		JPanel panel_3 = new JPanel();
 		add(panel_3, BorderLayout.EAST);
