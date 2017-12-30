@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -13,6 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+
+import java.awt.Window;
 
 import DAO.ReservationDAO;
 import model.Chambre;
@@ -27,6 +31,7 @@ public class JPSelectClient extends JPanel implements ActionListener{
 	private int s=-1;
 	private JFClientReservation f;
 	private ReservationDAO rDAO = new ReservationDAO();
+	private Window window;
 
 	/**
 	 * Create the panel.
@@ -63,6 +68,9 @@ public class JPSelectClient extends JPanel implements ActionListener{
 					c.setClient(cl);
 					rDAO.create(c);
 				}
+				JOptionPane.showMessageDialog(btnReserver, "Reservation réussi", "Bravo",JOptionPane.INFORMATION_MESSAGE);
+				window = SwingUtilities.windowForComponent((Component)arg0.getSource());
+				window.dispose();
 			}
 
 			
