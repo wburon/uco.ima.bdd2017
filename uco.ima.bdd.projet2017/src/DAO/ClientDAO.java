@@ -3,6 +3,7 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -120,6 +121,7 @@ public class ClientDAO extends DAO<Client>{
 		
 		Client obj = new Client();
 		try{
+			miseAJour();
 			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM client", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			ResultSet result = prepare.executeQuery();
 			
@@ -131,6 +133,72 @@ public class ClientDAO extends DAO<Client>{
 			e.printStackTrace();
 		}
 		return listClient;
+	}
+	
+	private void miseAJour() {
+		try {
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM client", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ResultSet result = prepare.executeQuery();
+			
+			while(result.next()){
+				updateClient(result.getInt("id_client"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
+	 * Actualise le nombre de resa en cours et la fidelité d'un client
+	 * @param id_client
+	 * @return
+	 */
+	public boolean updateClient(int id_client){
+		
+		try {
+			//nb reservation en cours
+			PreparedStatement prepareNb = SC.prepareStatement("Select * FROM reservation where date_fin>? AND id_client=?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			prepareNb.setDate(1, new java.sql.Date(new java.util.Date().getTime() ));
+			prepareNb.setInt(2, id_client);
+			ResultSet resultNb = prepareNb.executeQuery();
+			int nbResaEnCours = countResult(resultNb);
+			
+			//nb reservation total = fidelite
+			PreparedStatement prepareFid = SC.prepareStatement("Select * from reservation where id_client=?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			prepareFid.setInt(1, id_client);
+			ResultSet resultFid = prepareFid.executeQuery();
+			int fidelite = countResult(resultFid);
+			
+			Client client = new Client();
+			client.setId_client(id_client);
+			client.setNb_resa_en_cours(nbResaEnCours);
+			client.setFidelite(fidelite);
+			this.update(client);
+			
+			return true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public int countResult(ResultSet result){
+		int count = 0;
+		try {
+			if(result.first()){
+				do{
+					count++;
+				}while(result.next());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 }

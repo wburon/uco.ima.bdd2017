@@ -323,7 +323,7 @@ public class ChambreDAO extends DAO<Chambre>{
 		ArrayList<Integer> listIdNotLibre = new ArrayList<Integer>();
 
 		try {
-			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM reservation where (date_debut<? AND date_debut>?) OR (date_fin<? AND date_fin>?) AND id_hotel=?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM reservation where (date_debut<=? AND date_debut>=?) OR (date_fin<=? AND date_fin>=?) AND id_hotel=?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			prepare.setDate(1, new java.sql.Date(finResa.getTime()));
 			prepare.setDate(2, new java.sql.Date(debutResa.getTime()));
 			prepare.setDate(3, new java.sql.Date(finResa.getTime()));
