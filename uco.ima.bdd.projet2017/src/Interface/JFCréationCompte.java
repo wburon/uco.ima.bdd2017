@@ -80,7 +80,7 @@ public class JFCréationCompte extends JFrame {
 	public void Init(){
 		setTitle("Création d'un compte");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 489, 341);
+		setBounds(100, 100, 512, 373);
 		setContentPane(JPaddHotel);
 	}
 	public void associationProprioHotel(Personnel personnel){

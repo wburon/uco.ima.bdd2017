@@ -56,7 +56,8 @@ public class JPaddGerant extends JPanel implements ActionListener{
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.NORTH);
 		
-		JLabel lblVousDeveztre = new JLabel("Vous devez \u00EAtre le g\u00E9rant de l'h\u00F4tel pour vous cr\u00E9ez un compte");
+		JLabel lblVousDeveztre = new JLabel("Vous devez \u00EAtre le g\u00E9rant de l'h\u00F4tel pour vous cr\u00E9ez un compte.");
+		lblVousDeveztre.setToolTipText("");
 		panel.add(lblVousDeveztre);
 		
 		JPanel panel_1 = new JPanel();
@@ -233,7 +234,7 @@ public class JPaddGerant extends JPanel implements ActionListener{
 			boolean b = creationNel(anneeArrivee, salaire, password, login, JFCreationCompte.getHotel());
 
 			if (a == true && b == true) {
-				JOptionPane.showMessageDialog(btnFinir, "La création de votre compte a réussi", "Validation",
+				JOptionPane.showMessageDialog(btnFinir, "La création de votre compte a réussi.\n Lors de votre première connexion votre login est composé de la première lettre de votre prénom et votre nom.\n Le mot de passe est vide", "Validation",
 						JOptionPane.INFORMATION_MESSAGE);
 				JFCreationCompte.associationProprioHotel(nel);
 				JFCreationCompte.dispose();
