@@ -45,6 +45,7 @@ public class JPgeHotel extends JPanel implements ActionListener{
 	 */
 	public JPgeHotel(JFInterface JFInterface) {
 		this.JFInterface=JFInterface;
+		this.tHotel = new Table_Hotel(JFInterface.getPersoConn().getHotel());
 		
 		setLayout(new BorderLayout(0, 0));
 		
