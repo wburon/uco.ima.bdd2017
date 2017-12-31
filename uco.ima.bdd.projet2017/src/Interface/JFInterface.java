@@ -43,7 +43,7 @@ public class JFInterface extends JFrame{
 
 
 
-		JPlog=new JPlog(this);
+		JPlog = new JPlog(this);
 		JPgerant = new JPgerant(this);
 		JPEmployer = new JPEmployer(this);
 		Init();
