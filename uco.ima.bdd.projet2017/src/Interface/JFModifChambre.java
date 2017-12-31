@@ -179,7 +179,8 @@ public class JFModifChambre extends JFrame implements ActionListener{
 				
 				
 				if(cbCommunicante.isSelected() && CurrentChambre.isCommunicante()==false){
-					new JFNowCommunicante(CurrentChambre.getId_chambre());
+					JFNowCommunicante nowComm = new JFNowCommunicante(CurrentChambre.getId_chambre());
+					nowComm.setVisible(true);
 				}else if(!cbCommunicante.isSelected() && CurrentChambre.isCommunicante()){
 					JOptionPane.showMessageDialog(btnUpdate, "Si cette chambre n'est plus communicante, nous changeons automatiquement cette dernière !", "Information",JOptionPane.INFORMATION_MESSAGE);
 					Chambre c = chambreDao.find(commDAO.findCommunicante(CurrentChambre.getId_chambre()));

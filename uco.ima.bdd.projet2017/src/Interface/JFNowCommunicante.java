@@ -35,6 +35,7 @@ public class JFNowCommunicante extends JFrame implements ActionListener{
 	private JLabel lblMoins;
 	private Chambre c1;
 	private Chambre[] cTab;
+	private Chambre chambre;
 
 	/**
 	 * Launch the application.
@@ -56,7 +57,7 @@ public class JFNowCommunicante extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public JFNowCommunicante(int id_chambre) {
-		
+		this.chambre = cDAO.find(id_chambre);
 		this.cTab = cDAO.chambresVoisines(id_chambre); 
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -147,6 +148,9 @@ public class JFNowCommunicante extends JFrame implements ActionListener{
 			comm.setC2(c2);
 			// Update de c2 et création de la communication
 			cDAO.update(c2);
+			// Update de c1
+			chambre.setCommunicante(true);
+			cDAO.update(chambre);
 			commDao.create(comm);
 			this.dispose();
 		}else if(arg0.getSource() == btnCellel){
