@@ -140,6 +140,10 @@ public class JPlog extends JPanel implements ActionListener{
 			
 			nel = nDAO.find(nDAO.findUser(login, password));
 			
+			if (nDAO.findUser(login, password)==-1){
+				JOptionPane.showMessageDialog(btnConnexion, "Le login ou le mot de passe sont faux !", "Autorisation", JOptionPane.ERROR_MESSAGE);
+			}
+			
 			if(nel.getFonction().getNiveau_contrainte()==0){
 				JOptionPane.showMessageDialog(panel_4, "Vous n'êtes pas autorisé à accéder au logiciel", "Autorisation", JOptionPane.INFORMATION_MESSAGE);
 				
@@ -158,9 +162,6 @@ public class JPlog extends JPanel implements ActionListener{
 				JFInterface.getJPgerant().revalidate();
 				JFInterface.setPersoConn(nel);
 				JFInterface.LancementPanelGestion();
-			}
-			else{
-				JOptionPane.showMessageDialog(btnConnexion, "Le login ou le mot de passe sont faux !", "Autorisation", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		if(e.getSource()==btnCrerUnCompte){
