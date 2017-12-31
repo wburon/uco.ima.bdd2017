@@ -11,7 +11,6 @@ import javax.swing.border.EmptyBorder;
 import DAO.ChambreDAO;
 import DAO.Type_ChambreDAO;
 import model.Chambre;
-import model.Client;
 import model.Reservation;
 import model.Table_Chambre;
 
@@ -19,25 +18,22 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Rectangle;
 
+@SuppressWarnings("serial")
 public class JFReservation extends JFrame implements ActionListener {
 
 	private JPanel contentPane;

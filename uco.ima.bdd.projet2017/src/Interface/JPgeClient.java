@@ -10,32 +10,25 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import DAO.PersonneDAO;
 import model.Table_Client;
 
 @SuppressWarnings("serial")
 public class JPgeClient extends JPanel implements ActionListener {
 
 	private JButton btnActualiser;
-	private JButton btnAjout;
 	private JButton btnModif;
 	private JButton btnSupprimer;
-	private JButton btnPlusDinfo;
 	private JTable table;
 	private Table_Client tClient = new Table_Client();
 	private JFInterface JFInterface;
 	private JButton btnRetourMenu;
 	private JButton btnReservation;
-	
-	private PersonneDAO pDAO;
-
 	/**
 	 * Create the panel.
 	 */
 	public JPgeClient(JFInterface JFInterface) {
 		
 		this.JFInterface=JFInterface;
-		this.pDAO = new PersonneDAO();
 		
 		setLayout(new BorderLayout(0, 0));
 

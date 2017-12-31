@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class JFNowCommunicante extends JFrame implements ActionListener{
 
 	private JPanel contentPane;

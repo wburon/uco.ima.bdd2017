@@ -21,6 +21,7 @@ import model.Personnel;
 
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class JPaddGerant extends JPanel implements ActionListener{
 	private JTextField tfNom;
 	private JTextField tfPrenom;
@@ -171,6 +172,10 @@ public class JPaddGerant extends JPanel implements ActionListener{
 		fDAO = new FonctionDAO();
 
 	}
+
+	/**
+	 * Vide les TextField
+	 */
 	public void clearTextField() {
 		tfNom.setText("");
 		tfPrenom.setText("");
@@ -184,6 +189,11 @@ public class JPaddGerant extends JPanel implements ActionListener{
 		tfAArrivee.setText("");
 
 	}
+	
+	/*
+	 * Permet de créer une nouvel personne dans la base de données et de
+	 * renvoyer un booléen pour savoir si l'opération a été réussi
+	 */
 	public boolean creationPerso(String adresse, String nom, String prenom, String ville, int codePostal, Date date) {
 		perso.setId_personne(pDAO.maxId());
 		perso.setAdresse(adresse);
@@ -196,6 +206,11 @@ public class JPaddGerant extends JPanel implements ActionListener{
 		boolean verif = pDAO.create(perso);
 		return verif;
 	}
+	
+	/*
+	 * Permet de créer une nouveau membre du personnel dans la base de données
+	 * et de renvoyer un booléen pour savoir si l'opération a été réussi
+	 */
 	public boolean creationNel(int anneeArrivee, double salaire, String password, String login, Hotel hotel) {
 		nel.setAnnee_arrivee(anneeArrivee);
 		nel.setFonction(f);
@@ -209,6 +224,8 @@ public class JPaddGerant extends JPanel implements ActionListener{
 		boolean verif = nDAO.create(nel);
 		return verif;
 	}
+	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -226,7 +243,8 @@ public class JPaddGerant extends JPanel implements ActionListener{
 			int anneeArrivee = Integer.parseInt(tfAArrivee.getText());
 
 			f = fDAO.find(3);
-
+			
+			//Création du login et du mot de passe
 			String password = nDAO.HashPassword("");
 			String login = (prenom.charAt(0) + nom);
 
@@ -236,6 +254,7 @@ public class JPaddGerant extends JPanel implements ActionListener{
 			if (a == true && b == true) {
 				JOptionPane.showMessageDialog(btnFinir, "La création de votre compte a réussi.\n Lors de votre première connexion votre login est composé de la première lettre de votre prénom et votre nom.\n Le mot de passe est vide", "Validation",
 						JOptionPane.INFORMATION_MESSAGE);
+				//Associe le gérant avec l'hotel créer précedemment et fermeture de JFCreationCompte
 				JFCreationCompte.associationProprioHotel(nel);
 				JFCreationCompte.dispose();
 				

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import DAO.ChambreDAO;
 
+@SuppressWarnings("serial")
 public class Table_Chambre extends AbstractTableModel{
 
 private ArrayList<Chambre> listChambre = new ArrayList<Chambre>();

@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import DAO.HotelDAO;
 import model.Hotel;
 
+@SuppressWarnings("serial")
 public class JPaddHotel extends JPanel implements ActionListener{
 	private JTextField jtfAdresse;
 	private JTextField jtfVille;
@@ -162,6 +163,7 @@ public class JPaddHotel extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(btnSuivant, "Votre hotel est bien enregistré", "Validation", JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
 				JFCreationCompte.setHotel(h);
+				//Ouvre le JPanel suivant
 				JFCreationCompte.setContentPane(JFCreationCompte.getJPaddGerant());
 				JFCreationCompte.getJPaddGerant().repaint();
 				JFCreationCompte.getJPaddGerant().revalidate();
@@ -174,7 +176,9 @@ public class JPaddHotel extends JPanel implements ActionListener{
 		}
 	}
 
-	
+	/**
+	 * Vide les TextFields
+	 */
 	private void clearTextField() {
 		jtfAdresse.setText("");
 		jtfCP.setText("");
@@ -183,6 +187,18 @@ public class JPaddHotel extends JPanel implements ActionListener{
 		jtfVille.setText("");
 		
 	}
+	/**
+	 * créer l'objet hotel dans la base de données
+	 * @param adresse
+	 * @param code_postal
+	 * @param nom
+	 * @param nb_chambre_total
+	 * @param pays
+	 * @param standing
+	 * @param ville
+	 * @param wifi
+	 * @return si ça réussi ou nous
+	 */
 	public boolean creationHotel(String adresse, int code_postal, String nom, int nb_chambre_total, String pays, int standing, String ville, boolean wifi ){
 		h.setId_hotel(hDAO.maxId());
 		h.setAdresse(adresse);

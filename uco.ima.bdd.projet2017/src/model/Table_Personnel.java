@@ -6,6 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 import DAO.PersonnelDAO;
 
+@SuppressWarnings("serial")
 public class Table_Personnel extends AbstractTableModel {
 
 	private ArrayList<Personnel> listPerso = new ArrayList<Personnel>();

@@ -8,6 +8,7 @@ import DAO.ClientDAO;
 
 
 
+@SuppressWarnings("serial")
 public class Table_Client extends AbstractTableModel {
 	private ArrayList<Client> listClient = new ArrayList<Client>();
 

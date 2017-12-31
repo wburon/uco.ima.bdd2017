@@ -159,6 +159,9 @@ public class JPlog extends JPanel implements ActionListener{
 				JFInterface.setPersoConn(nel);
 				JFInterface.LancementPanelGestion();
 			}
+			else{
+				JOptionPane.showMessageDialog(btnConnexion, "Le login ou le mot de passe sont faux !", "Autorisation", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		if(e.getSource()==btnCrerUnCompte){
 			JFCréationCompte jfcc = new JFCréationCompte();

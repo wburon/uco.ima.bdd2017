@@ -13,8 +13,6 @@ import javax.swing.JTable;
 
 import DAO.ChambreDAO;
 import DAO.HotelDAO;
-import model.Chambre;
-import model.Hotel;
 import model.Table_Chambre;
 import model.Table_Hotel;
 
@@ -29,8 +27,6 @@ public class JPgeHotel extends JPanel implements ActionListener {
 	private JButton btnPlusDinfo;
 	private int s = -1;
 	private JButton btnActualiser;
-	private Hotel h;
-	private Chambre c;
 	private Table_Chambre tChambre;
 	private JFModifChambre mC;
 	private JFAddChambre c1;

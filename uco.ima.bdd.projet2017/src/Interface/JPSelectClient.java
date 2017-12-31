@@ -19,11 +19,11 @@ import javax.swing.SwingUtilities;
 import java.awt.Window;
 
 import DAO.ReservationDAO;
-import model.Chambre;
 import model.Client;
 import model.Reservation;
 import model.Table_Client;
 
+@SuppressWarnings("serial")
 public class JPSelectClient extends JPanel implements ActionListener{
 	private JTable table;
 	private JButton btnReserver;

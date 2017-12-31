@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+@SuppressWarnings("serial")
 public class JPEmployer extends JPanel implements ActionListener{
 
 	private JButton btnOperationSurHotel;

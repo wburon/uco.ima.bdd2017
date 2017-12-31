@@ -6,8 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 import DAO.HotelDAO;
 
-
-
+@SuppressWarnings("serial")
 public class Table_Hotel extends AbstractTableModel{
 	
 	private ArrayList<Hotel> listHotel = new ArrayList<Hotel>();
