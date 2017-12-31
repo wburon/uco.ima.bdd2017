@@ -260,8 +260,10 @@ public class JFAddPerso extends JFrame implements ActionListener {
 					nDAO.delete(nel);
 			}
 
-		} else if (e.getSource() == btnAnnuler)
+		} else if (e.getSource() == btnAnnuler){
 			clearTextField();
+			this.dispose();
+		}
 
 	}
 

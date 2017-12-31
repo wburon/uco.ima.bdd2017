@@ -111,6 +111,7 @@ public class JFModifPerso extends JFrame implements ActionListener {
 		
 		btnAnnuler = new JButton("Annuler");
 		panel_2.add(btnAnnuler);
+		btnAnnuler.addActionListener(this);
 		
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3, BorderLayout.EAST);
@@ -229,6 +230,9 @@ public class JFModifPerso extends JFrame implements ActionListener {
 				else if (b)
 					nDAO.delete(nel);
 			}
+		}else if (e.getSource() == btnAnnuler){
+			clearTextField();
+			this.dispose();
 		}
 		
 	}

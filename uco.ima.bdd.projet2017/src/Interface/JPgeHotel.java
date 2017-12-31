@@ -129,27 +129,39 @@ public class JPgeHotel extends JPanel implements ActionListener{
 		}else if(e.getSource() == btnModif){
 			if(table.getModel() == tHotel){
 				s = table.getSelectedRow();
-				mH = new JFModifHotel(tHotel.getHotel(s));
-				mH.preAffichage(tHotel.getHotel(s));
-				mH.setVisible(true);
+				if (s==-1){
+					JOptionPane.showMessageDialog(btnModif, "Vous devez sélectionné une ligne dans le tableau !","Selection",JOptionPane.INFORMATION_MESSAGE);
+				}else{
+					mH = new JFModifHotel(tHotel.getHotel(s));
+					mH.preAffichage(tHotel.getHotel(s));
+					mH.setVisible(true);
+				}
 			}else{
 				s = table.getSelectedRow();
-				mC = new JFModifChambre(tChambre.getChambre(s));
-				mC.preAffichage(tChambre.getChambre(s));
-				mC.setVisible(true);
+				if (s==-1){
+					JOptionPane.showMessageDialog(btnModif, "Vous devez sélectionné une ligne dans le tableau !","Selection",JOptionPane.INFORMATION_MESSAGE);
+				}else{
+					mC = new JFModifChambre(tChambre.getChambre(s));
+					mC.preAffichage(tChambre.getChambre(s));
+					mC.setVisible(true);
+				}
 			}
 		}else if(e.getSource() == btnSupprimer){
 			s = table.getSelectedRow();
-			if(table.getModel() == tHotel){
-				if(hDAO.delete(tHotel.getHotel(s)))
-					JOptionPane.showMessageDialog(btnSupprimer, "Votre suppression a bien été effectué", "Validation",
-							JOptionPane.INFORMATION_MESSAGE);
-				
+			if (s==-1){
+				JOptionPane.showMessageDialog(btnModif, "Vous devez sélectionné une ligne dans le tableau !","Selection",JOptionPane.INFORMATION_MESSAGE);
 			}else{
-				if(cDAO.delete(tChambre.getChambre(s)))
-					JOptionPane.showMessageDialog(btnSupprimer, "Votre suppression a bien été effectué", "Validation",
-							JOptionPane.INFORMATION_MESSAGE);
+				if(table.getModel() == tHotel){
+					if(hDAO.delete(tHotel.getHotel(s)))
+						JOptionPane.showMessageDialog(btnSupprimer, "Votre suppression a bien été effectué", "Validation",
+								JOptionPane.INFORMATION_MESSAGE);
 				
+				}else{
+					if(cDAO.delete(tChambre.getChambre(s)))
+						JOptionPane.showMessageDialog(btnSupprimer, "Votre suppression a bien été effectué", "Validation",
+								JOptionPane.INFORMATION_MESSAGE);
+					
+				}
 			}
 		}else if(e.getSource()==btnRetourMenu){
 			if (JFInterface.getPersoConn().getFonction().getNiveau_contrainte()==2){
