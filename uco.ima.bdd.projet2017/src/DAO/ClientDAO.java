@@ -3,25 +3,16 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import Singleton.SingletonConnection;
-import model.Chambre;
 import model.Client;
 
 public class ClientDAO extends DAO<Client>{
 	
 	Connection SC = SingletonConnection.getConnection();
-	
-	/*
-	private int id_client;
-	private Personne personne;
-	private int nb_resa_en_cours;
-	private int fidelite;
-	 */
 
 	@Override
 	public boolean create(Client obj) {

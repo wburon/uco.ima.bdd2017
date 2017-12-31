@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import Singleton.SingletonConnection;
 import model.Hotel;
-import model.Personnel;
 
 public class HotelDAO extends DAO<Hotel> {
 
@@ -43,7 +42,7 @@ public class HotelDAO extends DAO<Hotel> {
 
 	@Override
 	public boolean delete(Hotel obj) {
-		PreparedStatement prepare, prepareFirst;
+		PreparedStatement prepare;
 		try {
 			prepare = SC.prepareStatement("DELETE FROM hotel WHERE id_hotel=?");
 
@@ -141,7 +140,10 @@ public class HotelDAO extends DAO<Hotel> {
 		etoile = etoile/note.size();
 		return etoile;
 	}
-	
+	/*
+	 * Cette méthode permet de créer une ArrayList pour notre Table_Hotel de JPgeHotel et ce avec
+	 * en paramètre un objet Hotelpour avoir l'hotel qui correspond à la personne connecté sur le logiciel
+	 */
 	public ArrayList<Hotel> ListHotel(Hotel hotel){
 		ArrayList<Hotel> listHotel = new ArrayList<Hotel>();
 		Statement state;

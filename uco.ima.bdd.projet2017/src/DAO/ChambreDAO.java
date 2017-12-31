@@ -9,9 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import Singleton.SingletonConnection;
 import model.Chambre;
 import model.Communicante;
@@ -190,7 +187,7 @@ public class ChambreDAO extends DAO<Chambre>{
 		Chambre chambreC = new Chambre(); /** Chambre qui communique avec la principale*/
 		HotelDAO hotel=new HotelDAO();
 		Type_ChambreDAO type_c= new Type_ChambreDAO(); /** type chambre principale */
-		Type_ChambreDAO type_cC= new Type_ChambreDAO(); /** type chambre qui communiquye avec la principale*/
+//		Type_ChambreDAO type_cC= new Type_ChambreDAO(); /** type chambre qui communiquye avec la principale*/
 		try{
 			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM chambre WHERE communicante=True");
 			ResultSet result=prepare.executeQuery();

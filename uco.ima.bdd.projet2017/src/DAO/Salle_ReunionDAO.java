@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Singleton.SingletonConnection;
-import model.ReservationReunion;
 import model.Salle_Reunion;
 
 public class Salle_ReunionDAO extends DAO<Salle_Reunion> {

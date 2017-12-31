@@ -13,16 +13,6 @@ public class PersonneDAO extends DAO<Personne> {
 
 	Connection SC = SingletonConnection.getConnection();
 	
-	/*
-	private int id_personne;
-	private String nom;
-	private String prenom;
-	private String ville;
-	private int code_postal;
-	private String adresse;
-	private Date date_de_naissance;
-	 */
-	
 	@Override
 	public boolean create(Personne obj) {
 		try {

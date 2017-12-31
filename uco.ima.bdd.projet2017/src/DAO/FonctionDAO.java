@@ -7,17 +7,10 @@ import java.sql.SQLException;
 
 import Singleton.SingletonConnection;
 import model.Fonction;
-import model.Personnel;
 
 public class FonctionDAO extends DAO<Fonction>{
 	
 	Connection SC = SingletonConnection.getConnection();
-	
-	/*
-	 private int id_fonction;
-	private String nom;
-	private int niveau_contrainte;
-	 */
 
 	@Override
 	public boolean create(Fonction obj) {
@@ -90,6 +83,11 @@ public class FonctionDAO extends DAO<Fonction>{
 		}
 		return fonction;
 	}
+	
+	/*
+	 * Méthode contraire à find qui permet de retourner l'id de la fonction selon le nom de cette fonction 
+	 * Sachant que chaque nom de fonction est distinct
+	 */
 	public int renvoieId(String nom){
 		PreparedStatement prepare;
 		try {

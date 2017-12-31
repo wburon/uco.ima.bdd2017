@@ -17,11 +17,6 @@ public class PersonnelDAO extends DAO<Personnel> {
 
 	Connection SC = SingletonConnection.getConnection();
 
-	/*
-	 * private int id_personnel; private Personne personne; private int salaire;
-	 * private Fonction fonction; private int annee_arrivee;
-	 */
-
 	@Override
 	public boolean create(Personnel obj) {
 		try {
@@ -199,7 +194,9 @@ public class PersonnelDAO extends DAO<Personnel> {
 		}
 		return listPersonnel;
 	}
-	
+	/*
+	 * Méthode définissant une fonction de hachage pour les mot de passe utilisateurs afin de sécuriser leurs données
+	 */
 	public String HashPassword (String passwordToHash){
 		String generatedPassword = null;
 		try {
