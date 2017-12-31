@@ -1,7 +1,6 @@
 package Singleton;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -12,11 +11,10 @@ import java.util.Properties;
 public class SingletonConnection {
 
 	private static String url; 
-//	= "jdbc:postgresql://rhodes.ima.uco.fr:5432/vdemaeyer";
 	private static String user;
-//	= "postgres";
+
 	private static String passwd;
-//	= "";
+
 	
 	private static Connection connection;
 	

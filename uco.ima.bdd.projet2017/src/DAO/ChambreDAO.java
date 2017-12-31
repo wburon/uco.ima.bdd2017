@@ -275,6 +275,11 @@ public class ChambreDAO extends DAO<Chambre>{
 		return listChambre;
 	}
 	
+	/**
+	 * Cet méthode renvoie une chambre à partir du ResultSet
+	 * @param result
+	 * @return chambre
+	 */
 	public Chambre createChambre(ResultSet result){
 		Chambre chambre = new Chambre();
 		try {
@@ -316,6 +321,13 @@ public class ChambreDAO extends DAO<Chambre>{
 		return nbRow;
 	}
 	
+	/**
+	 * Renvoie la liste des id_chambre qui ne sont PAS LIBRE pour les dates données
+	 * @param debutResa
+	 * @param finResa
+	 * @param id_hotel
+	 * @return
+	 */
 	public ArrayList<Integer> findChambreIsNotLibre(Date debutResa, Date finResa, int id_hotel){ 
 		ArrayList<Integer> listIdNotLibre = new ArrayList<Integer>();
 
@@ -358,6 +370,13 @@ public class ChambreDAO extends DAO<Chambre>{
 		return true;
 	}
 
+	/**
+	 * Determine si un numero de chambre existe déjà pour un hotel
+	 * @param text
+	 * @param idchambre
+	 * @param idhotel
+	 * @return
+	 */
 	public boolean NumChambreExisteDeja(String text,  int idchambre, int idhotel) {
 		PreparedStatement prepare;
 		try {
@@ -408,6 +427,11 @@ public class ChambreDAO extends DAO<Chambre>{
 		return formater.format( date );
 	}
 	
+	/**
+	 * Renvoie les chambres voisines à une chambre, une chambre est considéré voisine si leur numero de chambre se suivent
+	 * @param id_chambre
+	 * @return
+	 */
 	public Chambre[] chambresVoisines(int id_chambre){
 		Chambre [] voisines = new Chambre[2];
 		try{
@@ -431,6 +455,11 @@ public class ChambreDAO extends DAO<Chambre>{
 		return voisines;
 	}
 
+	/**
+	 * Renvoie la liste des chambres d'un hotel
+	 * @param id_hotel
+	 * @return
+	 */
 	public ArrayList<Chambre> ListChambre(int id_hotel) {
 		ArrayList<Chambre> listChambre = new ArrayList<Chambre>();
 		

@@ -175,6 +175,11 @@ public class PersonnelDAO extends DAO<Personnel> {
 		return -1;
 	}
 	
+	/**
+	 * Renvoie la lsite du personnel d'un hotel
+	 * @param hotel
+	 * @return
+	 */
 	public ArrayList<Personnel> ListPersonnel(Hotel hotel){
 		ArrayList<Personnel> listPersonnel = new ArrayList<Personnel>();
 		Statement state;

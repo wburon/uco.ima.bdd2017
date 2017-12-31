@@ -100,5 +100,31 @@ public class CommunicanteDAO extends DAO<Communicante>{
 		}
 		return nbRow;
 	}
+	
+	/**
+	 * Renvoie d'id_chambre de la chambre communicante avec celle en parametre
+	 * @param id_chambre
+	 * @return
+	 */
+	public int findCommunicante(int id_chambre){
+		try {
+			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM communicante where c1=? or c2=?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			prepare.setInt(1, id_chambre);
+			prepare.setInt(2, id_chambre);
+			ResultSet result = prepare.executeQuery();
+			
+			if(result.first()){
+				if(result.getInt("c1") == id_chambre)
+					return result.getInt("c2");
+				else
+					return result.getInt("c1");
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
 
 }

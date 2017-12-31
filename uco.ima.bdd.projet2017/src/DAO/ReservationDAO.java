@@ -112,6 +112,11 @@ public class ReservationDAO extends DAO<Reservation>{
 		return nbRow;
 	}
 	
+	/**
+	 * Renvoie la lsite de reservation d'un client
+	 * @param id_client
+	 * @return
+	 */
 	public Reservation[] findResaClient(int id_client){
 		
 		try {

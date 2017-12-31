@@ -61,7 +61,7 @@ public class JFReservation extends JFrame implements ActionListener {
 	private ArrayList<Reservation> listReservation;
 	private Table_Chambre tChambre;
 	private JButton btnFinaliserLaReservation;
-	private int s=-1;
+	private int s = -1;
 	private SimpleDateFormat format;
 	private Date debut;
 	private Date fin;
@@ -87,7 +87,7 @@ public class JFReservation extends JFrame implements ActionListener {
 	 */
 	public JFReservation(int id_hotel) {
 		this.currentIdHotel = id_hotel;
-		this.listReservation  = new ArrayList<Reservation>();
+		this.listReservation = new ArrayList<Reservation>();
 
 		setTitle("Reserver");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -245,15 +245,21 @@ public class JFReservation extends JFrame implements ActionListener {
 			table.setVisible(true);
 
 		} else if (e.getSource() == btnReserver) {
-			// A partir de là, il n'est plus possible de changer le nombre de chambre
+			// A partir de là, il n'est plus possible de changer le nombre de
+			// chambre
 			textField_2.setEnabled(false);
-			// Ajout dans la liste de chambre à reserver
-			s = table.getSelectedRow();
-			if (s != -1)
-				listReservation.add(createReservation(tChambre.getChambre(s), debut, fin));
-			else
-				JOptionPane.showMessageDialog(btnReserver, "Selectionner une chambre !", "Warning",
-						JOptionPane.INFORMATION_MESSAGE);
+
+			if (listReservation.size() == Integer.parseInt(textField_2.getText())) {
+				// Ajout dans la liste de chambre à reserver
+				s = table.getSelectedRow();
+				if (s != -1)
+					listReservation.add(createReservation(tChambre.getChambre(s), debut, fin));
+				else
+					JOptionPane.showMessageDialog(btnReserver, "Selectionner une chambre !", "Warning",
+							JOptionPane.INFORMATION_MESSAGE);
+			} else
+				JOptionPane.showMessageDialog(btnReserver, "Vous avez déjà reserver le nombre de chambre necessaire !",
+						"Warning", JOptionPane.INFORMATION_MESSAGE);
 		} else if (e.getSource() == btnFinaliserLaReservation) {
 			// Fin de la selection de chambre
 			if (listReservation.isEmpty())

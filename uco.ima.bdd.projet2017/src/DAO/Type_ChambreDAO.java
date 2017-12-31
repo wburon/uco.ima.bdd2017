@@ -107,6 +107,10 @@ public class Type_ChambreDAO extends DAO<Type_Chambre>{
 		return nbRow;
 	}
 	
+	/**
+	 * Renvoie la liste des noms des types chambres
+	 * @return
+	 */
 	public String[] listNameTypeChambre(){
 		int i=0;
 		String[] tabName = null;
@@ -130,6 +134,11 @@ public class Type_ChambreDAO extends DAO<Type_Chambre>{
 		return tabName;
 	}
 	
+	/**
+	 * Renvoie l'id_type_chambre correspondant au nom
+	 * @param name
+	 * @return
+	 */
 	public int findId(String name){
 		PreparedStatement prepare;
 		try {

@@ -80,4 +80,9 @@ public class Table_Hotel extends AbstractTableModel{
 		fireTableDataChanged();
 	}
 
+	public ArrayList<Hotel> getListHotel() {
+		return listHotel;
+	}
+	
+
 }

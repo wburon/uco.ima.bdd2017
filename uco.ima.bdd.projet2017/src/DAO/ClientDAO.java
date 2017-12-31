@@ -107,6 +107,10 @@ public class ClientDAO extends DAO<Client>{
 		return nbRow;
 	}
 	
+	/**
+	 * Renvoie la lsite de tous les clients
+	 * @return
+	 */
 	public ArrayList<Client> ListClient() {
 		ArrayList<Client> listClient = new ArrayList<Client>();
 		
@@ -126,6 +130,9 @@ public class ClientDAO extends DAO<Client>{
 		return listClient;
 	}
 	
+	/**
+	 * Methode complémentaire de updateClient, visant à mettre a jour les informations clients
+	 */
 	private void miseAJour() {
 		try {
 			PreparedStatement prepare = SC.prepareStatement("SELECT * FROM client", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
@@ -177,6 +184,11 @@ public class ClientDAO extends DAO<Client>{
 		}
 	}
 	
+	/**
+	 * Renvoie le nombre de ligne d'un ResultSet
+	 * @param result
+	 * @return
+	 */
 	public int countResult(ResultSet result){
 		int count = 0;
 		try {

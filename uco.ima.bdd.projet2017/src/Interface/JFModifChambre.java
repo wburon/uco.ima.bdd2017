@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import DAO.ChambreDAO;
+import DAO.CommunicanteDAO;
 import DAO.Type_ChambreDAO;
 import model.Chambre;
 import model.Type_Chambre;
@@ -44,6 +45,7 @@ public class JFModifChambre extends JFrame implements ActionListener{
 	private JPanel panel_1;
 	private ChambreDAO chambreDao = new ChambreDAO();
 	private Chambre CurrentChambre;
+	private CommunicanteDAO commDAO = new CommunicanteDAO();
 	private JPanel contentPane;
 
 	public Chambre getCurrentChambre() {
@@ -180,6 +182,9 @@ public class JFModifChambre extends JFrame implements ActionListener{
 					new JFNowCommunicante(CurrentChambre.getId_chambre());
 				}else if(!cbCommunicante.isSelected() && CurrentChambre.isCommunicante()){
 					JOptionPane.showMessageDialog(btnUpdate, "Si cette chambre n'est plus communicante, nous changeons automatiquement cette dernière !", "Information",JOptionPane.INFORMATION_MESSAGE);
+					Chambre c = chambreDao.find(commDAO.findCommunicante(CurrentChambre.getId_chambre()));
+					c.setCommunicante(false);
+					chambreDao.update(c);
 				}
 				else{
 					updateChambre();
