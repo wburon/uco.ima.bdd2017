@@ -14,20 +14,19 @@ import model.Fonction;
 import model.Personne;
 import model.Personnel;
 
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class JFModifPerso extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
@@ -236,7 +235,9 @@ public class JFModifPerso extends JFrame implements ActionListener {
 		}
 		
 	}
-	
+	/**
+	 * Vide les TextField
+	 */
 	private void clearTextField() {
 		tfNom.setText("");
 		tfPrenom.setText("");
@@ -249,6 +250,10 @@ public class JFModifPerso extends JFrame implements ActionListener {
 		passwordField.setText("");
 	}
 
+	/**
+	 * Permet d'avoir les TextFields Pré-rempli avec les informations du personnel que l'on veut modifier
+	 * @param perso
+	 */
 	public void preAffichage(Personnel perso){
 		tfNom.setText(perso.getPersonne().getNom());
 		tfPrenom.setText(perso.getPersonne().getPrenom());
@@ -261,6 +266,15 @@ public class JFModifPerso extends JFrame implements ActionListener {
 		tfLogin.setText(perso.getLogin());
 		
 	}
+	/**
+	 * Met à jour la table Personne
+	 * @param nom
+	 * @param prenom
+	 * @param ville
+	 * @param codePostal
+	 * @param adresse
+	 * @return boolean verif
+	 */
 	public boolean ModificationPerso(String nom, String prenom, String ville, int codePostal, String adresse){
 		perso.setNom(nom);
 		perso.setPrenom(prenom);
@@ -271,6 +285,14 @@ public class JFModifPerso extends JFrame implements ActionListener {
 		boolean verif = pDAO.update(perso);
 		return verif;
 	}
+	/**
+	 * Met à jour la table Personnel
+	 * @param salaire
+	 * @param AArrivee
+	 * @param login
+	 * @param password
+	 * @return boolean verif
+	 */
 	public boolean ModificationNel(double salaire, int AArrivee, String login, String password){
 		nel.setAnnee_arrivee(AArrivee);
 		nel.setFonction(f);

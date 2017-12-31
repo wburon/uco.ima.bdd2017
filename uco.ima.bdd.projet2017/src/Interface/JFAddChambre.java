@@ -22,12 +22,12 @@ import DAO.ChambreDAO;
 import DAO.HotelDAO;
 import DAO.Type_ChambreDAO;
 import model.Chambre;
-import model.Hotel;
 import model.Table_Chambre;
 import model.Type_Chambre;
 
 import javax.swing.DefaultComboBoxModel;
 
+@SuppressWarnings("serial")
 public class JFAddChambre extends JFrame implements ActionListener{
 	private JTextField jtfNumChambre;
 	private JTextField jtfTarif;
@@ -39,7 +39,6 @@ public class JFAddChambre extends JFrame implements ActionListener{
 	private JButton btnAjouter;
 	private int id_hotel;
 	private Type_ChambreDAO tcDAO = new Type_ChambreDAO();
-	private Table_Chambre tChambre;
 	private Chambre c = new Chambre();
 	private ChambreDAO cDAO = new ChambreDAO();
 
@@ -64,7 +63,6 @@ public class JFAddChambre extends JFrame implements ActionListener{
 	 */
 	public JFAddChambre(int id_hotel) {
 		this.id_hotel = id_hotel;
-		this.tChambre = new Table_Chambre(id_hotel);
 		
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		setBounds(100, 100, 596, 362);
@@ -205,7 +203,6 @@ public class JFAddChambre extends JFrame implements ActionListener{
 
 	private boolean verificationDonnée() {
 		ChambreDAO c = new ChambreDAO();
-		HotelDAO hDAO = new HotelDAO();
 		if(c.NumChambreExisteDeja(jtfNumChambre.getText(), id_hotel) == false)
 			return false;
 		if(Double.parseDouble(jtfTarif.getText()) <= 0 )

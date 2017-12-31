@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import DAO.HotelDAO;
-import DAO.PersonnelDAO;
 import model.Hotel;
 import model.Personnel;
 
@@ -83,6 +82,10 @@ public class JFCréationCompte extends JFrame {
 		setBounds(100, 100, 512, 373);
 		setContentPane(JPaddHotel);
 	}
+	/*
+	 * Cette méthode associe les informations récupérer dans JPaddHotel et JPaddGérant 
+	 * Pour que le gérant aie comme id_hotel l'hotel créer juste avant
+	 */
 	public void associationProprioHotel(Personnel personnel){
 		hotel.setProprietaire(personnel.getPersonne().getNom());
 		hDAO.update(hotel);

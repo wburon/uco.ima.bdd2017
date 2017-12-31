@@ -77,7 +77,7 @@ public class JFAddPerso extends JFrame implements ActionListener {
 
 	/**
 	 * Create the frame.
-	 * @param tfVille 
+	 * @param hotel 
 	 */
 	public JFAddPerso(Hotel hotel) {
 		this.hotel = hotel;

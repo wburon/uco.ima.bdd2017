@@ -3,7 +3,6 @@ package Interface;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -24,9 +23,9 @@ import javax.swing.border.EmptyBorder;
 import DAO.ChambreDAO;
 import DAO.Type_ChambreDAO;
 import model.Chambre;
-import model.Personnel;
 import model.Type_Chambre;
 
+@SuppressWarnings("serial")
 public class JFModifChambre extends JFrame implements ActionListener{
 	private JTextField jtfNumChambre;
 	private JTextField jtfTarif;
@@ -178,7 +177,7 @@ public class JFModifChambre extends JFrame implements ActionListener{
 				
 				
 				if(cbCommunicante.isSelected() && CurrentChambre.isCommunicante()==false){
-					JFNowCommunicante NowC = new JFNowCommunicante(CurrentChambre.getId_chambre());
+					new JFNowCommunicante(CurrentChambre.getId_chambre());
 				}else if(!cbCommunicante.isSelected() && CurrentChambre.isCommunicante()){
 					JOptionPane.showMessageDialog(btnUpdate, "Si cette chambre n'est plus communicante, nous changeons automatiquement cette dernière !", "Information",JOptionPane.INFORMATION_MESSAGE);
 				}

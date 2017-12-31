@@ -6,9 +6,6 @@ import javax.swing.JFrame;
 
 import model.Personnel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 @SuppressWarnings("serial")
 public class JFInterface extends JFrame{
 
@@ -52,6 +49,10 @@ public class JFInterface extends JFrame{
 		Init();
 		
 	}
+	/*
+	 * Methode permettant de lancer les panel gestion pour éviter un bug au démarrage 
+	 * si c'est panel démarre en même temps que JPLog
+	 */
 	public void LancementPanelGestion(){
 		
 		JPgePerso = new JPgePerso(this);
@@ -60,6 +61,9 @@ public class JFInterface extends JFrame{
 		
 	}
 
+	/*
+	 * Méthode qui initialise la JFrame avec en premier panel JPLog
+	 */
 	public void Init(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 711, 575);

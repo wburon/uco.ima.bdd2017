@@ -1,8 +1,6 @@
 package Interface;
 
 import java.security.MessageDigest;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 import DAO.FonctionDAO;

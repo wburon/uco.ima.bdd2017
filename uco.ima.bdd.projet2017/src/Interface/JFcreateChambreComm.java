@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class JFcreateChambreComm extends JFrame implements ActionListener {
 
 	private JPanel contentPane;

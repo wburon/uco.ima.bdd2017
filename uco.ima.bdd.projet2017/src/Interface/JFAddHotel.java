@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 
 import DAO.HotelDAO;
 import model.Hotel;
-import model.Personnel;
 
 import java.awt.Dimension;
 import javax.swing.JLabel;
@@ -19,7 +18,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -27,6 +25,7 @@ import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class JFAddHotel extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
@@ -182,10 +181,10 @@ public class JFAddHotel extends JFrame implements ActionListener{
 			boolean a = creationHotel(adresse, CP, nom, nb_chambre, pays, proprietaire, standing, ville, wifi );
 			
 			if (a==true){
-				new JOptionPane().showMessageDialog(btnValider, "Votre ajout a bien été effectué", "Validation", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(btnValider, "Votre ajout a bien été effectué", "Validation", JOptionPane.INFORMATION_MESSAGE);
 				clearTextField();
 			}else{
-				new JOptionPane().showMessageDialog(btnValider, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(btnValider, "Vous avez fait une erreur dans la saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}else if(e.getSource() == btnAnnuler){

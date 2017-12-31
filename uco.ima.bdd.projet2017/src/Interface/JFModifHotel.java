@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 
 import DAO.HotelDAO;
 import model.Hotel;
-import model.Personne;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -24,6 +23,7 @@ import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class JFModifHotel extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
